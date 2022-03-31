@@ -1,5 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View, Image, Button, StyleSheet, Alert, ActivityIndicator } from 'react-native';
+import * as React from 'react';
+//import { administrationScreen, behaviorScreen, cartScreen, itemScreen, menuScreen, selectedProfileScreen, signInScreen } from './src/screens'
+
 
 export default function App() {
   return (
