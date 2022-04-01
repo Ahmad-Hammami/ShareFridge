@@ -1,16 +1,16 @@
-export { default as addAnEmployeeScreen } from './administrationScreen/addAnEmployeeScreen'
-export { default as administrationScreen } from './administrationScreen/administrationScreen'
-export { default as employeeViewListScreen } from './administrationScreen/employeeViewListScreen'
+export { default as AddAnEmployeeScreen } from './administrationScreen/AddAnEmployeeScreen'
+export { default as AdministrationScreen } from './administrationScreen/AdministrationScreen'
+export { default as EmployeeViewListScreen } from './administrationScreen/EmployeeViewListScreen'
 
-export { default as cViewBehaviorScreen } from './behaviorScreen/cViewBehaviorScreen'
-export { default as eViewBehaviorScreen } from './behaviorScreen/eViewBehaviorScreen'
+export { default as CViewBehaviorScreen } from './behaviorScreen/CViewBehaviorScreen'
+export { default as EViewBehaviorScreen } from './behaviorScreen/EViewBehaviorScreen'
 
-export { default as cartScreen } from './cartScreen/cartScreen'
+export { default as CartScreen } from './cartScreen/CartScreen'
 
-export { default as addItem } from './itemScreens/addItem'
-export { default as editItem } from './itemScreens/editItem'
-export { default as selectedItemScreen } from './itemScreens/selectedItemScreen'
+export { default as AddItem } from './itemScreens/AddItem'
+export { default as EditItem } from './itemScreens/EditItem'
+export { default as SelectedItemScreen } from './itemScreens/SelectedItemScreen'
 
-export { default as menuScreen } from './menuScreen/menuScreen'
-export { default as selectedProfileScreen } from './selectedProfileScreen/selectedProfileScreen'
-export { default as signInScreen } from './signInScreen/signInScreen'
+export { default as MenuScreen } from './menuScreen/MenuScreen'
+export { default as SelectedProfileScreen } from './selectedProfileScreen/SelectedProfileScreen'
+export { default as SignInScreen } from './signInScreen/SignInScreen'
