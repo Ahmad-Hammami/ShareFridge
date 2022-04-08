@@ -5,7 +5,7 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 
-export default class menuScreen extends Component {
+export default class MenuScreen extends Component {
     constructor(props) {
         super(props)
         displayItems: true
@@ -26,6 +26,7 @@ export default class menuScreen extends Component {
         return (
             <>
                 <ScrollView>
+                    <View>
                     <Text style={styles.title}>Menu</Text>
                     <Button
                         title="Profile"
@@ -37,7 +38,7 @@ export default class menuScreen extends Component {
                     <Text style={styles.lineStyle}>               
     ______________________________________________________________
                         </Text>
-
+                    </View>
 
                     {/** <View style={styles.buttinRow}>
                         <TouchableOpacity style={styles.switchButoon} onPress={this.setDrink}>
@@ -72,7 +73,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     lineStyle:{
-        borderWidth: "1",
+        borderWidth: 1,
         borderColor:'black',
         shadowColor: 'blue',
    },
@@ -80,8 +81,9 @@ const styles = StyleSheet.create({
     width: "13%",
     borderRadius: 12,
     height: 50,
-    alignItems: "right",
-    justifyContent: "right",
+    //alignItems: "right",
+    //justifyContent: "right",
+    textAlign: 'right',
     marginTop: 20,
     backgroundColor: 'black',
    },

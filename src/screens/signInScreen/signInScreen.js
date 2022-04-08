@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Text, View, TextInput, StyleSheet, Image, TouchableOpacity, } from "react-native";
 
-export default class signInScreen extends Component {
+export default class SignInScreen extends Component {
     constructor(props) {
         super(props);
         this.state = { email: '', password: '' };

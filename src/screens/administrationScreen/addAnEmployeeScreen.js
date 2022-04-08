@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Text, View, Image, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 
-export default class addAnEmployee extends Component {
+export default class AddAnEmployee extends Component {
     constructor(props) {
         super(props);
         this.state = {fullName: '', email: '', password1: '', password2: ''};

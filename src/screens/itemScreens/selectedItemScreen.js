@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 
-export default class selectedItemScreen extends Component {
+export default class SelectedItemScreen extends Component {
 
     render() {}
 

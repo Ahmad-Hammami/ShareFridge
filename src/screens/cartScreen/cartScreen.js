@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 
-export default class cartScreen extends Component {
+export default class CartScreen extends Component {
 
     render() {}
 

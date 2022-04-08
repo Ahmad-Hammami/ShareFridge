@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button, Text, View, Image, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 
 
-export default class administrationScreen extends Component {
+export default class AdministrationScreen extends Component {
 
     render() {
         return(

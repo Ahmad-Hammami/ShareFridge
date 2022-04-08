@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 
-export default class eViewBehaviorScreen extends Component {
+export default class EViewBehaviorScreen extends Component {
 
     render() {}
 

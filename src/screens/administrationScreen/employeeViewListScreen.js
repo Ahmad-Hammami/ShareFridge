@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import { Button, Text, View } from "react-native";
+import { Button, Text, View, Image, StyleSheet, TextInput, TouchableOpacity } from "react-native";
+import { Searchbar } from 'react-native-paper';
 
 
-export default class employeeViewListScreen extends Component {
+export default class EmployeeViewListScreen extends Component {
+
     
     render() {
         return(
             <View>
-                <Text>View Employees</Text>
+                <Text>Add item</Text>
             </View>
         );
     }

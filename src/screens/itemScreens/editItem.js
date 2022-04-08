@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 
-export default class editItem extends Component {
+export default class EditItem extends Component {
 
     render() {}
 
