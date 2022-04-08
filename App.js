@@ -71,6 +71,7 @@ export default function App() {
       />
 
       <Stack.Screen 
+      options={{headerShown: false}}    //to remove the top header
         name="SignIn" 
         component={SignInScreen} 
       />
