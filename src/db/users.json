@@ -1,0 +1,25 @@
+[
+    { 
+        "id": 1,
+        "name": "kristian oestergaard",
+        "email": "thkris12@gmail.com",
+        "password": "123456789",
+        "balance": 0,
+        "type": "employee"
+    },
+    { 
+        "id": 2,
+        "name": "emma stilling",
+        "email": "emma@gmail.com",
+        "password": "123emma",
+        "balance": 0,
+        "type": "employee"
+    },
+    { 
+        "id": 2,
+        "name": "ahmad",
+        "email": "ahmad@gmail.com",
+        "password": "ahmad123",
+        "type": "companyRepresentative"
+    }
+]

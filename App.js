@@ -3,8 +3,8 @@ import { Text, View, Image, Button, StyleSheet, Alert, ActivityIndicator } from 
 import * as React from 'react';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native"
-
-
+import { useFonts } from 'expo-font';
+import AppLoading from 'expo-app-loading';
 
 import { AddAnEmployeeScreen, AddItem, AdministrationScreen, CartScreen, CViewBehaviorScreen, EditItem,
 EmployeeViewListScreen, EViewBehaviorScreen, MenuScreen, SelectedItemScreen, SelectedProfileScreen, SignInScreen } from './src/screens'
@@ -12,9 +12,28 @@ EmployeeViewListScreen, EViewBehaviorScreen, MenuScreen, SelectedItemScreen, Sel
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  
+  let [fontsLoaded] = useFonts({
+    'ArimaMadurai-Black': require('./assets/fonts/ArimaMadurai-Black.ttf'),
+    'ArimaMadurai-Bold': require('./assets/fonts/ArimaMadurai-Bold.ttf'),
+    'ArimaMadurai-ExtraBold': require('./assets/fonts/ArimaMadurai-ExtraBold.ttf'),
+    'ArimaMadurai-ExtraLight': require('./assets/fonts/ArimaMadurai-ExtraLight.ttf'),
+    'ArimaMadurai-Light': require('./assets/fonts/ArimaMadurai-Light.ttf'),
+    'ArimaMadurai-Medium': require('./assets/fonts/ArimaMadurai-Medium.ttf'),
+    'ArimaMadurai-Regular': require('./assets/fonts/ArimaMadurai-Regular.ttf'),
+    'ArimaMadurai-Thin': require('./assets/fonts/ArimaMadurai-Thin.ttf'),
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
   return (
     <NavigationContainer>
-    <Stack.Navigator
+    <Stack.Navigator screenOptions={{
+     contentStyle:{
+       backgroundColor:'#E6FFFF'
+     }
+    }} 
       initialRouteName="SignIn"
     >
 
