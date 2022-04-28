@@ -60,7 +60,7 @@ export default class EmployeeViewListScreen extends Component {
             <View style={styles.container}>
                 <TouchableOpacity
                     style={styles.lightButton}
-                    onPress={() => this.props.navigation.navigate('Administration')}
+                    onPress={() => this.props.navigation.navigate('SelectedProfile')}
                 >
                     <Text>Back</Text>
                 </TouchableOpacity>

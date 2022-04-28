@@ -33,7 +33,7 @@ export default class AddAnEmployee extends Component {
                         style={styles.input}
                         placeholder="Type full name here"
                         onChangeText={(fullName) => this.setState({fullName})}
-                        value={this.state.text}
+                        value={this.state.fullName}
                     />
                     <Text style={styles.text}>
                         E-mail:
@@ -42,7 +42,7 @@ export default class AddAnEmployee extends Component {
                         style={styles.input}
                         placeholder="Type E-mail here"
                         onChangeText={(email) => this.setState({email})}
-                        value={this.state.text}
+                        value={this.state.email}
                     />
                     <Text style={styles.text}>
                         Password:
@@ -51,7 +51,7 @@ export default class AddAnEmployee extends Component {
                         style={styles.input}
                         placeholder="Enter your password"
                         onChangeText={(password1) => this.setState({password1})}
-                        value={this.state.text}
+                        value={this.state.password1}
                     />
                     <Text style={styles.text}>
                         Confirm your Password:
@@ -60,7 +60,7 @@ export default class AddAnEmployee extends Component {
                         style={styles.input}
                         placeholder="Enter your password again"
                         onChangeText={(password2) => this.setState({password2})}
-                        value={this.state.text}
+                        value={this.state.password2}
                     />
                     <View style={styles.rowButton}>
                         <TouchableOpacity
