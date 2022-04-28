@@ -38,53 +38,64 @@ export default function App() {
     >
 
       <Stack.Screen
+      options={{headerShown: false}} 
         name="AddEmployee"
         component={AddAnEmployeeScreen}
       />
       <Stack.Screen
+      options={{headerShown: false}} 
         name="Administration"
         component={AdministrationScreen}
       />
       <Stack.Screen
+      options={{headerShown: false}} 
         name="SeeEmployees"
         component={EmployeeViewListScreen}
       />
 
 
       <Stack.Screen
+      options={{headerShown: false}} 
         name="EViewBehavior"
         component={EViewBehaviorScreen}
       />
       <Stack.Screen
+      options={{headerShown: false}} 
         name="CViewBehavior"
         component={CViewBehaviorScreen}
       />
 
 
       <Stack.Screen
+      options={{headerShown: false}} 
         name="Cart"
         component={CartScreen}
       />
 
       <Stack.Screen
+      options={{headerShown: false}} 
         name="AddItem"
         component={AddItem}
       />
       <Stack.Screen
+      options={{headerShown: false}} 
         name="EditItem"
         component={EditItem}
       />
       <Stack.Screen
+      options={{headerShown: false}} 
         name="SelectedItem"
         component={SelectedItemScreen}
       />
       
       <Stack.Screen
+      options={{headerShown: false}} 
         name="Menu"
         component={MenuScreen}
       />
 
       <Stack.Screen
+      options={{headerShown: false}} 
         name="SelectedProfile"
         component={SelectedProfileScreen}
       />
