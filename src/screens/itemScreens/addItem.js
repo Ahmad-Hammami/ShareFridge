@@ -1,22 +1,52 @@
-import React, { Component } from 'react';
-import { Button, Text, View, Image, StyleSheet, TextInput, TouchableOpacity } from "react-native";
+import React, { Component, useState } from 'react';
+import { Text, View, Image, StyleSheet, TextInput, TouchableOpacity, SafeAreaView, Dimensions, } from "react-native";
 import { RadioButton } from 'react-native-paper';
+import { ScrollView } from 'react-native-virtualized-view';
+import MultiSelect from 'react-native-multiple-select';
 
-//const [checked, setChecked] = React.useState('food');
+
+
+const {height, width} = Dimensions.get('window');
+
+const items = [{
+    id: '92iijs7yta',
+    name: 'Suger'
+  }, {
+    id: 'a0s0a8ssbsd',
+    name: 'Caffeine'
+  }, {
+    id: '16hbajsabsd',
+    name: 'Fat'
+  }, {
+    id: 'nahs75a5sg',
+    name: 'Salt'
+  }
+];
 
 export default class AddItem extends Component {
     constructor(props) {
         super(props);
-        this.state = { name: '', price: '', amount: '', discription: '', type: '' };
 
+        this.state = { name: '', price: '', amount: '', discription: '', type: '', 
+                        checked: 'food',
+
+                        selectedItems : []
+        };
     }
 
-    
+    onSelectedItemsChange = selectedItems => {
+        this.setState({ selectedItems });
+      };
+
 
     render() {
-        //const [checked, setChecked] = React.useState('food');
+        const { checked } = this.state;
+        
+        const { selectedItems } = this.state;
+
         return (
-           
+            <SafeAreaView>
+            <ScrollView>
             <View style={styles.container}>
                 <View style={styles.photo_view}>
                     <Text style={styles.title}>
@@ -56,20 +86,65 @@ export default class AddItem extends Component {
                         value={this.state.text}
                     />
                 </View>
-             {/**  
-                <View>
-                    <RadioButton>
-                        value="food"
-                        status={checked === 'food' ? 'cheched' : 'unchecked'}
-                        onPress={() => setChecked('food')}
-                    </RadioButton>
-                    <RadioButton>
-                    value="drinks"
-                        status={checked === 'drinks' ? 'cheched' : 'unchecked'}
-                        onPress={() => setChecked('drinks')}
-                    </RadioButton>
+                <View style={styles.rowButton}>
+                    <View>
+                        <Text style={styles.text}>
+                            Item type: 
+                        </Text>
                     </View>
- */}
+                    <View>
+                        <RadioButton.Group 
+                            onValueChange={value => { this.setState({ checked: value })}}
+                            value={this.state.checked} 
+                        >
+                        <RadioButton.Item
+                            value= "food"
+                            label= "food"
+                            labelStyle={styles.text}
+                        />
+                        <RadioButton.Item
+                            style= {styles.text}
+                            value= "drinks"
+                            label= "drinks"
+                            labelStyle={styles.text}
+                        />
+                        </RadioButton.Group>
+                    </View>
+                </View>
+
+                <MultiSelect
+                    hideTags
+                    items={items}
+                    uniqueKey="id"
+                    ref={(component) => { this.multiSelect = component }}
+                    onSelectedItemsChange={this.onSelectedItemsChange}
+                    selectedItems={selectedItems}
+                    selectText="Contents"
+                    searchInputPlaceholderText="Search Items..."
+                    onChangeInput={ (text)=> console.log(text)}
+                    altFontFamily="ArimaMadurai-Regular"
+                    fontFamily="ArimaMadurai-Regular"
+                    itemFontFamily="ArimaMadurai-Regular"
+                    selectedItemFontFamily="ArimaMadurai-Regular"
+                    tagRemoveIconColor="#82B3C9"
+                    backgroundColor="#B3E5FC"
+                    tagBorderColor="#82B3C9"
+                    tagTextColor="#000000"
+                    selectedItemTextColor="#CCC"
+                    selectedItemIconColor="#B3E5FC"
+                    itemTextColor="#000000"
+                    displayKey="name"
+                    searchInputStyle={{ color: '#82B3C9' }}
+                    submitButtonColor="#82B3C9"
+                    submitButtonText="Submit"
+                />
+                <View>
+                    { this.multiSelect ? this.multiSelect.getSelectedItemsExt(selectedItems) : null}
+                </View>
+
+                
+                
+                
  
                 <Text style={styles.text}>
                     Discription:
@@ -99,6 +174,8 @@ export default class AddItem extends Component {
 
 
             </View>
+            </ScrollView>
+            </SafeAreaView>
         );
     }
 
@@ -108,9 +185,9 @@ export default class AddItem extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        paddingTop: 15,
-        paddingLeft: 15,
-        flex: 1,
+        marginTop: height * 0.08,
+        marginLeft: width * 0.05,
+        marginRight: width * 0.05,
     },
 
     title: {
@@ -134,8 +211,8 @@ const styles = StyleSheet.create({
     },
 
     input: {
-        height: 40,
-        width: 350,
+        height: height * 0.05,
+        width: width * 0.8,
         margin: 12,
         borderWidth: 1,
         padding: 10,
@@ -156,13 +233,19 @@ const styles = StyleSheet.create({
     lightButton: {
         backgroundColor: "#B3E5FC",
         borderRadius: 10,
-        padding: 5,
+        width: width * 0.2,
+        height: height * 0.03,
+        alignItems: 'center', 
+        justifyContent: 'center',
     },
 
     darkButton: {
         backgroundColor: "#82B3C9",
         borderRadius: 10,
-        padding: 5,
+        width: width * 0.3,
+        height: height * 0.03,
+        alignItems: 'center', 
+        justifyContent: 'center',
     }
 
 

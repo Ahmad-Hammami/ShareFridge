@@ -69,14 +69,14 @@ export default class ESelectedProfileScreen extends Component {
                             <View style={styles.rowText}>
                                 <TouchableOpacity
                                 style={styles.lightButton}
-                                onPress={() => this.props.navigation.navigate('Administration')}
+                                onPress={() => this.props.navigation.navigate('SeeEmployees')}
                                 >
                                     <Text>Back</Text>
                                 </TouchableOpacity>
 
                                 <TouchableOpacity
                                 style={styles.redButton}
-                                onPress={() => this.props.navigation.navigate('Administration')}
+                                onPress={() => this.props.navigation.navigate('SeeEmployees')}
                                 >
                                     <Text>Delete</Text>
                                 </TouchableOpacity>
