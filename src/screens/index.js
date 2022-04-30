@@ -12,5 +12,9 @@ export { default as EditItem } from './itemScreens/editItem'
 export { default as SelectedItemScreen } from './itemScreens/selectedItemScreen'
 
 export { default as MenuScreen } from './menuScreen/menuScreen'
-export { default as SelectedProfileScreen } from './selectedProfileScreen/selectedProfileScreen'
+
+export { default as CSelectedProfileScreen } from './selectedProfileScreen/cSelectedProfileScreen'
+export { default as ESelectedProfileScreen } from './selectedProfileScreen/eSelectedProfileScreen'
+
+
 export { default as SignInScreen } from './signInScreen/signInScreen'

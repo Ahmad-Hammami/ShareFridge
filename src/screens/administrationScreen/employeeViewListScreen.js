@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { Button, Text, View, Image, StyleSheet, TextInput, TouchableOpacity, FlatList  } from "react-native";
 import { SearchBar } from 'react-native-elements';
 import Data from "../.././db/users.json";
+import { useNavigation  } from "@react-navigation/native"
 
 
-const renderItem = ({ item }) => <User name={item.name} email={item.email} />;
+const renderItem = ({ item }) => <User name={item.name} email={item.email} type={item.type}/>;
 export default class EmployeeViewListScreen extends Component {
     constructor(props) {
         super(props);
@@ -60,7 +61,7 @@ export default class EmployeeViewListScreen extends Component {
             <View style={styles.container}>
                 <TouchableOpacity
                     style={styles.lightButton}
-                    onPress={() => this.props.navigation.navigate('SelectedProfile')}
+                    onPress={() => this.props.navigation.navigate('Administration')}
                 >
                     <Text>Back</Text>
                 </TouchableOpacity>
@@ -73,24 +74,37 @@ export default class EmployeeViewListScreen extends Component {
 }
 
 
-const User = ({ name, email }) => {
-    return (
-        
-      <View style={styles.user}>
-        <TouchableOpacity
-            style={styles.darkButton}
-            onPress={() => navigation.navigate('Administration')}
-        >
-            <Text style={styles.text}>{name}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-            style={styles.darkButton}
-            onPress={() => navigation.navigate('Administration')}
-        >
-            <Text style={styles.text}>{email}</Text>
-        </TouchableOpacity>
-      </View>
-    );
+const User = ({ name, email, type }) => {
+    const navigation = useNavigation(); 
+    if(type === "employee"){
+        return (    
+            <View style={styles.user}>
+                <TouchableOpacity
+                    style={styles.darkButton}
+                    onPress={() => navigation.navigate('CSelectedProfile', {
+                        param: email,
+                    })}
+                >
+                    <Text style={styles.text}>{name}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.darkButton}
+                    onPress={() => navigation.navigate('CSelectedProfile', {
+                        param: email,
+                    })}
+                >
+                    <Text style={styles.text}>{email}</Text>
+                </TouchableOpacity>
+            </View>
+            );
+    }
+
+    else {
+        return (    
+            <View>
+            </View>
+            );
+    }
   };
 
 

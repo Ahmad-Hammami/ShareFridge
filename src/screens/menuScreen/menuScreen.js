@@ -17,7 +17,7 @@ export default class MenuScreen extends Component {
                 <View style={styles.btnstyle}>
 
                     <TouchableOpacity style={styles.profilebtn}
-                        onPress={(onPress) => this.props.navigation.navigate('Administration')}>
+                        onPress={(onPress) => this.props.navigation.navigate('ESelectedProfile')}>
                         <Text style={styles.textbtn} >Profile</Text>
 
                     </TouchableOpacity>
