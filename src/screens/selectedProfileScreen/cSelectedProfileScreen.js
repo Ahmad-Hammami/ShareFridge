@@ -9,15 +9,15 @@ export default class ESelectedProfileScreen extends Component {
         super(props);
         this.state = {
           data: Data, 
-          currentUser: props.route.params.param,
+          selectedUser: props.route.params.selectedUserEmail,
         };
         this.arrayholder = Data;
       }
     
-    findUser = (currentUser) => {
+    findUser = (selectedUser) => {
         const updatedData = this.arrayholder.filter((user) => {
             const user_data = `${user.email})`;
-            const text_data = currentUser;
+            const text_data = selectedUser;
             return user_data.indexOf(text_data) > -1;
         });
         this.setState({ data: updatedData });
@@ -25,7 +25,7 @@ export default class ESelectedProfileScreen extends Component {
     
     componentDidMount()
     {
-        this.findUser(this.state.currentUser);
+        this.findUser(this.state.selectedUser);
     }
 
     render() {
@@ -81,7 +81,6 @@ export default class ESelectedProfileScreen extends Component {
                                     <Text>Delete</Text>
                                 </TouchableOpacity>
                             </View>
-                            
                         </View>
                     </View>
                     </Fragment>

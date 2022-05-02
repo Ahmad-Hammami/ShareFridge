@@ -8,17 +8,17 @@ import MultiSelect from 'react-native-multiple-select';
 
 const {height, width} = Dimensions.get('window');
 
-const items = [{
-    id: '92iijs7yta',
+const contents = [{
+    id: 'Suger',
     name: 'Suger'
   }, {
-    id: 'a0s0a8ssbsd',
+    id: 'Caffeine',
     name: 'Caffeine'
   }, {
-    id: '16hbajsabsd',
+    id: 'Fat',
     name: 'Fat'
   }, {
-    id: 'nahs75a5sg',
+    id: 'Salt',
     name: 'Salt'
   }
 ];
@@ -27,22 +27,30 @@ export default class AddItem extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { name: '', price: '', amount: '', discription: '', type: '', 
-                        checked: 'food',
+        this.state = {name: '', price: '', amount: '', discription: '', 
+                        type: 'food',
 
-                        selectedItems : []
+                        selectedContents : []
         };
     }
 
-    onSelectedItemsChange = selectedItems => {
-        this.setState({ selectedItems });
+    onSelectedItemsChange = selectedContents => {
+        if (selectedContents === []) {
+            this.clearSelectedCategories
+        } else {
+            this.setState({ selectedContents });
+        }
+        
       };
 
+    clearSelectedCategories = () => {
+        this._multiSelect._removeAllItems();
+     };
 
     render() {
-        const { checked } = this.state;
+        const { type } = this.state;
         
-        const { selectedItems } = this.state;
+        const { selectedContents } = this.state;
 
         return (
             <SafeAreaView>
@@ -82,7 +90,7 @@ export default class AddItem extends Component {
                     <TextInput
                         style={styles.input}
                         placeholder="amount"
-                        onChangeText={(type) => this.setState({ type })}
+                        onChangeText={(amount) => this.setState({ amount })}
                         value={this.state.text}
                     />
                 </View>
@@ -94,8 +102,8 @@ export default class AddItem extends Component {
                     </View>
                     <View>
                         <RadioButton.Group 
-                            onValueChange={value => { this.setState({ checked: value })}}
-                            value={this.state.checked} 
+                            onValueChange={value => { this.setState({ type: value })}}
+                            value={this.state.type} 
                         >
                         <RadioButton.Item
                             value= "food"
@@ -103,7 +111,6 @@ export default class AddItem extends Component {
                             labelStyle={styles.text}
                         />
                         <RadioButton.Item
-                            style= {styles.text}
                             value= "drinks"
                             label= "drinks"
                             labelStyle={styles.text}
@@ -114,11 +121,11 @@ export default class AddItem extends Component {
 
                 <MultiSelect
                     hideTags
-                    items={items}
+                    items={contents}
                     uniqueKey="id"
                     ref={(component) => { this.multiSelect = component }}
                     onSelectedItemsChange={this.onSelectedItemsChange}
-                    selectedItems={selectedItems}
+                    selectedItems={selectedContents}
                     selectText="Contents"
                     searchInputPlaceholderText="Search Items..."
                     onChangeInput={ (text)=> console.log(text)}
@@ -139,9 +146,9 @@ export default class AddItem extends Component {
                     submitButtonText="Submit"
                 />
                 <View>
-                    { this.multiSelect ? this.multiSelect.getSelectedItemsExt(selectedItems) : null}
+                    { this.multiSelect ? this.multiSelect.getSelectedItemsExt(selectedContents) : null}
                 </View>
-
+                
                 
                 
                 

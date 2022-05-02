@@ -1,13 +1,23 @@
 import React, { Component } from 'react';
 import { Button, Text, View, Image, StyleSheet, TextInput, TouchableOpacity } from "react-native";
+import ThemedDialog from 'react-native-elements/dist/dialog/Dialog';
 
 export default class AddAnEmployee extends Component {
     constructor(props) {
         super(props);
-        this.state = {fullName: '', email: '', password1: '', password2: ''};
+        this.state = {id: 10, fullName: '', email: '', password1: '', password2: ''};
       }
 
+    navigateFunction = () => {
 
+        this.props.navigation.navigate('Administration')
+      };
+
+    saveFunction = (body) => {
+        this.navigateFunction()
+        //this.setState(prevState => ({ id: prevState.id + 1 }));
+        //console.log(this.state.id)
+    };
 
     render() {
         return(
@@ -71,7 +81,16 @@ export default class AddAnEmployee extends Component {
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={styles.darkButton}
-                            onPress={() => this.props.navigation.navigate('Administration')}
+                            onPress = {() => this.saveFunction(
+                                { 
+                                    id: this.state.id,
+                                    name: this.state.fullName,
+                                    email: this.state.email,
+                                    password: this.state.password1,
+                                    balance: 0,
+                                    type: "employee"
+                                }
+                            )}
                         >
                         <Text>Confirm/Save</Text>
                         </TouchableOpacity>
@@ -81,6 +100,7 @@ export default class AddAnEmployee extends Component {
         );
     }
 }
+
 
 
 const styles = StyleSheet.create({

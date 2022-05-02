@@ -66,7 +66,6 @@ export default class EmployeeViewListScreen extends Component {
                     <Text>Back</Text>
                 </TouchableOpacity>
             </View>
-            
           </View>
         );
     }
@@ -82,7 +81,7 @@ const User = ({ name, email, type }) => {
                 <TouchableOpacity
                     style={styles.darkButton}
                     onPress={() => navigation.navigate('CSelectedProfile', {
-                        param: email,
+                        selectedUserEmail: email,
                     })}
                 >
                     <Text style={styles.text}>{name}</Text>
@@ -90,7 +89,7 @@ const User = ({ name, email, type }) => {
                 <TouchableOpacity
                     style={styles.darkButton}
                     onPress={() => navigation.navigate('CSelectedProfile', {
-                        param: email,
+                        selectedUserEmail: email,
                     })}
                 >
                     <Text style={styles.text}>{email}</Text>

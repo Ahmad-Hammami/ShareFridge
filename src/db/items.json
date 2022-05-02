@@ -1,0 +1,42 @@
+[
+    { 
+        "id": 1,
+        "name": "Coffee",
+        "price": 5,
+        "amount": 100,
+        "discription": "This is Coffee",
+        "type": "drinks",
+        "selectedContents": ["Suger", "Caffeine"],
+        "priority": true
+    },
+    { 
+        "id": 2,
+        "name": "Coca-Cola",
+        "price": 15,
+        "amount": 100,
+        "discription": "This is Coca-Cola",
+        "type": "drinks",
+        "selectedContents": ["Suger"],
+        "priority": false
+    },
+    { 
+        "id": 3,
+        "name": "Chicken Bacon Sandwich",
+        "price": 35,
+        "amount": 50,
+        "discription": "This is a Chicken Bacon Sandwich",
+        "type": "food",
+        "selectedContents": ["Fat", "Salt"],
+        "priority": false
+    },
+    { 
+        "id": 4,
+        "name": "Caesar Salat",
+        "price": 30,
+        "amount": 60,
+        "discription": "This is Caesar Salat",
+        "type": "food",
+        "selectedContents": ["Fat"],
+        "priority": true
+    }
+]
