@@ -4,39 +4,43 @@
         "name": "Coffee",
         "price": 5,
         "amount": 100,
-        "discription": "This is Coffee",
+        "description": "This is Coffee",
         "type": "drinks",
         "selectedContents": ["Suger", "Caffeine"],
-        "priority": true
+        "priority": true,
+        "picture": "https://i.ibb.co/4gFLMD3/coffee.png"
     },
     { 
         "id": 2,
         "name": "Coca-Cola",
         "price": 15,
         "amount": 100,
-        "discription": "This is Coca-Cola",
+        "description": "This is Coca-Cola",
         "type": "drinks",
         "selectedContents": ["Suger"],
-        "priority": false
+        "priority": false,
+        "picture": "https://i.ibb.co/ryGr3G3/Coca-Cola.jpg"
     },
     { 
         "id": 3,
         "name": "Chicken Bacon Sandwich",
         "price": 35,
         "amount": 50,
-        "discription": "This is a Chicken Bacon Sandwich",
+        "description": "This is a Chicken Bacon Sandwich",
         "type": "food",
         "selectedContents": ["Fat", "Salt"],
-        "priority": false
+        "priority": false,
+        "picture": "https://i.ibb.co/hDN37qs/Chicken-Bacon-Sandwich.jpg"
     },
     { 
         "id": 4,
-        "name": "Caesar Salat",
+        "name": "Caesar Salad",
         "price": 30,
         "amount": 60,
-        "discription": "This is Caesar Salat",
+        "description": "This is Caesar Salat",
         "type": "food",
         "selectedContents": ["Fat"],
-        "priority": true
+        "priority": true,
+        "picture": "hhttps://i.ibb.co/mFR3zrR/Caesar-Salat.jpg"
     }
 ]

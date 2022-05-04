@@ -103,7 +103,7 @@ export default class MenuScreen extends Component {
 
                         <TouchableOpacity
                             style={styles.darkButton}
-                            onPress={() => this.props.navigation.navigate('Cart')}
+                            onPress={() => this.props.navigation.navigate('SelectedItem')}
                         >
                             <Text style={styles.textbtn}>
                                 Go to Cart

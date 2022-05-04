@@ -27,7 +27,7 @@ export default class AddItem extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {name: '', price: '', amount: '', discription: '', 
+        this.state = {name: '', price: '', amount: '', description: '',
                         type: 'food',
 
                         selectedContents : []
@@ -47,9 +47,7 @@ export default class AddItem extends Component {
         this._multiSelect._removeAllItems();
      };
 
-    render() {
-        const { type } = this.state;
-        
+    render() {     
         const { selectedContents } = this.state;
 
         return (
@@ -154,12 +152,12 @@ export default class AddItem extends Component {
                 
  
                 <Text style={styles.text}>
-                    Discription:
+                    Description:
                 </Text>
                 <TextInput
                     style={styles.input}
                     placeholder="Short text about the item."
-                    onChangeText={(discription) => this.setState({ discription })}
+                    onChangeText={(description) => this.setState({ description })}
                     value={this.state.text}
                 />
 
