@@ -4,7 +4,7 @@ import Data from "../../db/users.json";
 
 const {height, width} = Dimensions.get('window');
 
-export default class ESelectedProfileScreen extends Component {
+export default class CSelectedProfileScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
