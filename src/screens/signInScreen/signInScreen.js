@@ -1,20 +1,18 @@
-import React, { Component } from 'react';
+
+import React, { useState} from "react";
 import { Button, Text, View, TextInput, StyleSheet, Image, TouchableOpacity, } from "react-native";
-import Data from "../.././db/users.json";
+import data from "../.././db/users.json";
+import { useNavigation } from "@react-navigation/core";
 
 
+export default function  SignInScreen () {
+    const [authenticated, setAuthenticated] = useState(false);
+  const [id, setId] = useState(-1);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-export default class SignInScreen extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { email: '', password: '' };
-    }
-
-
-
-
+  const navigation = useNavigation();
     
-    render() {
         return (
             <View style={styles.container}> 
                 <Text style={styles.title}>Willcome to ShareFridge</Text>
@@ -29,8 +27,7 @@ export default class SignInScreen extends Component {
                         style={styles.TextInput}
                         placeholder="Type your here"
                         placeholderTextColor="#003f5c"
-                        onChangeText={(email) => this.setState({ email })}
-                        value={this.state.text}
+                        onChangeText={(email) => setEmail(email)}
                     />
                 </View>
                 <Text style={styles.text2}>Password:</Text>
@@ -41,8 +38,8 @@ export default class SignInScreen extends Component {
                         placeholder="Type password here"
                         placeholderTextColor="#003f5c"
                         secureTextEntry={true}
-                        onChangeText={(password) => this.setState({ password })}
-                        value={this.state.text}
+                        
+                        onChangeText={(password) => setPassword(password)}
                     />
                   <TouchableOpacity>
                         <Text style={styles.forgot_button}>Forgot Password?</Text>
@@ -54,7 +51,31 @@ export default class SignInScreen extends Component {
                 <View style={styles.btnstyle}>
 
                     <TouchableOpacity style={styles.loginBtn}   
-                    onPress={(onPress) => this.props.navigation.navigate('Administration')}>
+                   onPress={() => {
+                    for (let i = 0; i < data.length; i++) {
+                      console.log(data[i].email);
+                      console.log(data[i].type);
+                      console.log(email.trim().toLowerCase());
+            
+                      if (
+                        data[i].email === email.trim().toLowerCase() &&
+                        password === data[i].password
+                      ) {                         
+                        setAuthenticated(true);
+                        setId(data[i].id);
+                        if(data[i].type === "employee"){
+                        navigation.navigate("Menu", {
+                          auth: data[i].auth,
+                        });
+                      } else {
+                        setAuthenticated(true);
+                        navigation.navigate("Administration", {
+                            auth: data[i].auth,
+                            
+                      });}
+                    }
+                  }}}
+                >
                         <Text style={styles.textbtn} >Sign In</Text>
                       
                     </TouchableOpacity>
@@ -66,7 +87,7 @@ export default class SignInScreen extends Component {
 
     }
 
-}
+
 
 const styles = StyleSheet.create({
     container: {
@@ -112,6 +133,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     TextInput: {
+        width: 240, 
         height: 40,
         margin: 5,
         padding: 10,
