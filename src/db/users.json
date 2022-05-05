@@ -1,33 +1,49 @@
 [
-    { 
+    {
         "id": 1,
+        "name": "Ahmad",
+        "email": "ahmad@gmail.com",
+        "password": "ahmad123",
+        "type": "companyRepresentative"
+    },
+    {
+        "id": 2,
         "name": "Kristian Oestergaard",
         "email": "thkris12@gmail.com",
         "password": "123456789",
         "balance": 256,
         "type": "employee"
     },
-    { 
-        "id": 2,
+    {
+        "id": 3,
         "name": "Emma Stilling",
         "email": "emma@gmail.com",
         "password": "123emma",
-        "balance": 854,
+        "balance": 844,
         "type": "employee"
     },
-    { 
-        "id": 3,
-        "name": "Ahmad",
-        "email": "ahmad@gmail.com",
-        "password": "ahmad123",
-        "type": "companyRepresentative"
-    },
-    { 
+    {
         "id": 4,
         "name": "Alex",
         "email": "alex@gmail.com",
         "password": "alex123",
         "balance": 256,
+        "type": "employee"
+    },
+    {
+        "id": 5,
+        "name": "Ema Stilling",
+        "email": "ema@gmail.com",
+        "password": "123ema",
+        "balance": 85,
+        "type": "employee"
+    },
+    {
+        "id": 6,
+        "name": "Eama Stilling",
+        "email": "eama@gmail.com",
+        "password": "123aema",
+        "balance": 85,
         "type": "employee"
     }
 ]
