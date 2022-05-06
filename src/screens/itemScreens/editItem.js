@@ -1,7 +1,7 @@
 import React, { Component, useState } from 'react';
-import { Text, View, Image, StyleSheet, TextInput, TouchableOpacity, SafeAreaView, Dimensions, } from "react-native";
-import { RadioButton } from 'react-native-paper';
-import { ScrollView } from 'react-native-virtualized-view';
+import { Text, View, Image, StyleSheet, TextInput, TouchableOpacity, SafeAreaView, Dimensions, ScrollView} from "react-native";
+import { RadioButton, Button, Checkbox } from 'react-native-paper';
+//import { ScrollView } from 'react-native-virtualized-view';
 import MultiSelect from 'react-native-multiple-select';
 import Item from "../../db/items.json";
 
@@ -30,22 +30,38 @@ export default class EditItem extends Component {
 
         this.state = {
             item: Item, 
-            selectedItem: "Coca-Cola",//props.route.params.selectedItemName,
+            selectedItem: props.route.params.selectedItemName,
 
-            name: '', price: 0, amount: 0, description: '', priority: false, picture: "", type: 'food',
+            name: '', price: "0", amount: "0", description: '', priority: false, picture: "https://i.ibb.co/4gFLMD3/coffee.png", type: '',
+            suger: false, caffeine: false, fat: false, salt: false,
         };
 
         this.arrayholder = Item;
         
     }
 
-    findItem = (selectedItem) => {
-        const updatedData = this.arrayholder.filter((item) => {
+
+    findItem = async (selectedItem) => {
+        let updatedData = await this.arrayholder.filter((item) => {
             const item_data = `${item.name})`;
             const text_data = selectedItem;
             return item_data.indexOf(text_data) > -1;
         });
-        this.setState({ item: updatedData });
+        await this.setState({ item: updatedData });
+                    
+        this.state.item.map(item => {
+            this.setState({ suger: item.suger });
+            this.setState({ caffeine: item.caffeine });
+            this.setState({ fat: item.fat });
+            this.setState({ salt: item.salt });
+            this.setState({ name: item.name });
+            this.setState({ price: item.price });
+            this.setState({ amount: item.amount });
+            this.setState({ description: item.description });
+            this.setState({ priority: item.priority });
+            this.setState({ picture: item.picture });
+            this.setState({ type: item.type });
+        });
     };
     
     componentDidMount()
@@ -53,22 +69,9 @@ export default class EditItem extends Component {
         this.findItem(this.state.selectedItem);
     }
 
-    onSelectedItemsChange = selectedContents => {
-        if (selectedContents === []) {
-            this.clearSelectedCategories
-        } else {
-            this.setState({ selectedContents });
-        }
-        
-      };
-
-    clearSelectedCategories = () => {
-        this._multiSelect._removeAllItems();
-     };
-
     render() {
-        
-        const { selectedContents } = this.state;
+        const { name, price, amount, description, priority, picture, type } = this.state;
+        const { suger, caffeine, fat, salt } = this.state;
 
         return (
             <View>
@@ -77,31 +80,41 @@ export default class EditItem extends Component {
             <SafeAreaView>
             <ScrollView>
             <View style={styles.container}>
-                <View style={styles.photo_view}>
+                <View style={styles.rowDeleteButton}>
                     <Text style={styles.title}>
-                        {item.name}
+                        {name}
                     </Text>
-                    <Image style={styles.Profile_Photo} source={{uri: item.picture}} />
+                    <TouchableOpacity
+                        style={styles.redButton}
+                        onPress={() => this.props.navigation.navigate('Menu')}
+                    >
+                        <Text>Delete</Text>
+                    </TouchableOpacity>
                 </View>
-                <Text style={styles.text}>
-                    Insert photo of profile:
-                </Text>
-                <View style={styles.container}>
-                    <Text style={styles.text}>
-                        Priority:
-                    </Text>
-
-
+                
+                <View style={styles.photo_view}>
+                    
+                    <Image style={styles.Profile_Photo} source={{uri: picture}} />
+                </View>
+                <View>
+                    <View style={styles.rowButton}>
+                        <Text style={styles.text}>
+                            Priority:
+                        </Text>
+                        <Checkbox
+                            status={priority ? 'checked' : 'unchecked'}
+                            onPress={() => { this.setState({ priority: !priority }); }}
+                        />
+                    </View>
                     
                     <Text style={styles.text}>
                         Price:
                     </Text>
                     <TextInput
                         style={styles.input}
-                        defaultValue={item.price.toString}
                         placeholder="in DKK"
                         onChangeText={(price) => this.setState({ price })}
-                        value={this.state.price}
+                        value={price}
                     />
                     <Text style={styles.text}>
                         Amount:
@@ -110,7 +123,7 @@ export default class EditItem extends Component {
                         style={styles.input}
                         placeholder="amount"
                         onChangeText={(amount) => this.setState({ amount })}
-                        value={this.state.text}
+                        value={amount}
                     />
                 </View>
                 <View style={styles.rowButton}>
@@ -122,7 +135,7 @@ export default class EditItem extends Component {
                     <View>
                         <RadioButton.Group 
                             onValueChange={value => { this.setState({ type: value })}}
-                            value={this.state.type} 
+                            value={type} 
                         >
                         <RadioButton.Item
                             value= "food"
@@ -137,7 +150,43 @@ export default class EditItem extends Component {
                         </RadioButton.Group>
                     </View>
                 </View>
+                <Text style={styles.title}>
+                    Contents
+                </Text>
+                <View style={styles.rowButton}>
+                    <Text style={styles.text}>
+                        suger
+                    </Text>
+                    <Checkbox
+                        status={suger ? 'checked' : 'unchecked'}
+                        onPress={() => { this.setState({ suger: !suger }); }}
+                    />
+                    <Text style={styles.text}>
+                        caffeine
+                    </Text>
+                    <Checkbox
+                        status={caffeine ? 'checked' : 'unchecked'}
+                        onPress={() => { this.setState({ caffeine: !caffeine }); }}
+                    />
+                </View>
+                <View style={styles.rowButton}>
+                    <Text style={styles.text}>
+                        fat
+                    </Text>
+                    <Checkbox
+                        status={fat ? 'checked' : 'unchecked'}
+                        onPress={() => { this.setState({ fat: !fat }); }}
+                    />
+                    <Text style={styles.text}>
+                        salt
+                    </Text>
+                    <Checkbox
+                        status={salt ? 'checked' : 'unchecked'}
+                        onPress={() => { this.setState({ salt: !salt }); }}
+                    />
+                </View>
 
+                {/*
                 <MultiSelect
                     hideTags
                     items={contents}
@@ -167,7 +216,7 @@ export default class EditItem extends Component {
                 <View>
                     { this.multiSelect ? this.multiSelect.getSelectedItemsExt(selectedContents) : null}
                 </View>
-                
+                */}
                 
                 
                 
@@ -179,19 +228,19 @@ export default class EditItem extends Component {
                     style={styles.input}
                     placeholder="Short text about the item."
                     onChangeText={(description) => this.setState({ description })}
-                    value={this.state.text}
+                    value={description}
                 />
 
                 <View style={styles.rowButton}>
                     <TouchableOpacity
                         style={styles.lightButton}
-                        onPress={() => this.props.navigation.navigate('Administration')}
+                        onPress={() => this.props.navigation.navigate('Menu')}
                     >
                         <Text>Cancel</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={styles.darkButton}
-                        onPress={() => this.props.navigation.navigate('Administration')}
+                        onPress={() => this.props.navigation.navigate('Menu')}
                     >
                         <Text>Confirm/Save</Text>
                     </TouchableOpacity>
@@ -259,6 +308,14 @@ const styles = StyleSheet.create({
 
     },
 
+    rowDeleteButton: {
+        paddingLeft: 10,
+        paddingRight: 10,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+
+    },
+
     lightButton: {
         backgroundColor: "#B3E5FC",
         borderRadius: 10,
@@ -275,7 +332,17 @@ const styles = StyleSheet.create({
         height: height * 0.03,
         alignItems: 'center', 
         justifyContent: 'center',
-    }
+    },
+
+    redButton: {
+        backgroundColor: "#EB6A6A",
+        borderRadius: 10,
+        width: width * 0.2,
+        height: height * 0.03,
+        alignItems: 'center', 
+        justifyContent: 'center',
+        
+    },
 
 
 });

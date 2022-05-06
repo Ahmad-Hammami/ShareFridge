@@ -9,7 +9,7 @@ export default class SelectedItemScreen extends Component {
         super(props);
         this.state = {
           item: Item, 
-          selectedItem: "Coca-Cola",//props.route.params.selectedItemName,
+          selectedItem: props.route.params.selectedItemName,
         };
         this.arrayholder = Item;
       }
@@ -76,14 +76,14 @@ export default class SelectedItemScreen extends Component {
                             <View style={styles.rowText}>
                                 <TouchableOpacity
                                 style={styles.lightButton}
-                                onPress={() => this.props.navigation.navigate('EditItem')}
+                                onPress={() => this.props.navigation.goBack()}
                                 >
                                     <Text>Cancel</Text>
                                 </TouchableOpacity>
 
                                 <TouchableOpacity
                                 style={styles.darkButton}
-                                onPress={() => this.props.navigation.navigate('Menu')}
+                                onPress={() => this.props.navigation.navigate('Cart')}
                                 >
                                     <Text>Add to Cart</Text>
                                 </TouchableOpacity>

@@ -66,11 +66,13 @@ export default function  SignInScreen () {
                         if(data[i].type === "employee"){
                         navigation.navigate("Menu", {
                           auth: data[i].auth,
+                          currentUsertype: data[i].type,
                         });
                       } else {
                         setAuthenticated(true);
                         navigation.navigate("Administration", {
                             auth: data[i].auth,
+                            currentUsertype: data[i].type,
                             
                       });}
                     }

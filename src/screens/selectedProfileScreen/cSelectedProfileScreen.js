@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Button, Text, View, Image, StyleSheet, TextInput, TouchableOpacity, FlatList, Dimensions, SafeAreaView, ScrollView,} from "react-native";
+import { RadioButton } from 'react-native-paper';
 import Data from "../../db/users.json";
 
 const {height, width} = Dimensions.get('window');

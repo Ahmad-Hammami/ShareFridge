@@ -3,7 +3,12 @@ import { Button, Text, View, Image, StyleSheet, TextInput, TouchableOpacity } fr
 
 
 export default class AdministrationScreen extends Component {
-
+    constructor(props) {
+        super(props);
+        this.state = {
+          currentUsertype: props.route.params.currentUsertype,
+        };
+      }
     render() {
         return(
         <View style={styles.container}>
@@ -35,7 +40,9 @@ export default class AdministrationScreen extends Component {
             </TouchableOpacity>
             <TouchableOpacity
                 style={styles.darkButton}
-                onPress={() => this.props.navigation.navigate('Menu')}
+                onPress={() => this.props.navigation.navigate('Menu', {
+                    currentUsertype: this.state.currentUsertype,
+              })}
             >
                 <Text>Menu</Text>
             </TouchableOpacity>

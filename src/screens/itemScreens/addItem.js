@@ -1,9 +1,9 @@
 import React, { Component, useState } from 'react';
-import { Text, View, Image, StyleSheet, TextInput, TouchableOpacity, SafeAreaView, Dimensions, } from "react-native";
-import { RadioButton } from 'react-native-paper';
-import { ScrollView } from 'react-native-virtualized-view';
+import { Text, View, Image, StyleSheet, TextInput, TouchableOpacity, SafeAreaView, Dimensions, Modal,ScrollView, } from "react-native";
+import { RadioButton, Button, Checkbox } from 'react-native-paper';
+//import { ScrollView } from 'react-native-virtualized-view';
 import MultiSelect from 'react-native-multiple-select';
-
+import * as ImagePicker from 'expo-image-picker';
 
 
 const {height, width} = Dimensions.get('window');
@@ -30,7 +30,9 @@ export default class AddItem extends Component {
         this.state = {name: '', price: '', amount: '', description: '',
                         type: 'food',
 
-                        selectedContents : []
+                        selectedContents : [],
+                        suger: false, caffeine: false, fat: false, salt: false,
+                        popUpPhoto: false, selectedImage: "https://res.cloudinary.com/sharefridge/image/upload/v1651785014/coffee_imxakb.png",
         };
     }
 
@@ -47,8 +49,83 @@ export default class AddItem extends Component {
         this._multiSelect._removeAllItems();
      };
 
+
+     openImagePickerAsync = async () => {
+        let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    
+        if (permissionResult.granted === false) {
+          alert("Permission to access camera roll is required!");
+          return;
+        }
+    
+        let imageResult = await ImagePicker.launchImageLibraryAsync(
+            {
+                mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                allowsEditing:true,
+                aspect:[1,1],
+                quality:0.5
+            }
+        );
+
+        if (imageResult.cancelled === true) {
+            return;
+          }
+        
+        let newfile = {
+            uri: imageResult.uri, 
+            type: `test/${imageResult.uri.split(".")[1]}`, 
+            name: `test.${imageResult.uri.split(".")[1]}`
+        }
+        this.handleUpload(newfile)
+        };
+
+    openCameraAsync = async () => {
+        let permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+    
+        if (permissionResult.granted === false) {
+          alert("Permission to access camera is required!");
+          return;
+        }
+    
+        let cameraResult = await ImagePicker.launchCameraAsync(
+            {
+                mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                allowsEditing:true,
+                aspect:[1,1],
+                quality:0.5
+            }
+        );
+
+        if (cameraResult.cancelled === true) {
+            return;
+          }
+        let newfile = {
+            uri: cameraResult.uri, 
+            type: `test/${cameraResult.uri.split(".")[1]}`, 
+            name: `test.${cameraResult.uri.split(".")[1]}`
+        }
+        this.handleUpload(newfile)
+        };
+
+
+    handleUpload = (image)=>{
+        const data = new FormData
+        data.append('file', image)
+        data.append('upload_preset', 'ShareFridge')
+        data.append('cloud_name','sharefridge')
+
+        fetch("https://api.cloudinary.com/v1_1/sharefridge/image/upload", {
+            method:"post",
+            body: data
+        }).then(res=>res.json()).then(data=>{
+            this.setState({selectedImage: data.url})
+            this.setState({popUpPhoto: false})
+        })
+    }
+
     render() {     
         const { selectedContents } = this.state;
+        const { suger, caffeine, fat, salt } = this.state;
 
         return (
             <SafeAreaView>
@@ -58,12 +135,54 @@ export default class AddItem extends Component {
                     <Text style={styles.title}>
                         Add a new item:
                     </Text>
-                    <Image style={styles.Profile_Photo} source={require('../../.././assets/coffee.png')} />
+                    <Image style={styles.Profile_Photo} source={{uri: this.state.selectedImage}} />
                 </View>
                 <Text style={styles.text}>
                     Insert photo of profile:
                 </Text>
-                <View style={styles.container}>
+                <Button 
+                dark={false}
+                mode="contained"
+                style={styles.darkPhotoButton}
+                icon={ this.state.selectedImage==="https://res.cloudinary.com/sharefridge/image/upload/v1651785014/coffee_imxakb.png"?"upload":"check" }
+                onPress={() => this.setState({popUpPhoto: true})}>
+                    Upload Image
+                </Button>
+                <Modal
+                animationType='slide'
+                transparent={true}
+                visible={this.state.popUpPhoto}
+                onRequestClose={()=>{this.setState({popUpPhoto: false})}}
+                >
+                    <View style={styles.modelView}>
+                        <View style={styles.modelButtonView}>
+                            <Button 
+                            dark={false}
+                            mode="contained"
+                            style={styles.darkPhotoButton}
+                            icon="camera"  
+                            onPress={this.openCameraAsync}>
+                                Camera
+                            </Button>
+                            <Button 
+                            dark={false}
+                            mode="contained"
+                            style={styles.darkPhotoButton}
+                            icon="image-area" 
+                            onPress={this.openImagePickerAsync}>
+                                Gallery
+                            </Button>
+                        </View>
+                        <Button 
+                        dark={false}
+                        mode="contained"
+                        style={styles.darkPhotoButton}
+                        onPress={() => this.setState({popUpPhoto: false})}>
+                            Cancel
+                        </Button>
+                    </View>
+                </Modal>
+                <View>
                     <Text style={styles.text}>
                         Name of the item:
                     </Text>
@@ -116,7 +235,48 @@ export default class AddItem extends Component {
                         </RadioButton.Group>
                     </View>
                 </View>
+                <Text style={styles.title}>
+                    Contents
+                </Text>
+                <View style={styles.rowButton}>
+                    <Text style={styles.text}>
+                        suger
+                    </Text>
+                    <Checkbox
+                        status={suger ? 'checked' : 'unchecked'}
+                        onPress={() => { this.setState({ suger: !suger }); }}
+                    />
+                    <Text style={styles.text}>
+                        caffeine
+                    </Text>
+                    <Checkbox
+                        status={caffeine ? 'checked' : 'unchecked'}
+                        onPress={() => { this.setState({ caffeine: !caffeine }); }}
+                    />
+                </View>
+                <View style={styles.rowButton}>
+                    <Text style={styles.text}>
+                        fat
+                    </Text>
+                    <Checkbox
+                        status={fat ? 'checked' : 'unchecked'}
+                        onPress={() => { this.setState({ fat: !fat }); }}
+                    />
+                    <Text style={styles.text}>
+                        salt
+                    </Text>
+                    <Checkbox
+                        status={salt ? 'checked' : 'unchecked'}
+                        onPress={() => { this.setState({ salt: !salt }); }}
+                    />
+                </View>
+                {/*
+                <Text>{console.log(suger)} {console.log(caffeine)} {console.log(fat)} {console.log(salt)}</Text>
+                */}
+                
 
+
+                {/*
                 <MultiSelect
                     hideTags
                     items={contents}
@@ -146,7 +306,7 @@ export default class AddItem extends Component {
                 <View>
                     { this.multiSelect ? this.multiSelect.getSelectedItemsExt(selectedContents) : null}
                 </View>
-                
+                */}
                 
                 
                 
@@ -251,6 +411,26 @@ const styles = StyleSheet.create({
         height: height * 0.03,
         alignItems: 'center', 
         justifyContent: 'center',
+    },
+    darkPhotoButton: {
+        backgroundColor: "#82B3C9",
+        borderRadius: 10,
+        padding: 5,
+        margin: 5,
+    },
+
+    modelView: {
+        position:"absolute",
+        bottom: 3,
+        paddingVertical: height * 0.01,
+        width: width,
+        backgroundColor: "#B3E5FC"
+    },
+
+    modelButtonView: {
+        flexDirection: "row",
+        justifyContent: "space-around",
+        paddingVertical: height * 0.05, 
     }
 
 

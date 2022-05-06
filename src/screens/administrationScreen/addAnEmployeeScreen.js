@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
-import { Button, Text, View, Image, StyleSheet, TextInput, TouchableOpacity } from "react-native";
+import {Text, View, Image, StyleSheet, TextInput, TouchableOpacity, Modal, Dimensions, SafeAreaView, ScrollView, } from "react-native";
+import { Button,  } from 'react-native-paper';
+import * as ImagePicker from 'expo-image-picker';
+
 import ThemedDialog from 'react-native-elements/dist/dialog/Dialog';
+
+const {height, width} = Dimensions.get('window');
 
 export default class AddAnEmployee extends Component {
     constructor(props) {
         super(props);
-        this.state = {id: 10, fullName: '', email: '', password1: '', password2: ''};
+        this.state = {id: 10, fullName: '', email: '', password1: '', password2: '',
+            popUpPhoto: false, selectedImage: "https://res.cloudinary.com/sharefridge/image/upload/v1651785014/Emma_Profile_ij8c9r.jpg",
+        };
       }
 
     navigateFunction = () => {
@@ -19,20 +26,138 @@ export default class AddAnEmployee extends Component {
         //console.log(this.state.id)
     };
 
+
+    openImagePickerAsync = async () => {
+        let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    
+        if (permissionResult.granted === false) {
+          alert("Permission to access camera roll is required!");
+          return;
+        }
+    
+        let imageResult = await ImagePicker.launchImageLibraryAsync(
+            {
+                mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                allowsEditing:true,
+                aspect:[1,1],
+                quality:0.5
+            }
+        );
+
+        if (imageResult.cancelled === true) {
+            return;
+          }
+        
+        let newfile = {
+            uri: imageResult.uri, 
+            type: `test/${imageResult.uri.split(".")[1]}`, 
+            name: `test.${imageResult.uri.split(".")[1]}`
+        }
+        this.handleUpload(newfile)
+        };
+
+    openCameraAsync = async () => {
+        let permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+    
+        if (permissionResult.granted === false) {
+          alert("Permission to access camera is required!");
+          return;
+        }
+    
+        let cameraResult = await ImagePicker.launchCameraAsync(
+            {
+                mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                allowsEditing:true,
+                aspect:[1,1],
+                quality:0.5
+            }
+        );
+
+        if (cameraResult.cancelled === true) {
+            return;
+          }
+        let newfile = {
+            uri: cameraResult.uri, 
+            type: `test/${cameraResult.uri.split(".")[1]}`, 
+            name: `test.${cameraResult.uri.split(".")[1]}`
+        }
+        this.handleUpload(newfile)
+        };
+
+
+    handleUpload = (image)=>{
+        const data = new FormData
+        data.append('file', image)
+        data.append('upload_preset', 'ShareFridge')
+        data.append('cloud_name','sharefridge')
+
+        fetch("https://api.cloudinary.com/v1_1/sharefridge/image/upload", {
+            method:"post",
+            body: data
+        }).then(res=>res.json()).then(data=>{
+            this.setState({selectedImage: data.url})
+            this.setState({popUpPhoto: false})
+        })
+    }
+
     render() {
         return(
+            <SafeAreaView style={styles.container}>
+            <ScrollView style={styles.scrollView}>
             <View style={styles.container}>
                 
                 <View style={styles.photo_view}>
                     <Text style={styles.title}>
                         Create a new Profile:
                     </Text>
-                    <Image style={styles.Profile_Photo} source = {require('../../.././assets/Emma_Profile.jpg')}/>
+                    <Image style={styles.Profile_Photo} source = {{uri: this.state.selectedImage}}/>
                 </View>
                 <Text style={styles.text}>
                     Insert photo of profile:
                 </Text>
-                <View style={styles.container}>
+                <Button 
+                dark={false}
+                mode="contained"
+                style={styles.darkButton}
+                icon={ this.state.selectedImage==="https://res.cloudinary.com/sharefridge/image/upload/v1651785014/Emma_Profile_ij8c9r.jpg"?"upload":"check" }
+                onPress={() => this.setState({popUpPhoto: true})}>
+                    Upload Image
+                </Button>
+                <Modal
+                animationType='slide'
+                transparent={true}
+                visible={this.state.popUpPhoto}
+                onRequestClose={()=>{this.setState({popUpPhoto: false})}}
+                >
+                    <View style={styles.modelView}>
+                        <View style={styles.modelButtonView}>
+                            <Button 
+                            dark={false}
+                            mode="contained"
+                            style={styles.darkButton}
+                            icon="camera"  
+                            onPress={this.openCameraAsync}>
+                                Camera
+                            </Button>
+                            <Button 
+                            dark={false}
+                            mode="contained"
+                            style={styles.darkButton}
+                            icon="image-area" 
+                            onPress={this.openImagePickerAsync}>
+                                Gallery
+                            </Button>
+                        </View>
+                        <Button 
+                        dark={false}
+                        mode="contained"
+                        style={styles.darkButton}
+                        onPress={() => this.setState({popUpPhoto: false})}>
+                            Cancel
+                        </Button>
+                    </View>
+                </Modal>
+                <View>
                     <Text style={styles.text}>
                         ID: 2342
                     </Text>
@@ -77,7 +202,7 @@ export default class AddAnEmployee extends Component {
                             style={styles.lightButton}
                             onPress={() => this.props.navigation.navigate('Administration')}
                         >
-                        <Text>Cancel</Text>
+                            <Text>Cancel</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={styles.darkButton}
@@ -92,11 +217,13 @@ export default class AddAnEmployee extends Component {
                                 }
                             )}
                         >
-                        <Text>Confirm/Save</Text>
+                            <Text>Confirm/Save</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
             </View>
+            </ScrollView>
+            </SafeAreaView>
         );
     }
 }
@@ -105,9 +232,8 @@ export default class AddAnEmployee extends Component {
 
 const styles = StyleSheet.create({
     container: {
-      paddingTop: 15,
-      paddingLeft: 15,
-      flex: 1, 
+        marginTop: height * 0.05,
+        padding: 2, 
     },
 
     title: {
@@ -159,7 +285,24 @@ const styles = StyleSheet.create({
         backgroundColor: "#82B3C9",
         borderRadius: 10,
         padding: 5,
+        margin: 5,
+    },
+
+    modelView: {
+        position:"absolute",
+        bottom: 3,
+        paddingVertical: height * 0.01,
+        width: width,
+        backgroundColor: "#B3E5FC"
+    },
+
+    modelButtonView: {
+        flexDirection: "row",
+        justifyContent: "space-around",
+        paddingVertical: height * 0.05, 
     }
+
+    
     
     
   });

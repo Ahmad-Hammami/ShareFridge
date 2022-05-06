@@ -5,6 +5,7 @@ import { useNavigation  } from "@react-navigation/native"
 
 const {height, width} = Dimensions.get('window');
 let food = false;
+let currentUsertype = "";
 
 const renderitemp = ({ item }) => <Itemp name={item.name} price={item.price} priority={item.priority} type={item.type}/>;
 const renderitem = ({ item }) => <Item name={item.name} price={item.price} priority={item.priority} type={item.type}/>;
@@ -13,7 +14,7 @@ export default class MenuScreen extends Component {
         super(props);
         this.state = {
           Behavior: "", 
-          currentUser: "emma@gmail.com", //props.route.params."name",
+          currentUsertype: props.route.params.currentUsertype,
           items: Items,
           food: false,
         };
@@ -27,11 +28,27 @@ export default class MenuScreen extends Component {
         this.setState({ food: false });
         food = false;
       };
+    
+    profileButton = () => {
+        if(currentUsertype === "employee"){
+            return (
+                <TouchableOpacity style={styles.profilebtn}
+                    onPress={() => this.props.navigation.navigate('ESelectedProfile')}>
+                    <Text style={styles.textbtn}>
+                        Profile
+                    </Text>
+                </TouchableOpacity>
+            );
+        } else if (currentUsertype === "companyRepresentative"){
+            return (<></>);
+        }
+    }
 
     componentDidMount(){
         if(this.state.Behavior === ""){
             this.setState({ Behavior: "No new behavior detected, have a good day." });
         }
+        currentUsertype = this.state.currentUsertype
     }
     render() {
 
@@ -44,12 +61,8 @@ export default class MenuScreen extends Component {
                         </View>
 
                         <View style={styles.btnstyle}>
-                            <TouchableOpacity style={styles.profilebtn}
-                                onPress={(onPress) => this.props.navigation.navigate('ESelectedProfile')}>
-                                <Text style={styles.textbtn}>
-                                    Profile
-                                </Text>
-                            </TouchableOpacity>
+                            {this.profileButton()}
+                            
                         </View>
                         <View>
                             <Text style={styles.behaviorText}>
@@ -103,7 +116,7 @@ export default class MenuScreen extends Component {
 
                         <TouchableOpacity
                             style={styles.darkButton}
-                            onPress={() => this.props.navigation.navigate('SelectedItem')}
+                            onPress={() => this.props.navigation.navigate('Cart')}
                         >
                             <Text style={styles.textbtn}>
                                 Go to Cart
@@ -210,17 +223,15 @@ const styles = StyleSheet.create({
         } 
     },
     items: {
-        backgroundColor: "#82B3C9",
         padding: 20,
-        marginVertical: 8,
-        marginHorizontal: 16,
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
     itemButton: {
         backgroundColor: "#82B3C9",
+        marginVertical: height * 0.01,
+        marginHorizontal: width * 0.01,
         borderRadius: 10,
-        padding: 5,
         
     },
 
@@ -251,67 +262,88 @@ const Itemp = ({ name, price, priority, type }) => {
     if(food){
         if(type === "food"){
             if(priority){
-                return (    
+                if(currentUsertype === "employee"){
+                    return(  
+                        <TouchableOpacity
+                        style={styles.itemButton}
+                        onPress={() => navigation.navigate('SelectedItem', {
+                            selectedItemName: name,
+                        })}
+                        >    
+                            <View style={styles.items}>
+                                <Text style={styles.textbtn}>{name}</Text>
+                                <Text style={styles.textbtn}>{price} Kr.</Text>
+                                <Text style={styles.textbtn}>add to cart</Text>
+                            </View>
+                        </TouchableOpacity>
+                    );
+                } else if(currentUsertype === "companyRepresentative") {
+                    return (    
+                        <TouchableOpacity
+                        style={styles.itemButton}
+                        onPress={() => navigation.navigate('EditItem', {
+                            selectedItemName: name,
+                        })}
+                    >    
                     <View style={styles.items}>
-                        <TouchableOpacity
-                            style={styles.itemButton}
-                            onPress={() => navigation.navigate('CSelectedProfile', {})}
-                        >
-                            <Text style={styles.textbtn}>{name}</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.itemButton}
-                            onPress={() => navigation.navigate('CSelectedProfile', {})}
-                        >
-                            <Text style={styles.textbtn}>{price} Kr.</Text>
-                        </TouchableOpacity>
+                        <Text style={styles.textbtn}>{name}</Text>
+                        <Text style={styles.textbtn}>{price} Kr.</Text>
                     </View>
-                );
+                    </TouchableOpacity>
+                    );
+                } else {
+                    return (<View></View>);
+                }
             } else {
-                return (    
-                    <View>
-                    </View>
-                );
+                return (<View></View>);
             }
             
         } else{
-            return (    
-                <View>
-                </View>
-            );
+            return (<View></View>);
         }
     
     } else {
         if(type === "drinks"){
             if(priority){
-                return (    
+                if(currentUsertype === "employee"){
+                    return(  
+                        <TouchableOpacity
+                        style={styles.itemButton}
+                        onPress={() => navigation.navigate('SelectedItem', {
+                            selectedItemName: name,
+                        })}
+                        >    
+                            <View style={styles.items}>
+                                <Text style={styles.textbtn}>{name}</Text>
+                                <Text style={styles.textbtn}>{price} Kr.</Text>
+                                <Text style={styles.textbtn}>add to cart</Text>
+                            </View>
+                        </TouchableOpacity>
+                    );
+                } else if(currentUsertype === "companyRepresentative") {
+                    return (    
+                        <TouchableOpacity
+                        style={styles.itemButton}
+                        onPress={() => navigation.navigate('EditItem', {
+                            selectedItemName: name,
+                        })}
+                    >    
                     <View style={styles.items}>
-                        <TouchableOpacity
-                            style={styles.itemButton}
-                            onPress={() => navigation.navigate('CSelectedProfile', {})}
-                        >
-                            <Text style={styles.textbtn}>{name}</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.itemButton}
-                            onPress={() => navigation.navigate('CSelectedProfile', {})}
-                        >
-                            <Text style={styles.textbtn}>{price} Kr.</Text>
-                        </TouchableOpacity>
+                        <Text style={styles.textbtn}>{name}</Text>
+                        <Text style={styles.textbtn}>{price} Kr.</Text>
                     </View>
-                );
+                    </TouchableOpacity>
+                    );
+                } else {
+                    return (<View></View>);
+                }
+                
             } else {
-                return (    
-                    <View>
-                    </View>
-                );
+                return (<View></View>);
             }
             
         } else{
-            return (    
-                <View>
-                </View>
-            );
+            return (<View></View>);
         }
     }
   };
@@ -321,67 +353,87 @@ const Item = ({ name, price, priority, type }) => {
     if(food){
         if(type === "food"){
             if(!priority){
-                return (    
+                if(currentUsertype === "employee"){
+                    return(  
+                        <TouchableOpacity
+                        style={styles.itemButton}
+                        onPress={() => navigation.navigate('SelectedItem', {
+                            selectedItemName: name,
+                        })}
+                        >    
+                            <View style={styles.items}>
+                                <Text style={styles.textbtn}>{name}</Text>
+                                <Text style={styles.textbtn}>{price} Kr.</Text>
+                                <Text style={styles.textbtn}>add to cart</Text>
+                            </View>
+                        </TouchableOpacity>
+                    );
+                } else if(currentUsertype === "companyRepresentative") {
+                    return (    
+                        <TouchableOpacity
+                        style={styles.itemButton}
+                        onPress={() => navigation.navigate('EditItem', {
+                            selectedItemName: name,
+                        })}
+                    >    
                     <View style={styles.items}>
-                        <TouchableOpacity
-                            style={styles.itemButton}
-                            onPress={() => navigation.navigate('CSelectedProfile', {})}
-                        >
-                            <Text style={styles.textbtn}>{name}</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.itemButton}
-                            onPress={() => navigation.navigate('CSelectedProfile', {})}
-                        >
-                            <Text style={styles.textbtn}>{price} Kr.</Text>
-                        </TouchableOpacity>
+                        <Text style={styles.textbtn}>{name}</Text>
+                        <Text style={styles.textbtn}>{price} Kr.</Text>
                     </View>
-                );
+                    </TouchableOpacity>
+                    );
+                } else {
+                    return (<View></View>);
+                }
             } else {
-                return (    
-                    <View>
-                    </View>
-                );
+                return (<View></View>);
             }
             
         } else{
-            return (    
-                <View>
-                </View>
-            );
+            return (<View></View>);
         }
     
     } else {
         if(type === "drinks"){
             if(!priority){
-                return (    
+                if(currentUsertype === "employee"){
+                    return(  
+                        <TouchableOpacity
+                        style={styles.itemButton}
+                        onPress={() => navigation.navigate('SelectedItem', {
+                            selectedItemName: name,
+                        })}
+                        >    
+                            <View style={styles.items}>
+                                <Text style={styles.textbtn}>{name}</Text>
+                                <Text style={styles.textbtn}>{price} Kr.</Text>
+                                <Text style={styles.textbtn}>add to cart</Text>
+                            </View>
+                        </TouchableOpacity>
+                    );
+                } else if(currentUsertype === "companyRepresentative") {
+                    return (    
+                        <TouchableOpacity
+                        style={styles.itemButton}
+                        onPress={() => navigation.navigate('EditItem', {
+                            selectedItemName: name,
+                        })}
+                    >    
                     <View style={styles.items}>
-                        <TouchableOpacity
-                            style={styles.itemButton}
-                            onPress={() => navigation.navigate('CSelectedProfile', {})}
-                        >
-                            <Text style={styles.textbtn}>{name}</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.itemButton}
-                            onPress={() => navigation.navigate('CSelectedProfile', {})}
-                        >
-                            <Text style={styles.textbtn}>{price} Kr.</Text>
-                        </TouchableOpacity>
+                        <Text style={styles.textbtn}>{name}</Text>
+                        <Text style={styles.textbtn}>{price} Kr.</Text>
                     </View>
-                );
+                    </TouchableOpacity>
+                    );
+                } else {
+                    return (<View></View>);
+                }
             } else {
-                return (    
-                    <View>
-                    </View>
-                );
+                return (<View></View>);
             }
             
         } else{
-            return (    
-                <View>
-                </View>
-            );
+            return (<View></View>);
         }
     }
   };

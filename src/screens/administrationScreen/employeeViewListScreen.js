@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Button, Text, View, Image, StyleSheet, TextInput, TouchableOpacity, FlatList  } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity, FlatList, Dimensions,} from "react-native";
 import { SearchBar } from 'react-native-elements';
 import Data from "../.././db/users.json";
 import { useNavigation  } from "@react-navigation/native"
 
+const {height, width} = Dimensions.get('window');
 
 const renderItem = ({ item }) => <User name={item.name} email={item.email} type={item.type}/>;
 export default class EmployeeViewListScreen extends Component {
@@ -41,16 +42,16 @@ export default class EmployeeViewListScreen extends Component {
               onChangeText={(text) => this.searchFunction(text)}
               autoCorrect={false}
             />
-            <View style={styles.container}>
+            <View>
                 <View style={styles.employee_view}>
-                <View style={styles.rowText}>
-                    <Text style={styles.title}>
-                        Name
-                    </Text>
-                    <Text style={styles.title}>
-                        E-mail
-                    </Text>
-                </View>
+                    <View style={styles.rowText}>
+                        <Text style={styles.title}>
+                            Name
+                        </Text>
+                        <Text style={styles.title}>
+                            E-mail
+                        </Text>
+                    </View>
                 <FlatList
                     data={this.state.data}
                     renderItem={renderItem}
@@ -77,28 +78,19 @@ const User = ({ name, email, type }) => {
     const navigation = useNavigation(); 
     if(type === "employee"){
         return (    
+            <TouchableOpacity
+                style={styles.userButton}
+                onPress={() => navigation.navigate('CSelectedProfile', {
+                    selectedUserEmail: email,
+                })}
+            >
             <View style={styles.user}>
-                <TouchableOpacity
-                    style={styles.darkButton}
-                    onPress={() => navigation.navigate('CSelectedProfile', {
-                        selectedUserEmail: email,
-                    })}
-                >
-                    <Text style={styles.text}>{name}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.darkButton}
-                    onPress={() => navigation.navigate('CSelectedProfile', {
-                        selectedUserEmail: email,
-                    })}
-                >
-                    <Text style={styles.text}>{email}</Text>
-                </TouchableOpacity>
+                <Text style={styles.text}>{name}</Text>
+                <Text style={styles.text}>{email}</Text>
             </View>
+            </TouchableOpacity>
             );
-    }
-
-    else {
+    }else {
         return (    
             <View>
             </View>
@@ -110,7 +102,7 @@ const User = ({ name, email, type }) => {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 15,
+        marginTop: height * 0.05,
         padding: 2,
     },
 
@@ -121,6 +113,12 @@ const styles = StyleSheet.create({
         marginHorizontal: 16,
         flexDirection: 'row',
         justifyContent: 'space-between',
+    },
+    userButton: {
+        backgroundColor: "#82B3C9",
+        marginVertical: height * 0.01,
+        marginHorizontal: width * 0.01,
+        
     },
 
     title: {
@@ -135,6 +133,7 @@ const styles = StyleSheet.create({
 
     employee_view: {
       backgroundColor: "#B3E5FC",
+      height: height * 0.75,
     },
 
     rowText: {
