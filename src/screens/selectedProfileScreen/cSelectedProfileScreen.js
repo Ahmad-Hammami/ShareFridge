@@ -15,6 +15,8 @@ export default class CSelectedProfileScreen extends Component {
         this.arrayholder = Data;
       }
     
+      
+
     findUser = (selectedUser) => {
         const updatedData = this.arrayholder.filter((user) => {
             const user_data = `${user.email})`;

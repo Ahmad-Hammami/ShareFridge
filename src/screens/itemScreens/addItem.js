@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import { Text, View, Image, StyleSheet, TextInput, TouchableOpacity, SafeAreaView, Dimensions, Modal,ScrollView, } from "react-native";
+import { Text, View, Image, StyleSheet, TextInput, TouchableOpacity, SafeAreaView, Dimensions, Modal,ScrollView, Alert } from "react-native";
 import { RadioButton, Button, Checkbox } from 'react-native-paper';
 //import { ScrollView } from 'react-native-virtualized-view';
 import MultiSelect from 'react-native-multiple-select';
@@ -8,33 +8,53 @@ import * as ImagePicker from 'expo-image-picker';
 
 const {height, width} = Dimensions.get('window');
 
-const contents = [{
-    id: 'Suger',
-    name: 'Suger'
-  }, {
-    id: 'Caffeine',
-    name: 'Caffeine'
-  }, {
-    id: 'Fat',
-    name: 'Fat'
-  }, {
-    id: 'Salt',
-    name: 'Salt'
-  }
-];
+
 
 export default class AddItem extends Component {
     constructor(props) {
         super(props);
 
         this.state = {name: '', price: '', amount: '', description: '',
-                        type: 'food',
-
-                        selectedContents : [],
+                        type: 'food', priority: false,
+                    
                         suger: false, caffeine: false, fat: false, salt: false,
                         popUpPhoto: false, selectedImage: "https://res.cloudinary.com/sharefridge/image/upload/v1651785014/coffee_imxakb.png",
         };
     }
+
+
+//måske fordi selected contets, suger osv er boolean, så den virker ikke hvis vi har dem med. FIND en anden måde til at impl. dem. 
+    submitData = ()=>{
+        fetch("http://10.0.2.2:3000/send-item",{
+            method: "post",
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify({
+                name:this.state.name,
+                price:this.state.price,
+                amount:this.state.amount,
+                type:this.state.type,
+                description:this.state.description, 
+                picture:this.state.selectedImage,
+                suger:this.state.suger,
+                caffeine:this.state.caffeine,
+                fat:this.state.fat,
+                salt:this.state.salt
+               
+            })
+        })
+    .then(res=>res.json()).then(data=>{
+        console.log(data)
+        Alert.alert(`${data.name} is saved successfuly`)
+        this.props.navigation.navigate("Administration")
+    })}
+
+
+
+
+
+
 
     onSelectedItemsChange = selectedContents => {
         if (selectedContents === []) {
@@ -330,7 +350,7 @@ export default class AddItem extends Component {
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={styles.darkButton}
-                        onPress={() => this.props.navigation.navigate('Administration')}
+                        onPress={this.submitData}
                     >
                         <Text>Confirm/Save</Text>
                     </TouchableOpacity>

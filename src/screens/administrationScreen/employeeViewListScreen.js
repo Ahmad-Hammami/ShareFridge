@@ -4,6 +4,7 @@ import { SearchBar } from 'react-native-elements';
 import Data from "../.././db/users.json";
 import { useNavigation  } from "@react-navigation/native"
 
+
 const {height, width} = Dimensions.get('window');
 
 const renderItem = ({ item }) => <User name={item.name} email={item.email} type={item.type}/>;
@@ -18,7 +19,10 @@ export default class EmployeeViewListScreen extends Component {
         };
         this.arrayholder = Data;
       }
+      
     
+
+
     searchFunction = (text) => {
         const updatedData = this.arrayholder.filter((user) => {
             const user_data = `${user.name.toUpperCase()})`;
