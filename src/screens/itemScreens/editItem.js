@@ -74,9 +74,6 @@ export default class EditItem extends Component {
         const { suger, caffeine, fat, salt } = this.state;
 
         return (
-            <View>
-                {this.state.item.map(item => {
-                    return (
             <SafeAreaView>
             <ScrollView>
             <View style={styles.container}>
@@ -251,9 +248,6 @@ export default class EditItem extends Component {
             </View>
             </ScrollView>
             </SafeAreaView>
-            );
-        })}
-    </View>
         );
     }
 

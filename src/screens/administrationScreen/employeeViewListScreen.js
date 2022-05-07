@@ -52,11 +52,11 @@ export default class EmployeeViewListScreen extends Component {
                             E-mail
                         </Text>
                     </View>
-                <FlatList
-                    data={this.state.data}
-                    renderItem={renderItem}
-                    keyExtractor={(item) => item.id}
-                />
+                    <FlatList
+                        data={this.state.data}
+                        renderItem={renderItem}
+                        keyExtractor={(item) => item.id}
+                    />
                 </View>
             </View>
             <View style={styles.container}>
@@ -109,15 +109,15 @@ const styles = StyleSheet.create({
     user: {
         backgroundColor: "#82B3C9",
         padding: 20,
-        marginVertical: 8,
-        marginHorizontal: 16,
+        //marginVertical: 8,
+        //marginHorizontal: 16,
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
     userButton: {
         backgroundColor: "#82B3C9",
         marginVertical: height * 0.01,
-        marginHorizontal: width * 0.01,
+        marginHorizontal: width * 0.005,
         
     },
 

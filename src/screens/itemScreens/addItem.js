@@ -8,21 +8,6 @@ import * as ImagePicker from 'expo-image-picker';
 
 const {height, width} = Dimensions.get('window');
 
-const contents = [{
-    id: 'Suger',
-    name: 'Suger'
-  }, {
-    id: 'Caffeine',
-    name: 'Caffeine'
-  }, {
-    id: 'Fat',
-    name: 'Fat'
-  }, {
-    id: 'Salt',
-    name: 'Salt'
-  }
-];
-
 export default class AddItem extends Component {
     constructor(props) {
         super(props);
@@ -30,24 +15,10 @@ export default class AddItem extends Component {
         this.state = {name: '', price: '', amount: '', description: '',
                         type: 'food',
 
-                        selectedContents : [],
                         suger: false, caffeine: false, fat: false, salt: false,
                         popUpPhoto: false, selectedImage: "https://res.cloudinary.com/sharefridge/image/upload/v1651785014/coffee_imxakb.png",
         };
     }
-
-    onSelectedItemsChange = selectedContents => {
-        if (selectedContents === []) {
-            this.clearSelectedCategories
-        } else {
-            this.setState({ selectedContents });
-        }
-        
-      };
-
-    clearSelectedCategories = () => {
-        this._multiSelect._removeAllItems();
-     };
 
 
      openImagePickerAsync = async () => {

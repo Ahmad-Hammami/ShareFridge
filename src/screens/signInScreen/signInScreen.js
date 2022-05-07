@@ -67,6 +67,8 @@ export default function  SignInScreen () {
                         navigation.navigate("Menu", {
                           auth: data[i].auth,
                           currentUsertype: data[i].type,
+                          currentUser: data[i].name,
+                          cart: new Array(),
                         });
                       } else {
                         setAuthenticated(true);

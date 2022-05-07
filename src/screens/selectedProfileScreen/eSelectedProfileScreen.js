@@ -9,7 +9,7 @@ export default class ESelectedProfileScreen extends Component {
         super(props);
         this.state = {
           data: Data, 
-          currentUser: "emma@gmail.com", //props.route.params.param,
+          currentUser: props.route.params.currentUser,
           password1: '', password2: '', password3: ''
         };
         this.arrayholder = Data;

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Text, View, ImageBackground, TouchableOpacity, StyleSheet, Dimensions, FlatList, ScrollView } from "react-native";
+import { Button, Text, View, ImageBackground, TouchableOpacity, StyleSheet, Dimensions, FlatList, ScrollView } from "react-native";
 import Items from "../../db/items.json";
 import { useNavigation  } from "@react-navigation/native"
 
 const {height, width} = Dimensions.get('window');
 let food = false;
 let currentUsertype = "";
+let cart = new Array();
 
 const renderitemp = ({ item }) => <Itemp name={item.name} price={item.price} priority={item.priority} type={item.type}/>;
 const renderitem = ({ item }) => <Item name={item.name} price={item.price} priority={item.priority} type={item.type}/>;
@@ -15,6 +16,9 @@ export default class MenuScreen extends Component {
         this.state = {
           Behavior: "", 
           currentUsertype: props.route.params.currentUsertype,
+          currentUser: props.route.params.currentUser,
+          
+          cart: props.route.params.cart,
           items: Items,
           food: false,
         };
@@ -33,7 +37,9 @@ export default class MenuScreen extends Component {
         if(currentUsertype === "employee"){
             return (
                 <TouchableOpacity style={styles.profilebtn}
-                    onPress={() => this.props.navigation.navigate('ESelectedProfile')}>
+                    onPress={() => this.props.navigation.navigate('ESelectedProfile', {
+                        currentUser: this.state.currentUser
+                    })}>
                     <Text style={styles.textbtn}>
                         Profile
                     </Text>
@@ -44,19 +50,33 @@ export default class MenuScreen extends Component {
         }
     }
 
+    checkCart = (check) => {
+        console.log(check)
+        if(check[0] === "reset"){
+            //console.log(cart)
+            //this.setState({cart: new Array()})
+            cart = new Array()
+
+        }
+    }
+
     componentDidMount(){
         if(this.state.Behavior === ""){
             this.setState({ Behavior: "No new behavior detected, have a good day." });
         }
         currentUsertype = this.state.currentUsertype
+        cart = this.state.cart;
+        console.log(cart)
     }
-    render() {
 
+    render() {
+        let check = this.props.route.params.cart
+        this.checkCart(check);
         return (
             <View>
                 <View style={styles.containerBlackLine}>
                     <View style={styles.container}>
-                        <View style={styles.containerCenter}>
+                        <View>
                             <Text style={styles.title}>Menu</Text>
                         </View>
 
@@ -64,7 +84,7 @@ export default class MenuScreen extends Component {
                             {this.profileButton()}
                             
                         </View>
-                        <View>
+                        <View style={styles.behaviorTextView}>
                             <Text style={styles.behaviorText}>
                                 {this.state.Behavior}
                             </Text>
@@ -72,13 +92,13 @@ export default class MenuScreen extends Component {
                     </View>
                 </View>
 
-                <View>
+                <View style={styles.menu_view}>
                     <View style={styles.rowButtons}>
                         <TouchableOpacity
                             style={styles.foodButton(this.state.food)}
                             onPress={() => this.foodFunction()}
                         >
-                            <Text style={styles.textbtn}>
+                            <Text style={styles.titleTextbtn}>
                                 Food
                             </Text>
                         </TouchableOpacity>
@@ -87,42 +107,44 @@ export default class MenuScreen extends Component {
                             style={styles.drinksButton(this.state.food)}
                             onPress={() => this.drinksFunction()}
                         >
-                            <Text style={styles.textbtn}>
+                            <Text style={styles.titleTextbtn}>
                                 Drinks
                             </Text>
                         </TouchableOpacity>
                     </View>
-                    <FlatList
-                        data={this.state.items}
-                        renderItem={renderitemp}
-                        keyExtractor={(item) => item.id}
-                    />
-                    <FlatList
-                        data={this.state.items}
-                        renderItem={renderitem}
-                        keyExtractor={(item) => item.id}
-                    />
-
-
-                    <View style={styles.rowButtons}>
-                        <TouchableOpacity
-                            style={styles.lightButton}
-                            onPress={() => this.props.navigation.goBack()}
-                        >
-                            <Text style={styles.textbtn}>
-                                Back
-                            </Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity
-                            style={styles.darkButton}
-                            onPress={() => this.props.navigation.navigate('Cart')}
-                        >
-                            <Text style={styles.textbtn}>
-                                Go to Cart
-                            </Text>
-                        </TouchableOpacity>
+                    <View>
+                        <FlatList
+                            data={this.state.items}
+                            renderItem={renderitemp}
+                            keyExtractor={(item) => item.id}
+                        />
+                        <FlatList
+                            data={this.state.items}
+                            renderItem={renderitem}
+                            keyExtractor={(item) => item.id}
+                        />
                     </View>
+                </View>
+                <View style={styles.rowButtons}>
+                    <TouchableOpacity
+                        style={styles.lightButton}
+                        onPress={() => this.props.navigation.goBack()}
+                    >
+                        <Text style={styles.titleTextbtn}>
+                            Back
+                        </Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={styles.darkButton}
+                        onPress={() => this.props.navigation.navigate('Cart', {
+                            cart: this.state.cart
+                        })}
+                    >
+                        <Text style={styles.titleTextbtn}>
+                            Go to Cart
+                        </Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         );
@@ -155,7 +177,6 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 30,
         fontFamily: 'ArimaMadurai-Bold',
-        paddingRight: 270,
     },
 
     btnstyle: {
@@ -177,8 +198,12 @@ const styles = StyleSheet.create({
 
     behaviorText: {
         fontSize: 15,
-        marginTop: height * 0.02,
         fontFamily: 'ArimaMadurai-Bold',
+
+    },
+
+    behaviorTextView: {
+        marginTop: height * 0.02,
         paddingBottom: height * 0.1,
         backgroundColor: "#B3E5FC",
     },
@@ -187,8 +212,16 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
+
+    menu_view: {
+        height: height * 0.65,
+      },
     
     textbtn: {
+        fontSize: 15,
+        fontFamily: 'ArimaMadurai-Bold',
+    },
+    titleTextbtn: {
         fontSize: 15,
         fontFamily: 'ArimaMadurai-Bold',
     },
@@ -251,10 +284,32 @@ const styles = StyleSheet.create({
         height: height * 0.03,
         alignItems: 'center', 
         justifyContent: 'center',
-    }
+    }, 
+
+    addToCartButton:{
+        backgroundColor: "#B3E5FC",
+        borderRadius: 20,
+        width: height * 0.05,
+        height: height * 0.05,
+        alignItems: 'center', 
+        justifyContent: 'center',
+    },
+    textSide: {
+        fontSize: 15,
+        fontFamily: 'ArimaMadurai-Bold',
+        width: width * 0.3,
+        textAlign: 'center',
+        textAlignVertical: "center",
+    },
+    textMiddel: {
+        fontSize: 15,
+        fontFamily: 'ArimaMadurai-Bold',
+        width: width * 0.2,
+        textAlign: 'center',
+        textAlignVertical: "center",
+    },
 
 });
-
 
 
 const Itemp = ({ name, price, priority, type }) => {
@@ -268,12 +323,20 @@ const Itemp = ({ name, price, priority, type }) => {
                         style={styles.itemButton}
                         onPress={() => navigation.navigate('SelectedItem', {
                             selectedItemName: name,
+                            cart: cart,
                         })}
                         >    
                             <View style={styles.items}>
-                                <Text style={styles.textbtn}>{name}</Text>
-                                <Text style={styles.textbtn}>{price} Kr.</Text>
-                                <Text style={styles.textbtn}>add to cart</Text>
+                                <Text style={styles.textSide}>{name}</Text>
+                                <Text style={styles.textMiddel}>{price} Kr.</Text>
+                                <Text style={styles.textSide}>add to cart</Text>
+                                <TouchableOpacity
+                                style={styles.addToCartButton}
+                                onPress={() => cart.push(name)} 
+                                >
+                                    <Text>+</Text>
+                                </TouchableOpacity>
+                                
                             </View>
                         </TouchableOpacity>
                     );
@@ -286,8 +349,8 @@ const Itemp = ({ name, price, priority, type }) => {
                         })}
                     >    
                     <View style={styles.items}>
-                        <Text style={styles.textbtn}>{name}</Text>
-                        <Text style={styles.textbtn}>{price} Kr.</Text>
+                        <Text style={styles.textSide}>{name}</Text>
+                        <Text style={styles.textSide}>{price} Kr.</Text>
                     </View>
                     </TouchableOpacity>
                     );
@@ -311,12 +374,19 @@ const Itemp = ({ name, price, priority, type }) => {
                         style={styles.itemButton}
                         onPress={() => navigation.navigate('SelectedItem', {
                             selectedItemName: name,
+                            cart: cart,
                         })}
                         >    
                             <View style={styles.items}>
-                                <Text style={styles.textbtn}>{name}</Text>
-                                <Text style={styles.textbtn}>{price} Kr.</Text>
-                                <Text style={styles.textbtn}>add to cart</Text>
+                                <Text style={styles.textSide}>{name}</Text>
+                                <Text style={styles.textMiddel}>{price} Kr.</Text>
+                                <Text style={styles.textSide}>add to cart</Text>
+                                <TouchableOpacity
+                                style={styles.addToCartButton}
+                                onPress={() => cart.push(name)} 
+                                >
+                                    <Text>+</Text>
+                                </TouchableOpacity>
                             </View>
                         </TouchableOpacity>
                     );
@@ -329,8 +399,8 @@ const Itemp = ({ name, price, priority, type }) => {
                         })}
                     >    
                     <View style={styles.items}>
-                        <Text style={styles.textbtn}>{name}</Text>
-                        <Text style={styles.textbtn}>{price} Kr.</Text>
+                        <Text style={styles.textSide}>{name}</Text>
+                        <Text style={styles.textSide}>{price} Kr.</Text>
                     </View>
                     </TouchableOpacity>
                     );
@@ -359,12 +429,19 @@ const Item = ({ name, price, priority, type }) => {
                         style={styles.itemButton}
                         onPress={() => navigation.navigate('SelectedItem', {
                             selectedItemName: name,
+                            cart: cart,
                         })}
                         >    
                             <View style={styles.items}>
-                                <Text style={styles.textbtn}>{name}</Text>
-                                <Text style={styles.textbtn}>{price} Kr.</Text>
-                                <Text style={styles.textbtn}>add to cart</Text>
+                                <Text style={styles.textSide}>{name}</Text>
+                                <Text style={styles.textMiddel}>{price} Kr.</Text>
+                                <Text style={styles.textSide}>add to cart</Text>
+                                <TouchableOpacity
+                                style={styles.addToCartButton}
+                                onPress={() => cart.push(name)} 
+                                >
+                                    <Text>+</Text>
+                                </TouchableOpacity>
                             </View>
                         </TouchableOpacity>
                     );
@@ -377,8 +454,8 @@ const Item = ({ name, price, priority, type }) => {
                         })}
                     >    
                     <View style={styles.items}>
-                        <Text style={styles.textbtn}>{name}</Text>
-                        <Text style={styles.textbtn}>{price} Kr.</Text>
+                        <Text style={styles.textSide}>{name}</Text>
+                        <Text style={styles.textSide}>{price} Kr.</Text>
                     </View>
                     </TouchableOpacity>
                     );
@@ -402,12 +479,19 @@ const Item = ({ name, price, priority, type }) => {
                         style={styles.itemButton}
                         onPress={() => navigation.navigate('SelectedItem', {
                             selectedItemName: name,
+                            cart: cart,
                         })}
                         >    
                             <View style={styles.items}>
-                                <Text style={styles.textbtn}>{name}</Text>
-                                <Text style={styles.textbtn}>{price} Kr.</Text>
-                                <Text style={styles.textbtn}>add to cart</Text>
+                                <Text style={styles.textSide}>{name}</Text>
+                                <Text style={styles.textMiddel}>{price} Kr.</Text>
+                                <Text style={styles.textSide}>add to cart</Text>
+                                <TouchableOpacity
+                                style={styles.addToCartButton}
+                                onPress={() => cart.push(name)} 
+                                >
+                                    <Text>+</Text>
+                                </TouchableOpacity>
                             </View>
                         </TouchableOpacity>
                     );
@@ -420,8 +504,8 @@ const Item = ({ name, price, priority, type }) => {
                         })}
                     >    
                     <View style={styles.items}>
-                        <Text style={styles.textbtn}>{name}</Text>
-                        <Text style={styles.textbtn}>{price} Kr.</Text>
+                        <Text style={styles.textSide}>{name}</Text>
+                        <Text style={styles.textSide}>{price} Kr.</Text>
                     </View>
                     </TouchableOpacity>
                     );
