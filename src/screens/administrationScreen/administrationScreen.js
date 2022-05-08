@@ -42,6 +42,7 @@ export default class AdministrationScreen extends Component {
                 style={styles.darkButton}
                 onPress={() => this.props.navigation.navigate('Menu', {
                     currentUsertype: this.state.currentUsertype,
+                    cart: [],
               })}
             >
                 <Text>Menu</Text>

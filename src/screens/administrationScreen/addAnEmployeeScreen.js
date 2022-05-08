@@ -10,7 +10,7 @@ const {height, width} = Dimensions.get('window');
 export default class AddAnEmployee extends Component {
     constructor(props) {
         super(props);
-        this.state = {id: 10, fullName: '', email: '', password1: '', password2: '', balance: '', 
+        this.state = {id: 10, fullName: '', email: '', password1: '', password2: '', balance: '', type: 'employee',
             popUpPhoto: false, selectedImage: "https://res.cloudinary.com/sharefridge/image/upload/v1651785014/Emma_Profile_ij8c9r.jpg",
         };
       }
@@ -27,7 +27,8 @@ export default class AddAnEmployee extends Component {
                 email: this.state.email,
                 password: this.state.password1,
                 picture: this.state.selectedImage,
-                balance: this.state.balance
+                balance: this.state.balance,
+                type:this.state.type
             })
         })
     .then(res=>res.json()).then(data=>{

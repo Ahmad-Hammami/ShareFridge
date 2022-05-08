@@ -231,13 +231,17 @@ export default class EditItem extends Component {
                 <View style={styles.rowButton}>
                     <TouchableOpacity
                         style={styles.lightButton}
-                        onPress={() => this.props.navigation.navigate('Menu')}
+                        onPress={() => this.props.navigation.navigate('Menu', {
+                            cart: []
+                        })}
                     >
                         <Text>Cancel</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={styles.darkButton}
-                        onPress={() => this.props.navigation.navigate('Menu')}
+                        onPress={() => this.props.navigation.navigate('Menu',{
+                            cart:[]
+                        })}
                     >
                         <Text>Confirm/Save</Text>
                     </TouchableOpacity>

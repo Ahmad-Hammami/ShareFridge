@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, FlatList, Dimensions,} from "react-native";
 import { SearchBar } from 'react-native-elements';
-import Data from "../.././db/users.json";
+/* import Data from "../.././db/users.json"; */
 import { useNavigation  } from "@react-navigation/native"
+
 
 
 const {height, width} = Dimensions.get('window');
@@ -13,14 +14,30 @@ export default class EmployeeViewListScreen extends Component {
         super(props);
         this.state = {
           loading: false,
-          data: Data,
+          data: null,
           error: null,
           searchValue: "",
         };
-        this.arrayholder = Data;
+        this.arrayholder = this.state.data;
       }
       
     
+      getUsers = ()=>{
+          fetch("http://10.0.2.2:3000/users")
+          .then((res)=>(res.json()))
+          .then((result) => {
+              this.setState({data: result})
+              
+          })
+          .catch((error) => {
+              console.error(error)
+          });
+      }
+
+      componentDidMount(){
+          this.getUsers();
+      }
+
 
 
     searchFunction = (text) => {

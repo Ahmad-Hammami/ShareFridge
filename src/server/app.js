@@ -4,11 +4,14 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 require('./Employee')
 require('./Item')
-
+require('./Receipt')
+require('./Behavior')
 app.use(bodyParser.json())
+
 const Employee = mongoose.model("employee")
 const Item = mongoose.model("item")
-
+const Receipt = mongoose.model("receipt")
+const Behavior = mongoose.model("behavior")
 
 //Connect to the cluster
 // user= sharefridge   password= sharefridge
@@ -17,15 +20,15 @@ const mongoUrl = "mongodb+srv://sharefridge:sharefridge@clusterbp.lyweo.mongodb.
 //Connect to db
 
 mongoose.connect(mongoUrl, {
-    useNewUrlParser:true,
-    useUnifiedTopology:true
+    useNewUrlParser: true,
+    useUnifiedTopology: true
 })
 
-mongoose.connection.on("Connected",()=>{
+mongoose.connection.on("Connected", () => {
     console.log("Connected to the db")
 })
 
-mongoose.connection.on("error",(error)=>{
+mongoose.connection.on("error", (error) => {
     console.log("error", error)
 })
 
@@ -34,53 +37,49 @@ mongoose.connection.on("error",(error)=>{
 
 //  Users API
 
-app.get('/users', (req, res)=>{
-    Employee.find({}).then(data=>{
+app.get('/users', (req, res) => {
+    Employee.find({}).then(data => {
         res.send(data)
-    }).catch(error=>{
+        console.log("modtaget YYYYYYYYYYYYYYYYYYEs")
+    }).catch(error => {
         console.log(error)
     })
 })
 
-app.post('/send-user', (req, res)=>{
+app.post('/send-user', (req, res) => {
     const employee = new Employee({
-        name:req.body.name,
-        email:req.body.email,
-        password:req.body.password,
-        type:req.body.type,
-        picture:req.body.picture,
-        balance:req.body.balance
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password,
+        type: req.body.type,
+        picture: req.body.picture,
+        balance: req.body.balance
     })
     employee.save()
-    .then(data=>{
-        console.log(data)
-        res.send(data)
-    }).catch(error=>{
-        console.log(error)
-    })
-    
+        .then(data => {
+            console.log(data)
+            res.send(data)
+        }).catch(error => {
+            console.log(error)
+        })
+
 })
 
-app.post('/deleteuser',(req, res)=>{
+app.post('/delete-user', (req, res) => {
     Employee.findByIdAndRemove(req.body.id)
-    .then(data=>{
-        console.log(data)
-        res.send(data)
-    })
+        .then(data => {
+            console.log(data)
+            res.send(data)
+        })
 })
 
-app.post('/updateuser',(req, res)=>{
-    Employee.findByIdAndUpdate(req.body.id, {
-        name:req.body.name,
-        email:req.body.email,
-        password:req.body.password,
-        type:req.body.type,
-        picture:req.body.picture,
-        balance:req.body.balance
-    }).then(data=>{
+app.post('/update-user', (req, res) => {
+    Employee.findOneAndUpdate({email:req.body.email}, {
+        balance: req.body.balance
+    }).then(data => {
         console.log(data)
         res.send(data)
-    }).catch(error=>{
+    }).catch(error => {
         console.log(error)
     })
 })
@@ -91,37 +90,125 @@ app.post('/updateuser',(req, res)=>{
 //  Items API
 
 
-app.post('/send-item', (req, res)=>{
+app.post('/send-item', (req, res) => {
     const item = new Item({
-        name:req.body.name,
-        price:req.body.price,
-        amount:req.body.amount,
-        type:req.body.type,
-        description:req.body.description, 
-        picture:req.body.picture,
-        suger:req.body.suger,
-        caffeine:req.body.caffeine,
-        fat:req.body.fat,
-        salt:req.body.salt,
-        priority:req.body.priority
+        name: req.body.name,
+        price: req.body.price,
+        amount: req.body.amount,
+        type: req.body.type,
+        description: req.body.description,
+        picture: req.body.picture,
+        suger: req.body.suger,
+        caffeine: req.body.caffeine,
+        fat: req.body.fat,
+        salt: req.body.salt,
+        priority: req.body.priority
     })
     item.save()
-    .then(data=>{
-        console.log(data)
-        res.send(data)
-    }).catch(error=>{
-        console.log(error)
+        .then(data => {
+            console.log(data)
+            res.send(data)
+        }).catch(error => {
+            console.log(error)
+        })
+})
+
+
+
+// receipt API's
+
+app.post('/add-receipts', (req, res) => {
+    const receipt = new Receipt({
+        email: req.body.email,
+        cartItems: req.body.cartItems
+
     })
+    receipt.save()
+        .then(data => {
+            console.log(data)
+            res.send(data)
+        }).catch(error => {
+            console.log(error)
+        })
+})
+
+
+app.get('/get-personal-receipts', (req, res) => {
+    Receipt.find({email: req.body.email})
+        .then(data => {
+            console.log(data)
+            res.send(data)
+        }).catch(error => {
+            console.log(error)
+        })
+})
+
+
+app.get('/get-all-receipts', (req, res) => {
+    Receipt.find({})
+        .then(data => {
+            console.log(data)
+            res.send(data)
+        }).catch(error => {
+            console.log(error)
+        })
+})
+
+
+
+// Behavior API's
+
+
+app.post('/add-behavior', (req, res) => {
+    const behavior = new Behavior({
+        email: req.body.email,
+        suger: 0,
+        salt: 0,
+        caffeine: 0,
+        fat: 0
+    })
+    behavior.save()
+        .then(data => {
+            console.log(data)
+            res.send(data)
+        }).catch(error => {
+            console.log(error)
+        })
+})
+
+
+app.get('/get-behavior', (req, res) => {
+    Behavior.findOne({ email: req.body.email })
+        .then(data => {
+            console.log(data)
+            res.send(data)
+        }).catch(error => {
+            console.log(error)
+        })
+})
+
+
+app.post('/update-behavior', (req, res) => {
+    Behavior.findOneAndUpdate({ email: req.body.email }, {
+        email: req.body.email,
+        suger: req.body.suger,
+        salt: req.body.salt,
+        caffeine: req.body.caffeine,
+        fat: req.body.fat
+    })
+        .then(data => {
+            res.send(data)
+            console.log(data)
+        }).catch(error => {
+            console.log(error)
+        })
 })
 
 
 
 
 
-
-
-
-app.listen(3000, () =>{
+app.listen(3000, () => {
     console.log("server is running!")
 })
 

@@ -1,18 +1,35 @@
 
-import React, { useState} from "react";
+import React, { useState, useEffect} from "react";
 import { Button, Text, View, TextInput, StyleSheet, Image, TouchableOpacity, } from "react-native";
 import data from "../.././db/users.json";
 import { useNavigation } from "@react-navigation/core";
 
 
 export default function  SignInScreen () {
-    const [authenticated, setAuthenticated] = useState(false);
+  const [authenticated, setAuthenticated] = useState(false);
   const [id, setId] = useState(-1);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [data, setData] = useState("");
+
 
   const navigation = useNavigation();
     
+  useEffect(()=>{
+    fetch("http://10.0.2.2:3000/users")
+          .then((res)=>(res.json()))
+          .then((result) => {
+              setData(result)
+              console.log("Loaded users for signIn")
+              
+          })
+          .catch((error) => {
+              console.error(error)
+          });
+  },[])
+
+
+
         return (
             <View style={styles.container}> 
                 <Text style={styles.title}>Willcome to ShareFridge</Text>
