@@ -15,6 +15,7 @@ export default class CartScreen extends Component {
         super(props);
         this.state = {
           cart: props.route.params.cart,
+          currentUser: props.route.params.currentUser,
           items: Items,
         };
         this.arrayholder = Items;
@@ -86,9 +87,12 @@ export default class CartScreen extends Component {
         this.setState({cart: this.state.cart})
     }
     submit = () => {
+        this.state.cart.length = 0;
+        cart.length = 0;
         Alert.alert(`is saved successfuly`)
         this.props.navigation.navigate('Menu', {
-            cart: ["reset"]
+
+            cart: this.state.cart
         });
         
     };

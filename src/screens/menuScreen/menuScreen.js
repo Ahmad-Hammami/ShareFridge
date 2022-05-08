@@ -138,7 +138,8 @@ export default class MenuScreen extends Component {
                     <TouchableOpacity
                         style={styles.darkButton}
                         onPress={() => this.props.navigation.navigate('Cart', {
-                            cart: this.state.cart
+                            cart: this.state.cart,
+                            currentUser: this.state.currentUser,
                         })}
                     >
                         <Text style={styles.titleTextbtn}>
@@ -214,7 +215,7 @@ const styles = StyleSheet.create({
     },
 
     menu_view: {
-        height: height * 0.65,
+        height: height * 0.6,
       },
     
     textbtn: {
@@ -256,7 +257,7 @@ const styles = StyleSheet.create({
         } 
     },
     items: {
-        padding: 20,
+        padding: 10,
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
