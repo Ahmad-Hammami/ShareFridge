@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Text, View, Image, StyleSheet, TextInput, TouchableOpacity, Modal, Dimensions, SafeAreaView, ScrollView, } from "react-native";
+import {Text, View, Image, StyleSheet, TextInput, TouchableOpacity, Modal, Dimensions, SafeAreaView, ScrollView, Alert, } from "react-native";
 import { Button,  } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
 
@@ -10,10 +10,35 @@ const {height, width} = Dimensions.get('window');
 export default class AddAnEmployee extends Component {
     constructor(props) {
         super(props);
-        this.state = {id: 10, fullName: '', email: '', password1: '', password2: '',
+        this.state = {id: 10, fullName: '', email: '', password1: '', password2: '', balance: '', 
             popUpPhoto: false, selectedImage: "https://res.cloudinary.com/sharefridge/image/upload/v1651785014/Emma_Profile_ij8c9r.jpg",
         };
       }
+
+
+    submitData = ()=>{
+        fetch("http://10.0.2.2:3000/send-user",{
+            method: "post",
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify({
+                name: this.state.fullName,
+                email: this.state.email,
+                password: this.state.password1,
+                picture: this.state.selectedImage,
+                balance: this.state.balance
+            })
+        })
+    .then(res=>res.json()).then(data=>{
+        console.log(data)
+        Alert.alert(`${data.name} is saved successfuly`)
+        this.props.navigation.navigate("Administration")
+    })}
+
+
+
+
 
     navigateFunction = () => {
 
@@ -206,16 +231,7 @@ export default class AddAnEmployee extends Component {
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={styles.darkButton}
-                            onPress = {() => this.saveFunction(
-                                { 
-                                    id: this.state.id,
-                                    name: this.state.fullName,
-                                    email: this.state.email,
-                                    password: this.state.password1,
-                                    balance: 0,
-                                    type: "employee"
-                                }
-                            )}
+                            onPress = {this.submitData}
                         >
                             <Text>Confirm/Save</Text>
                         </TouchableOpacity>
