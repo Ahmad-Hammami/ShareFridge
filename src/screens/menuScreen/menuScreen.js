@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Text, View, ImageBackground, TouchableOpacity, StyleSheet, Dimensions, FlatList, ScrollView } from "react-native";
-import Items from "../../db/items.json";
+
 import { useNavigation  } from "@react-navigation/native"
 
 const {height, width} = Dimensions.get('window');
@@ -19,10 +19,35 @@ export default class MenuScreen extends Component {
           currentUser: props.route.params.currentUser,
           
           cart: props.route.params.cart,
-          items: Items,
+          items: null,
           food: false,
         };
       }
+
+  
+      getItems = ()=>{
+        fetch("https://sharefridgebackend.herokuapp.com/items")
+        .then((res)=>(res.json()))
+        .then((result) => {
+            this.setState({items: result})
+            
+        })
+        .catch((error) => {
+            console.error(error)
+        });
+    }
+
+    componentDidMount(){
+        this.getItems();
+        if(this.state.Behavior === ""){
+            this.setState({ Behavior: "No new behavior detected, have a good day." });
+        }
+        currentUsertype = this.state.currentUsertype
+        cart = this.state.cart;
+    }
+
+
+      
 
     foodFunction = () => {
         this.setState({ food: true });
@@ -60,14 +85,14 @@ export default class MenuScreen extends Component {
         }
     }
 
-    componentDidMount(){
+   /*  componentDidMount(){
         if(this.state.Behavior === ""){
             this.setState({ Behavior: "No new behavior detected, have a good day." });
         }
         currentUsertype = this.state.currentUsertype
         cart = this.state.cart;
         console.log(cart)
-    }
+    } */
 
     render() {
         let check = this.props.route.params.cart

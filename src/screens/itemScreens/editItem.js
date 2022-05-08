@@ -9,20 +9,6 @@ import Item from "../../db/items.json";
 
 const {height, width} = Dimensions.get('window');
 
-const contents = [{
-    id: 'Suger',
-    name: 'Suger'
-  }, {
-    id: 'Caffeine',
-    name: 'Caffeine'
-  }, {
-    id: 'Fat',
-    name: 'Fat'
-  }, {
-    id: 'Salt',
-    name: 'Salt'
-  }
-];
 
 export default class EditItem extends Component {
     constructor(props) {
@@ -40,6 +26,35 @@ export default class EditItem extends Component {
         
     }
 
+
+  /*   submitData = (selectedItem)=>{
+        fetch("https://sharefridgebackend.herokuapp.com/update-item",{
+            method: "post",
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify({
+                name:this.state.name,
+                price:this.state.price,
+                amount:this.state.amount,
+                type:this.state.type,
+                description:this.state.description, 
+                picture:this.state.selectedImage,
+                suger:this.state.suger,
+                caffeine:this.state.caffeine,
+                fat:this.state.fat,
+                salt:this.state.salt
+               
+            })
+        })
+    .then(res=>res.json())
+    .then(data=>{
+        this.setState({result: data})
+        
+    })} */
+
+
+ 
 
     findItem = async (selectedItem) => {
         let updatedData = await this.arrayholder.filter((item) => {

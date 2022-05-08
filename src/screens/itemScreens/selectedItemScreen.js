@@ -17,6 +17,24 @@ export default class SelectedItemScreen extends Component {
         this.arrayholder = Item;
       }
     
+
+    /*   
+      getItem = ()=>{
+        fetch("https://sharefridgebackend.herokuapp.com/get-selected-item")
+        .then((res)=>(res.json()))
+        .then((result) => {
+            this.setState({selectedItem: result})
+            
+        })
+        .catch((error) => {
+            console.error(error)
+        });
+    }
+
+ */
+
+
+
     findItem = (selectedItem) => {
         const updatedData = this.arrayholder.filter((item) => {
             const item_data = `${item.name})`;
