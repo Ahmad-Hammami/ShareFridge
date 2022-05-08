@@ -23,7 +23,7 @@ export default class EmployeeViewListScreen extends Component {
       
     
       getUsers = ()=>{
-          fetch("http://10.0.2.2:3000/users")
+          fetch("https://sharefridgebackend.herokuapp.com/users")
           .then((res)=>(res.json()))
           .then((result) => {
               this.setState({data: result})

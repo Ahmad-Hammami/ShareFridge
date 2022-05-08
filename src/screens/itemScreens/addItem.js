@@ -25,7 +25,7 @@ export default class AddItem extends Component {
 
 //måske fordi selected contets, suger osv er boolean, så den virker ikke hvis vi har dem med. FIND en anden måde til at impl. dem. 
     submitData = ()=>{
-        fetch("http://10.0.2.2:3000/send-item",{
+        fetch("https://sharefridgebackend.herokuapp.com/send-item",{
             method: "post",
             headers:{
                 'Content-Type': 'application/json'

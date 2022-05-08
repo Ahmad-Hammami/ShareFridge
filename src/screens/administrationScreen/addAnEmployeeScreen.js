@@ -17,7 +17,7 @@ export default class AddAnEmployee extends Component {
 
 
     submitData = ()=>{
-        fetch("http://10.0.2.2:3000/send-user",{
+        fetch("https://sharefridgebackend.herokuapp.com/send-user",{
             method: "post",
             headers:{
                 'Content-Type': 'application/json'

@@ -4,7 +4,6 @@ import { Button, Text, View, TextInput, StyleSheet, Image, TouchableOpacity, } f
 import data from "../.././db/users.json";
 import { useNavigation } from "@react-navigation/core";
 
-
 export default function  SignInScreen () {
   const [authenticated, setAuthenticated] = useState(false);
   const [id, setId] = useState(-1);
@@ -16,7 +15,7 @@ export default function  SignInScreen () {
   const navigation = useNavigation();
     
   useEffect(()=>{
-    fetch("http://10.0.2.2:3000/users")
+    fetch("https://sharefridgebackend.herokuapp.com/users")
           .then((res)=>(res.json()))
           .then((result) => {
               setData(result)
@@ -24,6 +23,7 @@ export default function  SignInScreen () {
               
           })
           .catch((error) => {
+            console.log("error")
               console.error(error)
           });
   },[])
