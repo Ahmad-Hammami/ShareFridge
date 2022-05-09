@@ -73,7 +73,7 @@ export default class EmployeeViewListScreen extends Component {
             <FlatList
               data={this.state.data}
               renderItem={renderItem}
-              keyExtractor={(item) => item.id}
+              keyExtractor={(item) => item._id}
             />
           </View>
         </View>

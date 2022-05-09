@@ -98,7 +98,7 @@ export default class SelectedItemScreen extends Component {
             </View>
             <View style={styles.rowTextView}>
               <Text style={styles.text}>Added to cart</Text>
-              <Text style={styles.countText}>{item.amount}</Text>
+              <Text style={styles.countText}>{count}</Text>
             </View>
             <View style={styles.rowButtonView}>
               <TouchableOpacity
