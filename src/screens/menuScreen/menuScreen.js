@@ -75,28 +75,7 @@ export default class MenuScreen extends Component {
         }
     }
 
-    checkCart = (check) => {
-        console.log(check)
-        if(check[0] === "reset"){
-            //console.log(cart)
-            //this.setState({cart: new Array()})
-            cart = new Array()
-
-        }
-    }
-
-   /*  componentDidMount(){
-        if(this.state.Behavior === ""){
-            this.setState({ Behavior: "No new behavior detected, have a good day." });
-        }
-        currentUsertype = this.state.currentUsertype
-        cart = this.state.cart;
-        console.log(cart)
-    } */
-
     render() {
-        let check = this.props.route.params.cart
-        this.checkCart(check);
         return (
             <View>
                 <View style={styles.containerBlackLine}>
