@@ -101,6 +101,24 @@ export default class EditItem extends Component {
       });
   };
 
+  deleteData = () => {
+    fetch("https://sharefridgebackend.herokuapp.com/delete-item", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: this.state.name,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data)
+        Alert.alert(`${data.name} is deleted successfuly`)
+        this.props.navigation.navigate("Menu")
+      });
+  };
+
   componentDidMount() {
     this.getItem();
   }
@@ -118,7 +136,7 @@ export default class EditItem extends Component {
               <Text style={styles.title}>{name}</Text>
               <TouchableOpacity
                 style={styles.redButton}
-                onPress={() => this.props.navigation.navigate("Menu")}
+                onPress={this.deleteData}
               >
                 <Text>Delete</Text>
               </TouchableOpacity>
