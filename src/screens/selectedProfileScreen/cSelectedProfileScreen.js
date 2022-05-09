@@ -55,6 +55,19 @@ export default class CSelectedProfileScreen extends Component {
   };
 
   submitData = async () => {
+    await fetch("https://sharefridgebackend.herokuapp.com/delete-behavior", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: this.state.user.email,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
     await fetch("https://sharefridgebackend.herokuapp.com/delete-user", {
       method: "post",
       headers: {
