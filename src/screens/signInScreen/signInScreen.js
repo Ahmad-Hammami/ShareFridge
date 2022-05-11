@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect} from "react";
-import { Button, Text, View, TextInput, StyleSheet, Image, TouchableOpacity, } from "react-native";
+import { Button, Text, View, TextInput, StyleSheet, Image, TouchableOpacity,  SafeAreaView, ScrollView,} from "react-native";
 import data from "../.././db/users.json";
 import { useNavigation } from "@react-navigation/core";
 

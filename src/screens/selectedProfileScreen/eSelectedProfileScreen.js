@@ -23,6 +23,7 @@ export default class ESelectedProfileScreen extends Component {
     this.state = {
       user: Users,
       currentUser: props.route.params.currentUser,
+      currentUsertype: props.route.params.currentUsertype,
       password1: "",
       password2: "",
       password3: "",
@@ -122,7 +123,10 @@ export default class ESelectedProfileScreen extends Component {
                 <TouchableOpacity
                   style={styles.behaviorButton}
                   onPress={() =>
-                    this.props.navigation.navigate("EViewBehavior")
+                    this.props.navigation.navigate("EViewBehavior", {
+                      currentUser: this.state.currentUser,
+                      currentUsertype: this.state.currentUsertype
+                    })
                   }
                 >
                   <Text>Behavior</Text>
@@ -155,7 +159,11 @@ export default class ESelectedProfileScreen extends Component {
                   <TouchableOpacity
                     style={styles.lightButton}
                     onPress={() =>
-                      this.props.navigation.navigate("Administration")
+                      this.props.navigation.navigate("Menu", {
+                        currentUser: this.state.currentUser,
+                        cart: [],
+                        currentUsertype: this.state.currentUsertype
+                      })
                     }
                   >
                     <Text>Back</Text>

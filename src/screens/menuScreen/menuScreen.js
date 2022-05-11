@@ -63,7 +63,8 @@ export default class MenuScreen extends Component {
             return (
                 <TouchableOpacity style={styles.profilebtn}
                     onPress={() => this.props.navigation.navigate('ESelectedProfile', {
-                        currentUser: this.state.currentUser
+                        currentUser: this.state.currentUser,
+                        currentUsertype: this.state.currentUsertype
                     })}>
                     <Text style={styles.textbtn}>
                         Profile
@@ -120,12 +121,12 @@ export default class MenuScreen extends Component {
                         <FlatList
                             data={this.state.items}
                             renderItem={renderitemp}
-                            keyExtractor={(item) => item.id}
+                            keyExtractor={(item) => item._id}
                         />
                         <FlatList
                             data={this.state.items}
                             renderItem={renderitem}
-                            keyExtractor={(item) => item.id}
+                            keyExtractor={(item) => item._id}
                         />
                     </View>
                 </View>
