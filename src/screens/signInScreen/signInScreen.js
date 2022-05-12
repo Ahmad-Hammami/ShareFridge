@@ -39,74 +39,78 @@ export default function SignInScreen() {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Willcome to ShareFridge</Text>
+    <SafeAreaView>
+      <ScrollView>
+        <View style={styles.container}>
+          <Text style={styles.title}>Willcome to ShareFridge</Text>
 
-      <Image
-        style={styles.image}
-        source={require("../../.././assets/logo.png")}
-      />
+          <Image
+            style={styles.image}
+            source={require("../../.././assets/logo.png")}
+          />
 
-      <Text style={styles.text1}>E-mail:</Text>
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Type your here"
-          placeholderTextColor="#003f5c"
-          onChangeText={(email) => setEmail(email)}
-        />
-      </View>
-      <Text style={styles.text2}>Password:</Text>
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Type password here"
-          placeholderTextColor="#003f5c"
-          secureTextEntry={true}
-          onChangeText={(password) => setPassword(password)}
-        />
-        <TouchableOpacity>
-          <Text style={styles.forgot_button}>Forgot Password?</Text>
-        </TouchableOpacity>
-      </View>
+          <Text style={styles.text1}>E-mail:</Text>
+          <View style={styles.inputView}>
+            <TextInput
+              style={styles.TextInput}
+              placeholder="Type your here"
+              placeholderTextColor="#003f5c"
+              onChangeText={(email) => setEmail(email)}
+            />
+          </View>
+          <Text style={styles.text2}>Password:</Text>
+          <View style={styles.inputView}>
+            <TextInput
+              style={styles.TextInput}
+              placeholder="Type password here"
+              placeholderTextColor="#003f5c"
+              secureTextEntry={true}
+              onChangeText={(password) => setPassword(password)}
+            />
+            <TouchableOpacity>
+              <Text style={styles.forgot_button}>Forgot Password?</Text>
+            </TouchableOpacity>
+          </View>
 
-      <View style={styles.btnstyle}>
-        <TouchableOpacity
-          style={styles.loginBtn}
-          onPress={() => {
-            for (let i = 0; i < data.length; i++) {
-              console.log(data[i].email);
-              console.log(data[i].type);
-              console.log(email.trim().toLowerCase());
+          <View style={styles.btnstyle}>
+            <TouchableOpacity
+              style={styles.loginBtn}
+              onPress={() => {
+                for (let i = 0; i < data.length; i++) {
+                  console.log(data[i].email);
+                  console.log(data[i].type);
+                  console.log(email.trim().toLowerCase());
 
-              if (
-                data[i].email === email.trim().toLowerCase() &&
-                password === data[i].password
-              ) {
-                setAuthenticated(true);
-                setId(data[i].id);
-                if (data[i].type === "employee") {
-                  navigation.navigate("Menu", {
-                    auth: data[i].auth,
-                    currentUsertype: data[i].type,
-                    currentUser: data[i].email,
-                    cart: new Array(),
-                  });
-                } else {
-                  setAuthenticated(true);
-                  navigation.navigate("Administration", {
-                    auth: data[i].auth,
-                    currentUsertype: data[i].type,
-                  });
+                  if (
+                    data[i].email === email.trim().toLowerCase() &&
+                    password === data[i].password
+                  ) {
+                    setAuthenticated(true);
+                    setId(data[i].id);
+                    if (data[i].type === "employee") {
+                      navigation.navigate("Menu", {
+                        auth: data[i].auth,
+                        currentUsertype: data[i].type,
+                        currentUser: data[i].email,
+                        cart: new Array(),
+                      });
+                    } else {
+                      setAuthenticated(true);
+                      navigation.navigate("Administration", {
+                        auth: data[i].auth,
+                        currentUsertype: data[i].type,
+                      });
+                    }
+                  }
                 }
-              }
-            }
-          }}
-        >
-          <Text style={styles.textbtn}>Sign In</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+              }}
+            >
+              <Text style={styles.textbtn}>Sign In</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
@@ -114,7 +118,6 @@ const styles = StyleSheet.create({
   container: {
     marginTop: height * 0.1,
     alignItems: "center",
-    justifyContent: "space-evenly",
   },
   title: {
     marginTop: 20,
@@ -144,12 +147,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#82B3C9",
     borderRadius: 25,
     width: width * 0.7,
-    height: 45,
-    marginBottom: 0,
+    height: height * 0.06,
+    marginVertical: height * 0.02,
     alignItems: "center",
   },
   TextInput: {
-    width: 240,
+    width: width * 0.6,
     height: 40,
     margin: 5,
     padding: 10,
@@ -158,7 +161,7 @@ const styles = StyleSheet.create({
   },
 
   forgot_button: {
-    marginTop: height * 0.01,
+    marginTop: height * 0.02,
     fontSize: 12,
     fontFamily: "ArimaMadurai-Bold",
   },
@@ -166,15 +169,15 @@ const styles = StyleSheet.create({
   loginBtn: {
     marginTop: height * 0.1,
     width: width * 0.5,
-    borderRadius: 25,
     height: height * 0.06,
+    borderRadius: 25,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#B3E5FC",
   },
   image: {
-    width: 230,
-    height: 230,
+    width: width * 0.6,
+    height: width * 0.6,
   },
   btnstyle: {
     marginTop: height * 0.01,
