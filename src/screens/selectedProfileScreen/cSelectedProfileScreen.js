@@ -94,7 +94,7 @@ export default class CSelectedProfileScreen extends Component {
           <View style={styles.photo_view}>
             <Image
               style={styles.Profile_Photo}
-              source={require("../../.././assets/Emma_Profile.jpg")}
+              source={{ uri: user.picture }}
             />
           </View>
           <View style={styles.rowText}>

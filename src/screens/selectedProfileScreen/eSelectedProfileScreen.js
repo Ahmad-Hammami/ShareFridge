@@ -52,7 +52,7 @@ export default class ESelectedProfileScreen extends Component {
 
   componentDidMount = async () => {
     await this.getUser();
-    console.log(this.state.user);
+    console.log(new Date().toLocaleString());
   };
 
   isPasswordCorrect = async () => {
@@ -60,12 +60,16 @@ export default class ESelectedProfileScreen extends Component {
       if (this.state.password2 === this.state.password3) {
         return true;
       } else {
+        Alert.alert(`The changed passwords are not identical`);
         return false;
+        
       }
     } else {
+      Alert.alert(`Current password is incorrect`);
       return false;
     }
   };
+
   submitData = async () => {
     var correctPassword = await this.isPasswordCorrect();
     if (correctPassword) {
@@ -104,7 +108,7 @@ export default class ESelectedProfileScreen extends Component {
               <View style={styles.photo_view}>
                 <Image
                   style={styles.Profile_Photo}
-                  source={require("../../.././assets/Emma_Profile.jpg")}
+                  source={{ uri: user.picture }}
                 />
               </View>
               <View style={styles.rowText}>
@@ -130,6 +134,17 @@ export default class ESelectedProfileScreen extends Component {
                   }
                 >
                   <Text>Behavior</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.behaviorButton}
+                  onPress={() =>
+                    this.props.navigation.navigate("Receipts", {
+                      currentUser: this.state.currentUser,
+                      currentUsertype: this.state.currentUsertype
+                    })
+                  }
+                >
+                  <Text>Receipts</Text>
                 </TouchableOpacity>
               </View>
               <View style={styles.container}>

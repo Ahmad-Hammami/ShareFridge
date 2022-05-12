@@ -48,6 +48,14 @@ export default class AdministrationScreen extends Component {
                 <Text>Menu</Text>
             </TouchableOpacity>
             <TouchableOpacity
+                style={styles.darkButton}
+                onPress={() => this.props.navigation.navigate('CViewBehavior', {
+                    currentUsertype: this.state.currentUsertype,
+              })}
+            >
+                <Text>View Behavior</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
                 style={styles.lightButton}
                 onPress={() => this.props.navigation.navigate('SignIn')}
             >

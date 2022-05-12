@@ -234,6 +234,7 @@ export default class CartScreen extends Component {
       },
       body: JSON.stringify({
         email: email,
+        date: new Date(),
         cartItems: cart,
       }),
     })
