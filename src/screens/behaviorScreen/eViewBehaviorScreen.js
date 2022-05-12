@@ -123,7 +123,7 @@ export default class EViewBehaviorScreen extends Component {
           {
             name: "salt",
             count: result.salt,
-            color: "yellow",
+            color: "navy",
           },
           {
             name: "caffeine",
@@ -287,6 +287,7 @@ const styles = StyleSheet.create({
   pieChartText: {
     fontFamily: "ArimaMadurai-Bold",
     fontSize: 15,
+    
   },
 
   row: {

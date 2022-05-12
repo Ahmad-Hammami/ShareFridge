@@ -1,23 +1,21 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import {
   Text,
   View,
-  ImageBackground,
   TouchableOpacity,
   StyleSheet,
   Dimensions,
   FlatList,
-  ScrollView,
+  Modal,
   Image,
   Alert,
 } from "react-native";
-import Items from "../../db/items.json";
 
 const { height, width } = Dimensions.get("window");
 
 let currentCart = [];
 let cart = [];
-let total = 0;
+
 
 var caffeine;
 var fat;
@@ -36,13 +34,16 @@ export default class CartScreen extends Component {
       items: null,
       user: null,
       behavior: null,
+      submit: false,
+      total: 0,
     };
     this.arrayholder = this.state.items;
   }
 
   componentDidMount() {
+    this.setState({ submit: false });
+    this.setState({ total: 0 });
     this.getUser();
-    total = 0;
     cart = [];
     cart = this.state.cart;
     this.getItems();
@@ -93,6 +94,7 @@ export default class CartScreen extends Component {
 
   compressArray = (original) => {
     var compressed = [];
+    let total = 0;
     // make a copy of the input array
     var copy = original.slice(0);
 
@@ -124,6 +126,8 @@ export default class CartScreen extends Component {
 
           compressed.push(a);
           total = total + myCount * item.price;
+          this.setState({total: total})
+
         });
       }
     }
@@ -143,21 +147,15 @@ export default class CartScreen extends Component {
     this.setState({ cart: this.state.cart });
   };
   submit = async () => {
+    this.setState({submit: true})
     console.log(cart);
-    var email;
-    var balance;
-    email = this.state.user.email;
-    balance = this.state.user.balance + total;
+    let email = this.state.user.email;
+    let balance = this.state.user.balance + this.state.total;
     await this.Behavior(email);
     await this.postReceipts(email);
     await this.updateBalance(email, balance);
-
     this.state.cart.length = 0;
     cart.length = 0;
-    Alert.alert(`is saved successfuly`);
-    this.props.navigation.navigate("Menu", {
-      cart: this.state.cart,
-    });
   };
 
   Behavior = async (email) => {
@@ -245,16 +243,19 @@ export default class CartScreen extends Component {
   };
 
   updateBalance = async (email, balance) => {
-    await fetch("https://sharefridgebackend.herokuapp.com/update-user-balance", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: email,
-        balance: balance,
-      }),
-    })
+    await fetch(
+      "https://sharefridgebackend.herokuapp.com/update-user-balance",
+      {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          balance: balance,
+        }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -262,6 +263,7 @@ export default class CartScreen extends Component {
   };
 
   render() {
+    const { submit, total } = this.state;
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Cart</Text>
@@ -282,7 +284,7 @@ export default class CartScreen extends Component {
           />
         </View>
         <View>
-          <Text style={styles.title}>Total {total}</Text>
+          <Text style={styles.title}>Total:   {total}</Text>
         </View>
         <View style={styles.rowButtons}>
           <TouchableOpacity
@@ -303,6 +305,43 @@ export default class CartScreen extends Component {
             <Text style={styles.titleTextbtn}>Submit / Pay</Text>
           </TouchableOpacity>
         </View>
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={submit}
+          onRequestClose={() => {
+            this.setState({ submit: false });
+          }}
+        >
+          <View style={styles.modalCenterView}>
+            <View style={styles.modelView}>
+              <Text style={styles.text}>Purchased items</Text>
+              {currentCart.length > 0 &&
+                currentCart.map((item) => {
+                  return (
+                    <Fragment key={item.id}>
+                      <View style={styles.rowView}>
+                        <Text style={styles.textModel}>
+                          {item.count.toString()} x
+                        </Text>
+                        <Text style={styles.textModel}>{item.name}</Text>
+                      </View>
+                    </Fragment>
+                  );
+                })}
+              <TouchableOpacity
+                style={styles.modalDarkButton}
+                onPress={() =>
+                  this.props.navigation.navigate("Menu", {
+                    cart: this.state.cart,
+                  })
+                }
+              >
+                <Text>OK</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
       </View>
     );
   }
@@ -360,7 +399,11 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    fontSize: 25,
+    fontSize: 20,
+    fontFamily: "ArimaMadurai-Bold",
+  },
+  textModel: {
+    fontSize: 15,
     fontFamily: "ArimaMadurai-Bold",
   },
 
@@ -415,5 +458,41 @@ const styles = StyleSheet.create({
     height: height * 0.05,
     alignItems: "center",
     justifyContent: "center",
+  },
+  modalCenterView: {
+    flex: 1,
+    backgroundColor: "#00000099",
+  },
+  modelView: {
+    position: "absolute",
+    top: height * 0.3,
+    left: width * 0.2,
+    height: height * 0.4,
+    width: width * 0.6,
+    paddingVertical: height * 0.01,
+    paddingHorizontal: width * 0.1,
+    width: width * 0.6,
+    backgroundColor: "#B3E5FC",
+    borderRadius: 25,
+  },
+
+  modalDarkButton: {
+    position: "absolute",
+    backgroundColor: "#82B3C9",
+    borderRadius: 20,
+    width: width * 0.4,
+    height: height * 0.05,
+    bottom: height * 0.01,
+    left: width * 0.1,
+
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  rowView: {
+    marginTop: height * 0.02,
+    borderRadius: 20,
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });
