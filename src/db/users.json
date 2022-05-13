@@ -45,5 +45,20 @@
         "password": "123aema",
         "balance": 85,
         "type": "employee"
+    },
+    {
+        "id": 7,
+        "name": "1",
+        "email": "1",
+        "password": "1",
+        "type": "companyRepresentative"
+    },
+    {
+        "id": 8,
+        "name": "q",
+        "email": "q",
+        "password": "q",
+        "balance": 555,
+        "type": "employee"
     }
 ]

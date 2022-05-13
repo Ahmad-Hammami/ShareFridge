@@ -7,7 +7,7 @@ import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
 
 import { AddAnEmployeeScreen, AddItem, AdministrationScreen, CartScreen, CViewBehaviorScreen, EditItem,
-EmployeeViewListScreen, EViewBehaviorScreen, MenuScreen, SelectedItemScreen, CSelectedProfileScreen, ESelectedProfileScreen, SignInScreen } from './src/screens'
+EmployeeViewListScreen, EViewBehaviorScreen, MenuScreen, SelectedItemScreen, CSelectedProfileScreen, ESelectedProfileScreen, SignInScreen, ReceiptScreen } from './src/screens'
 
 const Stack = createNativeStackNavigator();
 
@@ -92,6 +92,12 @@ export default function App() {
       options={{headerShown: false}} 
         name="Menu"
         component={MenuScreen}
+      />
+
+      <Stack.Screen
+        options={{headerShown: false}} 
+        name="Receipts"
+        component={ReceiptScreen}
       />
 
       <Stack.Screen
