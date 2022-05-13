@@ -148,22 +148,22 @@ export default class ESelectedProfileScreen extends Component {
                 </TouchableOpacity>
               </View>
               <View style={styles.container}>
-                <Text style={styles.title}>Change Password:</Text>
-                <Text style={styles.title}>Your Password:</Text>
+                <Text style={styles.titleC}>Change Password:</Text>
+                <Text style={styles.titleP}>Your Password:</Text>
                 <TextInput
                   style={styles.input}
                   placeholder="Enter your password"
                   onChangeText={(password1) => this.setState({ password1 })}
                   value={this.state.password1}
                 />
-                <Text style={styles.title}>New Password:</Text>
+                <Text style={styles.titleP}>New Password:</Text>
                 <TextInput
                   style={styles.input}
                   placeholder="Enter your password"
                   onChangeText={(password2) => this.setState({ password2 })}
                   value={this.state.password2}
                 />
-                <Text style={styles.title}>Confirm new Password:</Text>
+                <Text style={styles.titleP}>Confirm new Password:</Text>
                 <TextInput
                   style={styles.input}
                   placeholder="Enter your password"
@@ -217,6 +217,17 @@ const styles = StyleSheet.create({
     fontFamily: "ArimaMadurai-Bold",
     fontSize: 20,
   },
+  
+  titleP: {
+    fontFamily: "ArimaMadurai-Bold",
+    fontSize: 15,
+  },
+  titleC: {
+    fontFamily: "ArimaMadurai-Bold",
+    fontSize: 20,
+    marginBottom:5,
+  },
+
 
   text: {
     fontFamily: "ArimaMadurai-Bold",
@@ -231,6 +242,7 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     resizeMode: "center",
+    borderRadius: 200
   },
 
   rowText: {
@@ -255,16 +267,18 @@ const styles = StyleSheet.create({
     backgroundColor: "#B3E5FC",
     borderRadius: 10,
     padding: 5,
-    width: width * 0.5,
+    width: width * 0.6,
+    height: height * 0.05,
     alignItems: "center",
     justifyContent: "center",
+    marginBottom:20
   },
 
   lightButton: {
     backgroundColor: "#B3E5FC",
     borderRadius: 10,
-    width: width * 0.2,
-    height: height * 0.03,
+    width: width * 0.3,
+    height: height * 0.035,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -272,9 +286,10 @@ const styles = StyleSheet.create({
   darkButton: {
     backgroundColor: "#82B3C9",
     borderRadius: 10,
-    width: width * 0.2,
-    height: height * 0.03,
+    width: width * 0.3,
+    height: height * 0.035,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-between",
+    
   },
 });

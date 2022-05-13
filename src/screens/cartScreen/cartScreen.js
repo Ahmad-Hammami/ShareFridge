@@ -8,10 +8,13 @@ import {
   Dimensions,
   FlatList,
   ScrollView,
+  SafeAreaView,
   Image,
   Alert,
 } from "react-native";
 import Items from "../../db/items.json";
+import SwipeButton from 'rn-swipe-button';
+
 
 const { height, width } = Dimensions.get("window");
 
@@ -121,9 +124,8 @@ export default class CartScreen extends Component {
           a.salt = item.salt;
           a.fat = item.fat;
           a.suger = item.suger;
-
           compressed.push(a);
-          total = total + myCount * item.price;
+          total = total + myCount * item.price ;
         });
       }
     }
@@ -285,6 +287,22 @@ export default class CartScreen extends Component {
         <View>
           <Text style={styles.totalText}>Total {total}</Text>
         </View>
+        <SafeAreaView>
+          <View style={styles.rowButtons}>
+        <SwipeButton
+            disabled ={false}
+            swipeSuccessThreshold={70}
+            height={45}
+            width={width * 0.88}
+            title="Approve"
+            onSwipeSuccess={()=> this.submit()}
+            railFillBackgroundColor="#82B3C9"
+            railFillBorderColor="#82B3C9" 
+            thumbIconBackgroundColor=""
+            > 
+          </SwipeButton>
+          </View>
+        </SafeAreaView>
         <View style={styles.rowButtons}>
           <TouchableOpacity
             style={styles.lightButton}
@@ -297,13 +315,15 @@ export default class CartScreen extends Component {
             <Text style={styles.titleTextbtn}>Back</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity
+        {/*   <TouchableOpacity
             style={styles.darkButton}
             onPress={() => this.submit()}
           >
             <Text style={styles.titleTextbtn}>Approve</Text>
           </TouchableOpacity>
+        */}
         </View>
+      
       </View>
     );
   }
@@ -367,7 +387,9 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontFamily: "ArimaMadurai-Bold",
   },
-
+  swipeBtn:{
+    alignItems: "center",
+  },
   totalText: {
     fontSize: 30,
     marginTop: 15,
@@ -393,7 +415,7 @@ const styles = StyleSheet.create({
   cartView: {
     marginTop: 10,
     borderRadius: 25,
-    height: height * 0.5,
+    height: height * 0.44,
     width: width * 0.9,
     backgroundColor: "#B3E5FC",
   },
