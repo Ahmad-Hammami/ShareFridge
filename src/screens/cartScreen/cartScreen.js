@@ -116,6 +116,7 @@ export default class CartScreen extends Component {
         a.count = myCount;
         item.map((item) => {
           a.price = item.price;
+          a.amount = item.amount;
           a.caffeine = item.caffeine;
           a.salt = item.salt;
           a.fat = item.fat;
@@ -140,10 +141,28 @@ export default class CartScreen extends Component {
     await this.Behavior(email);
     await this.postReceipts(email);
     await this.updateBalance(email, balance);
+    await this.updateAmount();
     this.state.cart.length = 0;
     cart.length = 0;
   };
-
+  updateAmount = async () => {
+    if (currentCart.length > 0){
+      currentCart.map((item) => {
+        fetch("https://sharefridgebackend.herokuapp.com/update-selected-item", {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: item.name,
+            amount: item.amount - item.count,
+          }),
+        })
+        .then((res) => res.json())
+        .then((data) => {});
+        })
+     }
+  };
   Behavior = async (email) => {
     await fetch("https://sharefridgebackend.herokuapp.com/get-behavior", {
       method: "post",
