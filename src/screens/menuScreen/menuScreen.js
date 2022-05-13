@@ -9,7 +9,7 @@ let food = false;
 let currentUsertype = "";
 let cart = new Array();
 
-import BehaviorMsg from '../Component/behaviorMsg';
+import BehaviorMsg from '../component/behaviorMsg';
 
 
 const renderitemp = ({ item }) => <Itemp name={item.name} price={item.price} priority={item.priority} type={item.type}/>;
