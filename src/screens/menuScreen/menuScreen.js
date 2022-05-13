@@ -182,17 +182,17 @@ export default class MenuScreen extends Component {
             return (<></>);
         }
     }
-    update = async (update) => {
+    update = async () => {
+        let {update} = this.props.route.params  
+        console.log(update);
         if(update){
             await this.getItems();
-            this.setState({update: false})
+            update = false
         }
     }
 
     render() {
-        const {update} = this.state
-        console.log(update)
-        //this.update(update);
+        this.update();
         return (
             <View>
                 <View style={styles.containerBlackLine}>
