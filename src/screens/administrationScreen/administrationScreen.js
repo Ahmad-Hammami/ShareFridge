@@ -34,7 +34,9 @@ export default class AdministrationScreen extends Component {
             </TouchableOpacity>
             <TouchableOpacity
                 style={styles.darkButton}
-                onPress={() => this.props.navigation.navigate('SeeEmployees')}
+                onPress={() => this.props.navigation.navigate('SeeEmployees', {
+                    update: false
+                })}
             >
                 <Text>See employees</Text>
             </TouchableOpacity>

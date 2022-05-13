@@ -70,115 +70,11 @@ export default class MenuScreen extends Component {
     cart = this.state.cart;
     this.setState({ random: false });
   }
-
-  renderitemp = ({ item }) => {
-    const { navigation } = this.props;
-    if (food) {
-      if (item.type === "food") {
-        if (item.priority) {
-          if (currentUsertype === "employee") {
-            return (
-              <TouchableOpacity
-                style={styles.itemButton}
-                onPress={() =>
-                  navigation.navigate("SelectedItem", {
-                    selectedItemName: item.name,
-                    cart: cart,
-                  })
-                }
-              >
-                <View style={styles.items}>
-                  <Text style={styles.textSide}>{item.name}</Text>
-                  <Text style={styles.textMiddel}>{item.price} Kr.</Text>
-                  <Text style={styles.textSide}>add to cart</Text>
-                  <TouchableOpacity
-                    style={styles.addToCartButton}
-                    onPress={() => cart.push(item.name)}
-                  >
-                    <Text>+</Text>
-                  </TouchableOpacity>
-                </View>
-              </TouchableOpacity>
-            );
-          } else if (currentUsertype === "companyRepresentative") {
-            return (
-              <TouchableOpacity
-                style={styles.itemButton}
-                onPress={() =>
-                  navigation.navigate("EditItem", {
-                    selectedItemName: item.name,
-                  })
-                }
-              >
-                <View style={styles.items}>
-                  <Text style={styles.textSide}>{item.name}</Text>
-                  <Text style={styles.textSide}>{item.price} Kr.</Text>
-                </View>
-              </TouchableOpacity>
-            );
-          } else {
-            return <View></View>;
-          }
-        } else {
-          return <View></View>;
-        }
-      } else {
-        return <View></View>;
-      }
-    } else {
-      if (item.type === "drinks") {
-        if (item.priority) {
-          if (currentUsertype === "employee") {
-            return (
-              <TouchableOpacity
-                style={styles.itemButton}
-                onPress={() =>
-                  navigation.navigate("SelectedItem", {
-                    selectedItemName: item.name,
-                    cart: cart,
-                  })
-                }
-              >
-                <View style={styles.items}>
-                  <Text style={styles.textSide}>{item.name}</Text>
-                  <Text style={styles.textMiddel}>{item.price} Kr.</Text>
-                  <Text style={styles.textSide}>add to cart</Text>
-                  <TouchableOpacity
-                    style={styles.addToCartButton}
-                    onPress={() => cart.push(item.name)}
-                  >
-                    <Text>+</Text>
-                  </TouchableOpacity>
-                </View>
-              </TouchableOpacity>
-            );
-          } else if (currentUsertype === "companyRepresentative") {
-            return (
-              <TouchableOpacity
-                style={styles.itemButton}
-                onPress={() =>
-                  navigation.navigate("EditItem", {
-                    selectedItemName: item.name,
-                  })
-                }
-              >
-                <View style={styles.items}>
-                  <Text style={styles.textSide}>{item.name}</Text>
-                  <Text style={styles.textSide}>{item.price} Kr.</Text>
-                </View>
-              </TouchableOpacity>
-            );
-          } else {
-            return <View></View>;
-          }
-        } else {
-          return <View></View>;
-        }
-      } else {
-        return <View></View>;
-      }
+  componentDidUpdate(prevProps) {
+    if (this.props.route.params !== prevProps.route.params) {
+      this.getItems();
     }
-  };
+  }
 
   foodFunction = () => {
     this.setState({ food: true });
@@ -208,17 +104,8 @@ export default class MenuScreen extends Component {
       return <></>;
     }
   };
-  update = async () => {
-    let { update } = this.props.route.params;
-    console.log(update);
-    if (update) {
-      await this.getItems();
-      update = false;
-    }
-  };
 
   render() {
-    this.update();
     return (
       <View>
         <View style={styles.containerBlackLine}>
@@ -253,7 +140,7 @@ export default class MenuScreen extends Component {
           <View>
             <FlatList
               data={this.state.items}
-              renderItem={this.renderitemp}
+              renderItem={renderitemp}
               keyExtractor={(item) => item._id}
             />
             <FlatList

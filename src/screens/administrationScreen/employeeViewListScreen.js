@@ -24,6 +24,7 @@ export default class EmployeeViewListScreen extends Component {
       data: null,
       error: null,
       searchValue: "",
+      update: props.route.params,
     };
     this.arrayholder = this.state.data;
   }
@@ -41,6 +42,11 @@ export default class EmployeeViewListScreen extends Component {
 
   componentDidMount() {
     this.getUsers();
+  }
+  componentDidUpdate(prevProps) {
+    if (this.props.route.params !== prevProps.route.params) {
+      this.getUsers();
+    }
   }
 
   searchFunction = (text) => {

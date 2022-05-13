@@ -81,7 +81,9 @@ export default class CSelectedProfileScreen extends Component {
       .then((data) => {
         console.log(data);
         Alert.alert(`${data.name} is deleted successfuly`);
-        this.props.navigation.navigate("SeeEmployees");
+        this.props.navigation.navigate("SeeEmployees", {
+          update: true
+        });
       });
   };
 
@@ -113,7 +115,9 @@ export default class CSelectedProfileScreen extends Component {
             <View style={styles.rowText}>
               <TouchableOpacity
                 style={styles.lightButton}
-                onPress={() => this.props.navigation.navigate("SeeEmployees")}
+                onPress={() => this.props.navigation.navigate("SeeEmployees", {
+                  update: false
+                })}
               >
                 <Text>Back</Text>
               </TouchableOpacity>
