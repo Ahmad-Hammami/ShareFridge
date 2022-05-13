@@ -15,7 +15,7 @@ let food = false;
 let currentUsertype = "";
 let cart = new Array();
 
-import BehaviorMsg from '../component/behaviorMsg';
+import BehaviorMsg from "../component/behaviorMsg";
 const renderitemp = ({ item }) => (
   <Itemp
     name={item.name}
@@ -59,14 +59,18 @@ export default class MenuScreen extends Component {
       });
   };
 
-  componentDidMount = async () =>{
-    this.getItems();
-    let behaviormsg = await BehaviorMsg.msg(this.state.currentUser, this.state.currentUsertype);
-    console.log(behaviormsg)
-    this.setState({Behavior: behaviormsg})
-    currentUsertype = this.state.currentUsertype
+  componentDidMount = async () => {
+    let behaviormsg = await BehaviorMsg.msg(
+      this.state.currentUser,
+      this.state.currentUsertype
+    );
+    console.log(behaviormsg);
+    this.setState({ Behavior: behaviormsg });
+    await this.getItems();
+    currentUsertype = this.state.currentUsertype;
     cart = this.state.cart;
-  }
+  };
+
   componentDidUpdate(prevProps) {
     if (this.props.route.params !== prevProps.route.params) {
       this.getItems();
@@ -219,126 +223,122 @@ const styles = StyleSheet.create({
     marginTop: -35,
   },
 
-
   rowButtons: {
     flexDirection: "row",
     justifyContent: "space-between",
   },
 
-    behaviorText: {
-        fontSize: 15,
-        fontFamily: 'ArimaMadurai-Bold',
-        alignItems: "center",
-        marginTop: height * 0.02,
-        marginLeft: 20,
-    },
+  behaviorText: {
+    fontSize: 15,
+    fontFamily: "ArimaMadurai-Bold",
+    alignItems: "center",
+    marginTop: height * 0.02,
+    marginLeft: 20,
+  },
 
-    behaviorTextView: {
-        marginTop: height * 0.03,
-        paddingBottom: height * 0.1,
+  behaviorTextView: {
+    marginTop: height * 0.03,
+    paddingBottom: height * 0.1,
+    backgroundColor: "#B3E5FC",
+    borderRadius: 25,
+  },
+
+  menu_view: {
+    height: height * 0.6,
+  },
+
+  textbtn: {
+    fontSize: 15,
+    fontFamily: "ArimaMadurai-Bold",
+  },
+  titleTextbtn: {
+    fontSize: 17,
+    fontFamily: "ArimaMadurai-Bold",
+  },
+
+  foodButton: function (food) {
+    if (food) {
+      return {
+        paddingHorizontal: width * 0.2,
+        paddingVertical: height * 0.02,
+      };
+    } else {
+      return {
+        paddingHorizontal: width * 0.2,
+        paddingVertical: height * 0.02,
         backgroundColor: "#B3E5FC",
-        borderRadius: 25,
-        
-    },
+      };
+    }
+  },
 
-    menu_view: {
-        height: height * 0.6,
-      },
-    
-    textbtn: {
-        fontSize: 15,
-        fontFamily: 'ArimaMadurai-Bold',
-    },
-    titleTextbtn: {
-        fontSize: 17,
-        fontFamily: 'ArimaMadurai-Bold',
-    },
-
-    foodButton: function(food) {
-        if (food){
-            return {
-                paddingHorizontal: width * 0.2,
-                paddingVertical: height  * 0.02,
-              }
-        }else{
-            return {
-                paddingHorizontal: width * 0.2,
-                paddingVertical: height  * 0.02,
-                backgroundColor: "#B3E5FC",
-            }
-        } 
-    },
-
-    drinksButton: function(food) {
-        if (food){
-            return {
-                paddingHorizontal: width * 0.2,
-                paddingVertical: height  * 0.02,
-                backgroundColor: "#B3E5FC",
-              }
-        }else{
-            return {
-                paddingHorizontal: width * 0.2,
-                paddingVertical: height  * 0.02,
-            }
-        } 
-    },
-    items: {
-        padding: 10,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-    itemButton: {
-        backgroundColor: "#82B3C9",
-        marginVertical: height * 0.01,
-        marginHorizontal: width * 0.01,
-        borderRadius: 10,
-        
-    },
-
-    lightButton: {
-        marginLeft: 20,
+  drinksButton: function (food) {
+    if (food) {
+      return {
+        paddingHorizontal: width * 0.2,
+        paddingVertical: height * 0.02,
         backgroundColor: "#B3E5FC",
-        borderRadius: 25,
-        width: width * 0.2,
-        height: height * 0.04,
-        alignItems: 'center', 
-        justifyContent: 'center',
-    },
+      };
+    } else {
+      return {
+        paddingHorizontal: width * 0.2,
+        paddingVertical: height * 0.02,
+      };
+    }
+  },
+  items: {
+    padding: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  itemButton: {
+    backgroundColor: "#82B3C9",
+    marginVertical: height * 0.01,
+    marginHorizontal: width * 0.01,
+    borderRadius: 10,
+  },
 
-    darkButton: {
-        backgroundColor: "#82B3C9",
-        borderRadius: 25,
-        width: width * 0.3,
-        height: height * 0.04,
-        alignItems: 'center', 
-        justifyContent: 'center',
-        marginRight: 20,
-    }, 
+  lightButton: {
+    marginLeft: 20,
+    backgroundColor: "#B3E5FC",
+    borderRadius: 25,
+    width: width * 0.2,
+    height: height * 0.04,
+    alignItems: "center",
+    justifyContent: "center",
+  },
 
-    addToCartButton:{
-        backgroundColor: "#B3E5FC",
-        borderRadius: 20,
-        width: height * 0.05,
-        height: height * 0.05,
-        alignItems: 'center', 
-        justifyContent: 'center',
-    },
-    textSide: {
-        fontSize: 15,
-        fontFamily: 'ArimaMadurai-Bold',
-        width: width * 0.3,
-        textAlign: 'center',
-        textAlignVertical: "center",
-    },
-    textMiddel: {
-        fontSize: 15,
-        fontFamily: 'ArimaMadurai-Bold',
-        width: width * 0.2,
-        textAlign: 'center',
-        textAlignVertical: "center",
-    },
+  darkButton: {
+    backgroundColor: "#82B3C9",
+    borderRadius: 25,
+    width: width * 0.3,
+    height: height * 0.04,
+    alignItems: "center",
+    justifyContent: "center",
+    marginRight: 20,
+  },
 
+  addToCartButton: {
+    backgroundColor: "#B3E5FC",
+    borderRadius: 20,
+    width: height * 0.05,
+    height: height * 0.05,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  textSide: {
+    fontSize: 15,
+    fontFamily: "ArimaMadurai-Bold",
+    width: width * 0.3,
+    textAlign: "center",
+    textAlignVertical: "center",
+  },
+  textMiddel: {
+    fontSize: 15,
+    fontFamily: "ArimaMadurai-Bold",
+    width: width * 0.2,
+    textAlign: "center",
+    textAlignVertical: "center",
+  },
 });
 
 const Itemp = ({ name, price, priority, type }) => {

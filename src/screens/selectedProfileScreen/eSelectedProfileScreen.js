@@ -120,7 +120,7 @@ export default class ESelectedProfileScreen extends Component {
               </View>
               <View style={styles.rowText}>
                 <Text style={styles.title}>ID:</Text>
-                <Text style={styles.title}>{user.id}</Text>
+                <Text style={styles.title}>{user._id}</Text>
               </View>
               <View style={styles.rowText}>
                 <Text style={styles.title}>Balance:</Text>

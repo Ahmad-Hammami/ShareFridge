@@ -11,6 +11,7 @@ export default class AdministrationScreen extends Component {
     super(props);
     this.state = {
       currentUsertype: props.route.params.currentUsertype,
+      currentUser: props.route.params.currentUser,
     };
   }
   render() {
@@ -48,6 +49,7 @@ export default class AdministrationScreen extends Component {
               currentUsertype: this.state.currentUsertype,
               cart: [],
               update: false,
+              currentUser: this.state.currentUser
             })
           }
         >
@@ -58,6 +60,7 @@ export default class AdministrationScreen extends Component {
           onPress={() =>
             this.props.navigation.navigate("CViewBehavior", {
               currentUsertype: this.state.currentUsertype,
+
             })
           }
         >

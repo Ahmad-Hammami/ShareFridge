@@ -99,6 +99,7 @@ export default function SignInScreen() {
                       navigation.navigate("Administration", {
                         auth: data[i].auth,
                         currentUsertype: data[i].type,
+                        currentUser: data[i].email,
                       });
                     }
                   }
