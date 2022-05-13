@@ -279,10 +279,11 @@ export default class CartScreen extends Component {
             data={currentCart}
             renderItem={rendercart}
             keyExtractor={(item) => item.id}
+            extraData={currentCart}
           />
         </View>
         <View>
-          <Text style={styles.title}>Total {total}</Text>
+          <Text style={styles.totalText}>Total {total}</Text>
         </View>
         <View style={styles.rowButtons}>
           <TouchableOpacity
@@ -300,7 +301,7 @@ export default class CartScreen extends Component {
             style={styles.darkButton}
             onPress={() => this.submit()}
           >
-            <Text style={styles.titleTextbtn}>Submit / Pay</Text>
+            <Text style={styles.titleTextbtn}>Approve</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -321,7 +322,7 @@ const Cart = ({ name, count, price }) => {
         style={styles.minusButton}
         onPress={() => removeFromCart(name)}
       >
-        <Text style={styles.textItems}>-</Text>
+        <Text style={styles.textItemsM}>-</Text>
       </TouchableOpacity>
     </View>
   );
@@ -329,13 +330,19 @@ const Cart = ({ name, count, price }) => {
 
 const removeFromCart = (name) => {
   var index = cart.indexOf(name);
+  
   if (index > -1) {
     //Make sure item is present in the array, without if condition, -n indexes will be considered from the end of the array.
     cart.splice(index, 1);
+    
   }
   console.log(cart);
+  
   //CartScreen.compressArray(cart);
+  
 };
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -352,6 +359,8 @@ const styles = StyleSheet.create({
     width: width * 0.3,
     height: width * 0.3,
     resizeMode: "center",
+    marginTop: 20
+
   },
 
   title: {
@@ -359,8 +368,13 @@ const styles = StyleSheet.create({
     fontFamily: "ArimaMadurai-Bold",
   },
 
+  totalText: {
+    fontSize: 30,
+    marginTop: 15,
+    fontFamily: "ArimaMadurai-Bold",
+  },
   text: {
-    fontSize: 25,
+    fontSize: 55,
     fontFamily: "ArimaMadurai-Bold",
   },
 
@@ -371,8 +385,14 @@ const styles = StyleSheet.create({
     textAlign: "center",
     textAlignVertical: "center",
   },
+  textItemsM: {
+    fontSize: 24,
+  },
+
 
   cartView: {
+    marginTop: 10,
+    borderRadius: 25,
     height: height * 0.5,
     width: width * 0.9,
     backgroundColor: "#B3E5FC",
@@ -387,7 +407,9 @@ const styles = StyleSheet.create({
   cartViewItems: {
     flexDirection: "row",
     backgroundColor: "#82B3C9",
-    borderRadius: 20,
+    borderRadius: 25,
+    height: height*0.05,
+    marginLeft: 15,
   },
 
   minusButton: {
@@ -397,6 +419,7 @@ const styles = StyleSheet.create({
     height: height * 0.05,
     alignItems: "center",
     justifyContent: "center",
+    marginRight:15,
   },
 
   lightButton: {

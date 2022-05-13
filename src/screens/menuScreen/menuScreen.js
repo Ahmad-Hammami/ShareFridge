@@ -205,13 +205,17 @@ const styles = StyleSheet.create({
     behaviorText: {
         fontSize: 15,
         fontFamily: 'ArimaMadurai-Bold',
-
+        alignItems: "center",
+        marginTop: height * 0.02,
+        marginLeft: 20,
     },
 
     behaviorTextView: {
-        marginTop: height * 0.02,
+        marginTop: height * 0.03,
         paddingBottom: height * 0.1,
         backgroundColor: "#B3E5FC",
+        borderRadius: 25,
+        
     },
 
     rowButtons: {
@@ -228,7 +232,7 @@ const styles = StyleSheet.create({
         fontFamily: 'ArimaMadurai-Bold',
     },
     titleTextbtn: {
-        fontSize: 15,
+        fontSize: 17,
         fontFamily: 'ArimaMadurai-Bold',
     },
 
@@ -275,21 +279,23 @@ const styles = StyleSheet.create({
     },
 
     lightButton: {
+        marginLeft: 20,
         backgroundColor: "#B3E5FC",
-        borderRadius: 10,
+        borderRadius: 25,
         width: width * 0.2,
-        height: height * 0.03,
+        height: height * 0.04,
         alignItems: 'center', 
         justifyContent: 'center',
     },
 
     darkButton: {
         backgroundColor: "#82B3C9",
-        borderRadius: 10,
+        borderRadius: 25,
         width: width * 0.3,
-        height: height * 0.03,
+        height: height * 0.04,
         alignItems: 'center', 
         justifyContent: 'center',
+        marginRight: 20,
     }, 
 
     addToCartButton:{
