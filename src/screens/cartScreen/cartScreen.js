@@ -174,20 +174,13 @@ export default class CartScreen extends Component {
     })
       .then((res) => res.json())
       .then((data) => {
-        //console.log(data);
         caffeine = data.caffeine;
         fat = data.fat;
         salt = data.salt;
         suger = data.suger;
       });
     await this.compressArray(cart);
-
-    console.log(caffeine + " " + fat + " " + salt + " " + suger);
-
     await this.forLoop();
-
-    console.log(caffeine + " " + fat + " " + salt + " " + suger);
-
     await fetch("https://sharefridgebackend.herokuapp.com/update-behavior", {
       method: "post",
       headers: {
@@ -208,8 +201,6 @@ export default class CartScreen extends Component {
   };
 
   forLoop = async () => {
-    console.log("Start");
-
     await currentCart.map((item) => {
       if (item.caffeine) {
         caffeine = caffeine + item.count;
@@ -224,8 +215,6 @@ export default class CartScreen extends Component {
         suger = suger + item.count;
       }
     });
-
-    console.log("End");
   };
 
   postReceipts = async (email) => {

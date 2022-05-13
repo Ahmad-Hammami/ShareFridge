@@ -1,14 +1,11 @@
 import React, { Component } from "react";
 import {
-  Button,
   Text,
   View,
-  ImageBackground,
   TouchableOpacity,
   StyleSheet,
   Dimensions,
   FlatList,
-  ScrollView,
 } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
@@ -105,6 +102,26 @@ export default class MenuScreen extends Component {
     }
   };
 
+  cartButton = () => {
+    if (currentUsertype === "employee") {
+      return (
+        <TouchableOpacity
+          style={styles.darkButton}
+          onPress={() =>
+            this.props.navigation.navigate("Cart", {
+              cart: this.state.cart,
+              currentUser: this.state.currentUser,
+            })
+          }
+        >
+          <Text style={styles.titleTextbtn}>Go to Cart</Text>
+        </TouchableOpacity>
+      );
+    } else if (currentUsertype === "companyRepresentative") {
+      return <></>;
+    }
+  };
+
   render() {
     return (
       <View>
@@ -157,18 +174,7 @@ export default class MenuScreen extends Component {
           >
             <Text style={styles.titleTextbtn}>Back</Text>
           </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.darkButton}
-            onPress={() =>
-              this.props.navigation.navigate("Cart", {
-                cart: this.state.cart,
-                currentUser: this.state.currentUser,
-              })
-            }
-          >
-            <Text style={styles.titleTextbtn}>Go to Cart</Text>
-          </TouchableOpacity>
+          {this.cartButton()}
         </View>
       </View>
     );

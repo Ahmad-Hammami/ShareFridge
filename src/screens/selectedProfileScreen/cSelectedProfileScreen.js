@@ -8,7 +8,6 @@ import {
   Dimensions,
   Modal,
 } from "react-native";
-import { RadioButton } from "react-native-paper";
 import Users from "../../db/users.json";
 
 const { height, width } = Dimensions.get("window");

@@ -283,7 +283,6 @@ const styles = StyleSheet.create({
   pieChartText: {
     fontFamily: "ArimaMadurai-Bold",
     fontSize: 15,
-    
   },
 
   row: {

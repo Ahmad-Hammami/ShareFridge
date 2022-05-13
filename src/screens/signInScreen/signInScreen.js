@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {
-  Button,
   Text,
   View,
   TextInput,
@@ -11,7 +10,6 @@ import {
   ScrollView,
   Dimensions,
 } from "react-native";
-import data from "../.././db/users.json";
 import { useNavigation } from "@react-navigation/core";
 
 const { height, width } = Dimensions.get("window");

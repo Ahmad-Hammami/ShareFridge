@@ -1,16 +1,11 @@
 import React, { Component, Fragment } from "react";
 import {
-  Button,
   Text,
   View,
   Image,
   StyleSheet,
-  TextInput,
   TouchableOpacity,
-  FlatList,
   Dimensions,
-  SafeAreaView,
-  ScrollView,
 } from "react-native";
 import Item from "../../db/items.json";
 
@@ -50,10 +45,8 @@ export default class SelectedItemScreen extends Component {
   };
 
   countItemsInCart = (original) => {
-    // loop goes over every element
     for (var i = 0; i < original.length; i++) {
       if (original[i] === this.state.selectedItem) {
-        // increase amount of times duplicate is found
         count++;
       }
     }
@@ -76,12 +69,11 @@ export default class SelectedItemScreen extends Component {
   };
 
   componentDidMount = async () => {
-
     count = 0;
     this.countItemsInCart(this.state.cart);
     await this.getItem();
-    console.log(this.state.item)
-  }
+    console.log(this.state.item);
+  };
   render() {
     const { item } = this.state;
     return (

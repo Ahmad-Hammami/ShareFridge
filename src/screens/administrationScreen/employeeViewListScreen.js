@@ -8,7 +8,6 @@ import {
   Dimensions,
 } from "react-native";
 import { SearchBar } from "react-native-elements";
-/* import Data from "../.././db/users.json"; */
 import { useNavigation } from "@react-navigation/native";
 
 const { height, width } = Dimensions.get("window");
@@ -128,8 +127,6 @@ const styles = StyleSheet.create({
   user: {
     backgroundColor: "#82B3C9",
     padding: 20,
-    //marginVertical: 8,
-    //marginHorizontal: 16,
     flexDirection: "row",
     justifyContent: "space-between",
   },

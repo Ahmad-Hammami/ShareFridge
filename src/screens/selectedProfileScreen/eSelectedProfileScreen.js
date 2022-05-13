@@ -1,13 +1,11 @@
 import React, { Component, Fragment } from "react";
 import {
-  Button,
   Text,
   View,
   Image,
   StyleSheet,
   TextInput,
   TouchableOpacity,
-  FlatList,
   Dimensions,
   SafeAreaView,
   ScrollView,

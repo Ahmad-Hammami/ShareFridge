@@ -12,8 +12,6 @@ import {
   ScrollView,
 } from "react-native";
 import { RadioButton, Button, Checkbox } from "react-native-paper";
-//import { ScrollView } from 'react-native-virtualized-view';
-import MultiSelect from "react-native-multiple-select";
 import * as ImagePicker from "expo-image-picker";
 
 const { height, width } = Dimensions.get("window");
@@ -42,7 +40,6 @@ export default class AddItem extends Component {
     };
   }
 
-  //måske fordi selected contets, suger osv er boolean, så den virker ikke hvis vi har dem med. FIND en anden måde til at impl. dem.
   submitData = () => {
     fetch("https://sharefridgebackend.herokuapp.com/send-item", {
       method: "post",
@@ -153,7 +150,6 @@ export default class AddItem extends Component {
   };
 
   render() {
-    const { selectedContents } = this.state;
     const { suger, caffeine, fat, salt } = this.state;
 
     return (

@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import {
   Text,
   View,
@@ -11,9 +11,7 @@ import {
   ScrollView,
   Modal,
 } from "react-native";
-import { RadioButton, Button, Checkbox } from "react-native-paper";
-//import { ScrollView } from 'react-native-virtualized-view';
-import MultiSelect from "react-native-multiple-select";
+import { RadioButton, Checkbox } from "react-native-paper";
 import Item from "../../db/items.json";
 
 const { height, width } = Dimensions.get("window");
@@ -66,7 +64,6 @@ export default class EditItem extends Component {
     })
       .then((res) => res.json())
       .then((data) => {
-        //console.log(data)
         this.setState({
           submit: true,
           submitMSG: `${data.name} is updated successfuly`,
@@ -130,9 +127,19 @@ export default class EditItem extends Component {
   }
 
   render() {
-    const { name, price, amount, description, priority, picture, type } =
-      this.state;
-    const { suger, caffeine, fat, salt } = this.state;
+    const {
+      name,
+      price,
+      amount,
+      description,
+      priority,
+      picture,
+      type,
+      suger,
+      caffeine,
+      fat,
+      salt,
+    } = this.state;
 
     return (
       <SafeAreaView>

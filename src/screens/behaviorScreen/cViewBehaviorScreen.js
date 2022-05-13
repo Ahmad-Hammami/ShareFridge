@@ -279,7 +279,6 @@ const styles = StyleSheet.create({
   legendContainer: {
     marginTop: 20,
   },
-  
 });
 
 const chartConfig = {

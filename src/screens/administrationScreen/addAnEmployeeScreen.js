@@ -14,8 +14,6 @@ import {
 import { Button } from "react-native-paper";
 import * as ImagePicker from "expo-image-picker";
 
-import ThemedDialog from "react-native-elements/dist/dialog/Dialog";
-
 const { height, width } = Dimensions.get("window");
 
 export default class AddAnEmployee extends Component {
