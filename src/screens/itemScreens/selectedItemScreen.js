@@ -106,9 +106,10 @@ export default class SelectedItemScreen extends Component {
                 <Text> + </Text>
               </TouchableOpacity>
             </View>
+            <Text style={styles.textD}>Description:</Text>
             <View style={styles.descriptionView}>
-              <Text style={styles.text}>Description:</Text>
-              <Text style={styles.text}>{item.description}</Text>
+              
+              <Text style={styles.textDd}>{item.description}</Text>
             </View>
           </View>
 
@@ -167,10 +168,22 @@ const styles = StyleSheet.create({
     fontFamily: "ArimaMadurai-Bold",
     fontSize: 30,
   },
-
   text: {
     fontFamily: "ArimaMadurai-Bold",
     fontSize: 20,
+    marginLeft:10
+   
+  },
+  textDd: {
+    fontFamily: "ArimaMadurai-Bold",
+    fontSize: 18,
+    marginLeft:10,
+    marginTop:10,
+  },
+  textD: {
+    marginTop:10,
+    fontFamily: "ArimaMadurai-Bold",
+    fontSize: 23,
   },
 
   countText: {
@@ -210,6 +223,7 @@ const styles = StyleSheet.create({
     width: width * 0.8,
     height: height * 0.2,
     backgroundColor: "#B3E5FC",
+    borderRadius: 25,
   },
   lightButton: {
     backgroundColor: "#B3E5FC",
@@ -231,7 +245,7 @@ const styles = StyleSheet.create({
 
   plusMinusButton: {
     backgroundColor: "#82B3C9",
-    borderRadius: 20,
+    borderRadius: 25,
     width: height * 0.05,
     height: height * 0.05,
     alignItems: "center",

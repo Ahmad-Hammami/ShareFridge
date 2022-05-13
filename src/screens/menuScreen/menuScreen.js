@@ -15,6 +15,7 @@ let food = false;
 let currentUsertype = "";
 let cart = new Array();
 
+import BehaviorMsg from '../component/behaviorMsg';
 const renderitemp = ({ item }) => (
   <Itemp
     name={item.name}
@@ -58,14 +59,13 @@ export default class MenuScreen extends Component {
       });
   };
 
-  componentDidMount() {
+  componentDidMount = async () =>{
     this.getItems();
-    if (this.state.Behavior === "") {
-      this.setState({ Behavior: "No new behavior detected, have a good day." });
-    }
-    currentUsertype = this.state.currentUsertype;
+    let behaviormsg = await BehaviorMsg.msg(this.state.currentUser, this.state.currentUsertype);
+    console.log(behaviormsg)
+    this.setState({Behavior: behaviormsg})
+    currentUsertype = this.state.currentUsertype
     cart = this.state.cart;
-    this.setState({ random: false });
   }
   componentDidUpdate(prevProps) {
     if (this.props.route.params !== prevProps.route.params) {
@@ -219,116 +219,126 @@ const styles = StyleSheet.create({
     marginTop: -35,
   },
 
-  behaviorText: {
-    fontSize: 15,
-    fontFamily: "ArimaMadurai-Bold",
-  },
-
-  behaviorTextView: {
-    marginTop: height * 0.02,
-    paddingBottom: height * 0.1,
-    backgroundColor: "#B3E5FC",
-  },
 
   rowButtons: {
     flexDirection: "row",
     justifyContent: "space-between",
   },
 
-  menu_view: {
-    height: height * 0.6,
-  },
+    behaviorText: {
+        fontSize: 15,
+        fontFamily: 'ArimaMadurai-Bold',
+        alignItems: "center",
+        marginTop: height * 0.02,
+        marginLeft: 20,
+    },
 
-  textbtn: {
-    fontSize: 15,
-    fontFamily: "ArimaMadurai-Bold",
-  },
-  titleTextbtn: {
-    fontSize: 15,
-    fontFamily: "ArimaMadurai-Bold",
-  },
-
-  foodButton: function (food) {
-    if (food) {
-      return {
-        paddingHorizontal: width * 0.2,
-        paddingVertical: height * 0.02,
-      };
-    } else {
-      return {
-        paddingHorizontal: width * 0.2,
-        paddingVertical: height * 0.02,
+    behaviorTextView: {
+        marginTop: height * 0.03,
+        paddingBottom: height * 0.1,
         backgroundColor: "#B3E5FC",
-      };
-    }
-  },
+        borderRadius: 25,
+        
+    },
 
-  drinksButton: function (food) {
-    if (food) {
-      return {
-        paddingHorizontal: width * 0.2,
-        paddingVertical: height * 0.02,
+    menu_view: {
+        height: height * 0.6,
+      },
+    
+    textbtn: {
+        fontSize: 15,
+        fontFamily: 'ArimaMadurai-Bold',
+    },
+    titleTextbtn: {
+        fontSize: 17,
+        fontFamily: 'ArimaMadurai-Bold',
+    },
+
+    foodButton: function(food) {
+        if (food){
+            return {
+                paddingHorizontal: width * 0.2,
+                paddingVertical: height  * 0.02,
+              }
+        }else{
+            return {
+                paddingHorizontal: width * 0.2,
+                paddingVertical: height  * 0.02,
+                backgroundColor: "#B3E5FC",
+            }
+        } 
+    },
+
+    drinksButton: function(food) {
+        if (food){
+            return {
+                paddingHorizontal: width * 0.2,
+                paddingVertical: height  * 0.02,
+                backgroundColor: "#B3E5FC",
+              }
+        }else{
+            return {
+                paddingHorizontal: width * 0.2,
+                paddingVertical: height  * 0.02,
+            }
+        } 
+    },
+    items: {
+        padding: 10,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    itemButton: {
+        backgroundColor: "#82B3C9",
+        marginVertical: height * 0.01,
+        marginHorizontal: width * 0.01,
+        borderRadius: 10,
+        
+    },
+
+    lightButton: {
+        marginLeft: 20,
         backgroundColor: "#B3E5FC",
-      };
-    } else {
-      return {
-        paddingHorizontal: width * 0.2,
-        paddingVertical: height * 0.02,
-      };
-    }
-  },
-  items: {
-    padding: 10,
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  itemButton: {
-    backgroundColor: "#82B3C9",
-    marginVertical: height * 0.01,
-    marginHorizontal: width * 0.01,
-    borderRadius: 10,
-  },
+        borderRadius: 25,
+        width: width * 0.2,
+        height: height * 0.04,
+        alignItems: 'center', 
+        justifyContent: 'center',
+    },
 
-  lightButton: {
-    backgroundColor: "#B3E5FC",
-    borderRadius: 10,
-    width: width * 0.2,
-    height: height * 0.03,
-    alignItems: "center",
-    justifyContent: "center",
-  },
+    darkButton: {
+        backgroundColor: "#82B3C9",
+        borderRadius: 25,
+        width: width * 0.3,
+        height: height * 0.04,
+        alignItems: 'center', 
+        justifyContent: 'center',
+        marginRight: 20,
+    }, 
 
-  darkButton: {
-    backgroundColor: "#82B3C9",
-    borderRadius: 10,
-    width: width * 0.3,
-    height: height * 0.03,
-    alignItems: "center",
-    justifyContent: "center",
-  },
+    addToCartButton:{
+        backgroundColor: "#B3E5FC",
+        borderRadius: 20,
+        width: height * 0.05,
+        height: height * 0.05,
+        alignItems: 'center', 
+        justifyContent: 'center',
+    },
+    textSide: {
+        fontSize: 15,
+        fontFamily: 'ArimaMadurai-Bold',
+        width: width * 0.3,
+        textAlign: 'center',
+        textAlignVertical: "center",
+    },
+    textMiddel: {
+        fontSize: 15,
+        fontFamily: 'ArimaMadurai-Bold',
+        width: width * 0.2,
+        textAlign: 'center',
+        textAlignVertical: "center",
+    },
 
-  addToCartButton: {
-    backgroundColor: "#B3E5FC",
-    borderRadius: 20,
-    width: height * 0.05,
-    height: height * 0.05,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  textSide: {
-    fontSize: 15,
-    fontFamily: "ArimaMadurai-Bold",
-    width: width * 0.3,
-    textAlign: "center",
-    textAlignVertical: "center",
-  },
-  textMiddel: {
-    fontSize: 15,
-    fontFamily: "ArimaMadurai-Bold",
-    width: width * 0.2,
-    textAlign: "center",
-    textAlignVertical: "center",
-  },
 });
 
 const Itemp = ({ name, price, priority, type }) => {

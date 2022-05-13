@@ -7,8 +7,12 @@ import {
   Dimensions,
   FlatList,
   Modal,
+  ScrollView,
+  SafeAreaView,
   Image,
 } from "react-native";
+import SwipeButton from 'rn-swipe-button';
+
 
 const { height, width } = Dimensions.get("window");
 
@@ -119,7 +123,6 @@ export default class CartScreen extends Component {
           a.salt = item.salt;
           a.fat = item.fat;
           a.suger = item.suger;
-
           compressed.push(a);
           total = total + myCount * item.price;
           this.setState({ total: total });
@@ -304,11 +307,28 @@ export default class CartScreen extends Component {
             data={currentCart}
             renderItem={this.rendercart}
             keyExtractor={(item) => item.id}
+            extraData={currentCart}
           />
         </View>
         <View>
           <Text style={styles.title}>Total: {total}</Text>
         </View>
+        <SafeAreaView>
+          <View style={styles.rowButtons}>
+        <SwipeButton
+            disabled ={false}
+            swipeSuccessThreshold={70}
+            height={45}
+            width={width * 0.88}
+            title="Approve"
+            onSwipeSuccess={()=> this.submit()}
+            railFillBackgroundColor="#82B3C9"
+            railFillBorderColor="#82B3C9" 
+            thumbIconBackgroundColor=""
+            > 
+          </SwipeButton>
+          </View>
+        </SafeAreaView>
         <View style={styles.rowButtons}>
           <TouchableOpacity
             style={styles.lightButton}
@@ -321,12 +341,13 @@ export default class CartScreen extends Component {
             <Text style={styles.titleTextbtn}>Back</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity
+        {/*   <TouchableOpacity
             style={styles.darkButton}
             onPress={() => this.submit()}
           >
-            <Text style={styles.titleTextbtn}>Submit / Pay</Text>
+            <Text style={styles.titleTextbtn}>Approve</Text>
           </TouchableOpacity>
+        */}
         </View>
         <Modal
           animationType="fade"
@@ -385,13 +406,22 @@ const styles = StyleSheet.create({
     width: width * 0.3,
     height: width * 0.3,
     resizeMode: "center",
+    marginTop: 20
+
   },
 
   title: {
     fontSize: 30,
     fontFamily: "ArimaMadurai-Bold",
   },
-
+  swipeBtn:{
+    alignItems: "center",
+  },
+  totalText: {
+    fontSize: 30,
+    marginTop: 15,
+    fontFamily: "ArimaMadurai-Bold",
+  },
   text: {
     fontSize: 20,
     fontFamily: "ArimaMadurai-Bold",
@@ -408,9 +438,15 @@ const styles = StyleSheet.create({
     textAlign: "center",
     textAlignVertical: "center",
   },
+  textItemsM: {
+    fontSize: 24,
+  },
+
 
   cartView: {
-    height: height * 0.5,
+    marginTop: 10,
+    borderRadius: 25,
+    height: height * 0.44,
     width: width * 0.9,
     backgroundColor: "#B3E5FC",
   },
@@ -424,7 +460,9 @@ const styles = StyleSheet.create({
   cartViewItems: {
     flexDirection: "row",
     backgroundColor: "#82B3C9",
-    borderRadius: 20,
+    borderRadius: 25,
+    height: height*0.05,
+    marginLeft: 15,
   },
 
   minusButton: {
@@ -434,6 +472,7 @@ const styles = StyleSheet.create({
     height: height * 0.05,
     alignItems: "center",
     justifyContent: "center",
+    marginRight:15,
   },
 
   lightButton: {

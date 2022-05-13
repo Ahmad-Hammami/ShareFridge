@@ -43,6 +43,7 @@ export default class EditItem extends Component {
   }
 
   submitData = () => {
+    
     fetch("https://sharefridgebackend.herokuapp.com/update-selected-item", {
       method: "post",
       headers: {
@@ -125,7 +126,7 @@ export default class EditItem extends Component {
   componentDidMount() {
     this.getItem();
   }
-
+ 
   render() {
     const {
       name,

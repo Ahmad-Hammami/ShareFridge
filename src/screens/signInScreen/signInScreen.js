@@ -74,6 +74,7 @@ export default function SignInScreen() {
             <TouchableOpacity
               style={styles.loginBtn}
               onPress={() => {
+                
                 for (let i = 0; i < data.length; i++) {
                   console.log(data[i].email);
                   console.log(data[i].type);
@@ -102,7 +103,10 @@ export default function SignInScreen() {
                     }
                   }
                 }
-              }}
+                
+              }
+            
+            }
             >
               <Text style={styles.textbtn}>Sign In</Text>
             </TouchableOpacity>

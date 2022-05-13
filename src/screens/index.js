@@ -18,5 +18,8 @@ export { default as ESelectedProfileScreen } from './selectedProfileScreen/eSele
 
 export { default as ReceiptScreen } from './receiptsScreen/receiptScreen'
 
+export { default as BehaviorMsg } from './component/behaviorMsg'
+
+
 
 export { default as SignInScreen } from './signInScreen/signInScreen'

@@ -38,6 +38,7 @@ export default class EViewBehaviorScreen extends Component {
       receipts: null,
       currentReceipts: null,
       chartDataItems: null,
+      msg: "",
     };
   }
 
@@ -49,6 +50,7 @@ export default class EViewBehaviorScreen extends Component {
     await this.compressArray(receipts);
     await this.getChartDataItems();
     await this.getBehavior();
+    
   };
 
   getUser = async () => {
@@ -164,6 +166,15 @@ export default class EViewBehaviorScreen extends Component {
     currentReceipts = compressed;
     this.setState({ currentReceipts: compressed });
   };
+  getBehaviorMsg = async () =>{
+    if (this.state.behavior.suger > 5){
+      let text = "to much suger"
+    } 
+    if (this.state.behavior.fat > 4){
+      
+    }
+
+  }
 
   getChartDataItems = async () => {
     let labels = [];
