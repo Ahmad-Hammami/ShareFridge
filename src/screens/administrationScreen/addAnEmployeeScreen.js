@@ -32,44 +32,61 @@ export default class AddAnEmployee extends Component {
         "https://res.cloudinary.com/sharefridge/image/upload/v1651785014/Emma_Profile_ij8c9r.jpg",
       submit: false,
       submitMSG: "",
+      errorPass: false,
     };
   }
 
-  submitData = async () => {
-    await fetch("https://sharefridgebackend.herokuapp.com/add-behavior", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: this.state.email,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {});
-
-    await fetch("https://sharefridgebackend.herokuapp.com/send-user", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: this.state.fullName,
-        email: this.state.email,
-        password: this.state.password1,
-        picture: this.state.selectedImage,
-        balance: this.state.balance,
-        type: this.state.type,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        this.setState({
-          submit: true,
-          submitMSG: `${data.name} is saved successfuly`,
-        });
+  isPasswordCorrect = async () => {
+    if (this.state.password2 === this.state.password1) {
+      return true;
+    } else {
+      this.setState({
+        errorPass: true,
+        submitMSG: "Passwords are not identical",
       });
+      return false;
+    }
+  };
+  submitData = async () => {
+    var correctPassword = await this.isPasswordCorrect();
+    if (correctPassword) {
+      await fetch("https://sharefridgebackend.herokuapp.com/add-behavior", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: this.state.email,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {});
+
+      await fetch("https://sharefridgebackend.herokuapp.com/send-user", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: this.state.fullName,
+          email: this.state.email,
+          password: this.state.password1,
+          picture: this.state.selectedImage,
+          balance: this.state.balance,
+          type: this.state.type,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          this.setState({
+            submit: true,
+            submitMSG: `${data.name} is saved successfuly`,
+          });
+        });
+    } else {
+      console.log("wrong password");
+    }
   };
 
   openImagePickerAsync = async () => {
@@ -272,6 +289,28 @@ export default class AddAnEmployee extends Component {
                     onPress={() =>
                       this.props.navigation.navigate("Administration")
                     }
+                  >
+                    <Text>OK</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </Modal>
+            <Modal
+              animationType="fade"
+              transparent={true}
+              visible={this.state.errorPass}
+              onRequestClose={() => {
+                this.setState({ errorPass: false });
+              }}
+            >
+              <View style={styles.modalCenterView}>
+                <View style={styles.modelViewAlert}>
+                  <Text style={styles.text}>{this.state.submitMSG}</Text>
+                  <TouchableOpacity
+                    style={styles.modalDarkButton}
+                    onPress={() => {
+                      this.setState({ errorPass: false });
+                    }}
                   >
                     <Text>OK</Text>
                   </TouchableOpacity>
