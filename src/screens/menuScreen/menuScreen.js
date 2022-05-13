@@ -3,10 +3,14 @@ import { Button, Text, View, ImageBackground, TouchableOpacity, StyleSheet, Dime
 
 import { useNavigation  } from "@react-navigation/native"
 
+
 const {height, width} = Dimensions.get('window');
 let food = false;
 let currentUsertype = "";
 let cart = new Array();
+
+import BehaviorMsg from '../Component/behaviorMsg';
+
 
 const renderitemp = ({ item }) => <Itemp name={item.name} price={item.price} priority={item.priority} type={item.type}/>;
 const renderitem = ({ item }) => <Item name={item.name} price={item.price} priority={item.priority} type={item.type}/>;
@@ -15,9 +19,9 @@ export default class MenuScreen extends Component {
         super(props);
         this.state = {
           Behavior: "", 
+        
           currentUsertype: props.route.params.currentUsertype,
           currentUser: props.route.params.currentUser,
-          
           cart: props.route.params.cart,
           items: null,
           food: false,
@@ -36,16 +40,18 @@ export default class MenuScreen extends Component {
             console.error(error)
         });
     }
-
-    componentDidMount(){
+    
+    componentDidMount = async () =>{
         this.getItems();
-        if(this.state.Behavior === ""){
-            this.setState({ Behavior: "No new behavior detected, have a good day." });
-        }
+     
+        let behaviormsg = await BehaviorMsg.msg(this.state.currentUser, this.state.currentUsertype);
+        console.log(behaviormsg)
+        this.setState({Behavior: behaviormsg})
         currentUsertype = this.state.currentUsertype
         cart = this.state.cart;
     }
 
+  
 
       
 

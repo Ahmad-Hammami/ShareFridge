@@ -1,6 +1,7 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, } from "react";
 import {
   Text,
+ 
   View,
   Image,
   StyleSheet,
@@ -43,6 +44,7 @@ export default class EditItem extends Component {
   }
 
   submitData = () => {
+    
     fetch("https://sharefridgebackend.herokuapp.com/update-selected-item", {
       method: "post",
       headers: {
@@ -122,7 +124,7 @@ export default class EditItem extends Component {
   componentDidMount() {
     this.getItem();
   }
-
+ 
   render() {
     const { name, price, amount, description, priority, picture, type } =
       this.state;
