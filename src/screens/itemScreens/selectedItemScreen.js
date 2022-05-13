@@ -127,6 +127,7 @@ export default class SelectedItemScreen extends Component {
                 onPress={() =>
                   this.props.navigation.navigate("Menu", {
                     cart: this.state.cart,
+                    update: false,
                   })
                 }
               >
@@ -138,6 +139,7 @@ export default class SelectedItemScreen extends Component {
                 onPress={() =>
                   this.props.navigation.navigate("Menu", {
                     cart: this.state.cart,
+                    update: false,
                   })
                 }
               >

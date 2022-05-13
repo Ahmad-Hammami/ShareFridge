@@ -215,7 +215,7 @@ export default class CViewBehaviorScreen extends Component {
               <TouchableOpacity
                 style={styles.lightButton}
                 onPress={() =>
-                  this.props.navigation.navigate("Menu", {
+                  this.props.navigation.navigate("Administration", {
                     currentUser: this.state.currentUser,
                     cart: [],
                     currentUsertype: this.state.currentUsertype,

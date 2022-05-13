@@ -93,6 +93,7 @@ export default function SignInScreen() {
                         currentUsertype: data[i].type,
                         currentUser: data[i].email,
                         cart: new Array(),
+                        update: false,
                       });
                     } else {
                       setAuthenticated(true);

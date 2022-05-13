@@ -22,9 +22,6 @@ var fat;
 var salt;
 var suger;
 
-const rendercart = ({ item }) => (
-  <Cart name={item.name} count={item.count} price={item.price} />
-);
 export default class CartScreen extends Component {
   constructor(props) {
     super(props);
@@ -135,17 +132,6 @@ export default class CartScreen extends Component {
     this.setState({ currentCart: compressed });
   };
 
-  removeFromCart = (name) => {
-    if (count > 0) {
-      var index = this.state.cart.indexOf(name);
-      if (index > -1) {
-        //Make sure item is present in the array, without if condition, -n indexes will be considered from the end of the array.
-        this.state.cart.splice(index, 1);
-        count = count - 1;
-      }
-    }
-    this.setState({ cart: this.state.cart });
-  };
   submit = async () => {
     this.setState({submit: true})
     console.log(cart);
@@ -262,6 +248,37 @@ export default class CartScreen extends Component {
       });
   };
 
+  rendercart = ({ item }) => {
+      return (
+        <View style={styles.rowButtons}>
+          <View style={styles.cartViewItems}>
+            <Text style={styles.textItems}>{item.count}x</Text>
+            <Text style={styles.textItems}>{item.name}</Text>
+            <Text style={styles.textItems}>{item.price}.-</Text>
+          </View>
+    
+          <TouchableOpacity
+            style={styles.minusButton}
+            onPress={() => this.removeFromCart(item.name)}
+          >
+            <Text style={styles.textItems}>-</Text>
+          </TouchableOpacity>
+        </View>
+      );
+  }
+
+  removeFromCart = (name) => {
+    
+    var index = cart.indexOf(name);
+    if (index > -1) {
+      //Make sure item is present in the array, without if condition, -n indexes will be considered from the end of the array.
+      cart.splice(index, 1);
+    }
+    console.log(cart);
+    this.setState({cart: cart})
+    this.compressArray(cart);
+  };
+
   render() {
     const { submit, total } = this.state;
     return (
@@ -279,7 +296,7 @@ export default class CartScreen extends Component {
         <View style={styles.cartView}>
           <FlatList
             data={currentCart}
-            renderItem={rendercart}
+            renderItem={this.rendercart}
             keyExtractor={(item) => item.id}
           />
         </View>
@@ -346,35 +363,6 @@ export default class CartScreen extends Component {
     );
   }
 }
-
-const Cart = ({ name, count, price }) => {
-  return (
-    <View style={styles.rowButtons}>
-      <View style={styles.cartViewItems}>
-        <Text style={styles.textItems}>{count}x</Text>
-        <Text style={styles.textItems}>{name}</Text>
-        <Text style={styles.textItems}>{price}.-</Text>
-      </View>
-
-      <TouchableOpacity
-        style={styles.minusButton}
-        onPress={() => removeFromCart(name)}
-      >
-        <Text style={styles.textItems}>-</Text>
-      </TouchableOpacity>
-    </View>
-  );
-};
-
-const removeFromCart = (name) => {
-  var index = cart.indexOf(name);
-  if (index > -1) {
-    //Make sure item is present in the array, without if condition, -n indexes will be considered from the end of the array.
-    cart.splice(index, 1);
-  }
-  console.log(cart);
-  //CartScreen.compressArray(cart);
-};
 
 const styles = StyleSheet.create({
   container: {

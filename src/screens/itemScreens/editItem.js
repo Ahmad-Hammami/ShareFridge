@@ -64,9 +64,11 @@ export default class EditItem extends Component {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
+        //console.log(data)
         Alert.alert(`${data.name} is updated successfuly`)
-        this.props.navigation.navigate("Menu")
+        this.props.navigation.navigate("Menu", {
+          update: true
+        })
       });
   };
 
@@ -115,7 +117,9 @@ export default class EditItem extends Component {
       .then((data) => {
         console.log(data)
         Alert.alert(`${data.name} is deleted successfuly`)
-        this.props.navigation.navigate("Menu")
+        this.props.navigation.navigate("Menu", {
+          update: true
+        })
       });
   };
 
@@ -228,39 +232,6 @@ export default class EditItem extends Component {
                 }}
               />
             </View>
-
-            {/*
-                <MultiSelect
-                    hideTags
-                    items={contents}
-                    uniqueKey="id"
-                    ref={(component) => { this.multiSelect = component }}
-                    onSelectedItemsChange={this.onSelectedItemsChange}
-                    selectedItems={selectedContents}
-                    selectText="Contents"
-                    searchInputPlaceholderText="Search Items..."
-                    onChangeInput={ (text)=> console.log(text)}
-                    altFontFamily="ArimaMadurai-Regular"
-                    fontFamily="ArimaMadurai-Regular"
-                    itemFontFamily="ArimaMadurai-Regular"
-                    selectedItemFontFamily="ArimaMadurai-Regular"
-                    tagRemoveIconColor="#82B3C9"
-                    backgroundColor="#B3E5FC"
-                    tagBorderColor="#82B3C9"
-                    tagTextColor="#000000"
-                    selectedItemTextColor="#CCC"
-                    selectedItemIconColor="#B3E5FC"
-                    itemTextColor="#000000"
-                    displayKey="name"
-                    searchInputStyle={{ color: '#82B3C9' }}
-                    submitButtonColor="#82B3C9"
-                    submitButtonText="Submit"
-                />
-                <View>
-                    { this.multiSelect ? this.multiSelect.getSelectedItemsExt(selectedContents) : null}
-                </View>
-                */}
-
             <Text style={styles.text}>Description:</Text>
             <TextInput
               style={styles.input}
@@ -275,6 +246,7 @@ export default class EditItem extends Component {
                 onPress={() =>
                   this.props.navigation.navigate("Menu", {
                     cart: [],
+                    update: false,
                   })
                 }
               >

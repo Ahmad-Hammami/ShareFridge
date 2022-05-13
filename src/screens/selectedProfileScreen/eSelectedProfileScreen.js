@@ -90,7 +90,9 @@ export default class ESelectedProfileScreen extends Component {
         .then((data) => {
           console.log(data);
           Alert.alert(`${data.name} is updated successfuly`);
-          this.props.navigation.navigate("Menu");
+          this.props.navigation.navigate("Menu",{
+            update: false,
+          });
         });
     } else {
         console.log("wrong password")
@@ -177,7 +179,8 @@ export default class ESelectedProfileScreen extends Component {
                       this.props.navigation.navigate("Menu", {
                         currentUser: this.state.currentUser,
                         cart: [],
-                        currentUsertype: this.state.currentUsertype
+                        currentUsertype: this.state.currentUsertype,
+                        update: false,
                       })
                     }
                   >
