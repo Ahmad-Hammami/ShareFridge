@@ -2,14 +2,10 @@ import React, { Component, Fragment } from "react";
 import {
   Text,
   View,
-  ImageBackground,
   TouchableOpacity,
   StyleSheet,
   Dimensions,
-  FlatList,
   ScrollView,
-  Image,
-  Alert,
   SafeAreaView,
 } from "react-native";
 import { BarChart, PieChart } from "react-native-chart-kit";

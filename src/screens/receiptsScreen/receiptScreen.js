@@ -2,15 +2,10 @@ import React, { Component, Fragment } from "react";
 import {
   Text,
   View,
-  ImageBackground,
   TouchableOpacity,
   StyleSheet,
   Dimensions,
   FlatList,
-  ScrollView,
-  Image,
-  Alert,
-  SafeAreaView,
 } from "react-native";
 
 const { height, width } = Dimensions.get("window");

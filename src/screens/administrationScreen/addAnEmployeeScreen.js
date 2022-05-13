@@ -10,7 +10,6 @@ import {
   Dimensions,
   SafeAreaView,
   ScrollView,
-  Alert,
 } from "react-native";
 import { Button } from "react-native-paper";
 import * as ImagePicker from "expo-image-picker";
@@ -33,6 +32,8 @@ export default class AddAnEmployee extends Component {
       popUpPhoto: false,
       selectedImage:
         "https://res.cloudinary.com/sharefridge/image/upload/v1651785014/Emma_Profile_ij8c9r.jpg",
+      submit: false,
+      submitMSG: "",
     };
   }
 
@@ -66,19 +67,11 @@ export default class AddAnEmployee extends Component {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        Alert.alert(`${data.name} is saved successfuly`);
-        this.props.navigation.navigate("Administration");
+        this.setState({
+          submit: true,
+          submitMSG: `${data.name} is saved successfuly`,
+        });
       });
-  };
-
-  navigateFunction = () => {
-    this.props.navigation.navigate("Administration");
-  };
-
-  saveFunction = (body) => {
-    this.navigateFunction();
-    //this.setState(prevState => ({ id: prevState.id + 1 }));
-    //console.log(this.state.id)
   };
 
   openImagePickerAsync = async () => {
@@ -265,6 +258,28 @@ export default class AddAnEmployee extends Component {
                 </TouchableOpacity>
               </View>
             </View>
+            <Modal
+              animationType="fade"
+              transparent={true}
+              visible={this.state.submit}
+              onRequestClose={() => {
+                this.setState({ submit: false });
+              }}
+            >
+              <View style={styles.modalCenterView}>
+                <View style={styles.modelViewAlert}>
+                  <Text style={styles.text}>{this.state.submitMSG}</Text>
+                  <TouchableOpacity
+                    style={styles.modalDarkButton}
+                    onPress={() =>
+                      this.props.navigation.navigate("Administration")
+                    }
+                  >
+                    <Text>OK</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </Modal>
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -341,5 +356,34 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     paddingVertical: height * 0.05,
+  },
+
+  modalCenterView: {
+    flex: 1,
+    backgroundColor: "#00000099",
+  },
+  modelViewAlert: {
+    position: "absolute",
+    top: height * 0.35,
+    left: width * 0.25,
+    height: height * 0.3,
+    width: width * 0.5,
+    paddingVertical: height * 0.01,
+    paddingHorizontal: width * 0.1,
+    backgroundColor: "#B3E5FC",
+    borderRadius: 25,
+  },
+
+  modalDarkButton: {
+    position: "absolute",
+    backgroundColor: "#82B3C9",
+    borderRadius: 20,
+    width: width * 0.3,
+    height: height * 0.05,
+    bottom: height * 0.01,
+    left: width * 0.1,
+
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

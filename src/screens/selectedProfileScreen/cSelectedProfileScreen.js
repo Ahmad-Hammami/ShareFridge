@@ -1,17 +1,12 @@
 import React, { Component, Fragment } from "react";
 import {
-  Button,
   Text,
   View,
   Image,
   StyleSheet,
-  TextInput,
   TouchableOpacity,
-  FlatList,
   Dimensions,
-  SafeAreaView,
-  ScrollView,
-  Alert,
+  Modal,
 } from "react-native";
 import { RadioButton } from "react-native-paper";
 import Users from "../../db/users.json";
@@ -26,6 +21,8 @@ export default class CSelectedProfileScreen extends Component {
       error: null,
       user: Users,
       selectedUser: props.route.params.selectedUserEmail,
+      submit: false,
+      submitMSG: "",
     };
   }
 
@@ -80,9 +77,9 @@ export default class CSelectedProfileScreen extends Component {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        Alert.alert(`${data.name} is deleted successfuly`);
-        this.props.navigation.navigate("SeeEmployees", {
-          update: true
+        this.setState({
+          submit: true,
+          submitMSG: `${data.name} is deleted successfuly`,
         });
       });
   };
@@ -115,9 +112,11 @@ export default class CSelectedProfileScreen extends Component {
             <View style={styles.rowText}>
               <TouchableOpacity
                 style={styles.lightButton}
-                onPress={() => this.props.navigation.navigate("SeeEmployees", {
-                  update: false
-                })}
+                onPress={() =>
+                  this.props.navigation.navigate("SeeEmployees", {
+                    update: false,
+                  })
+                }
               >
                 <Text>Back</Text>
               </TouchableOpacity>
@@ -131,6 +130,30 @@ export default class CSelectedProfileScreen extends Component {
             </View>
           </View>
         </View>
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={this.state.submit}
+          onRequestClose={() => {
+            this.setState({ submit: false });
+          }}
+        >
+          <View style={styles.modalCenterView}>
+            <View style={styles.modelViewAlert}>
+              <Text style={styles.text}>{this.state.submitMSG}</Text>
+              <TouchableOpacity
+                style={styles.modalDarkButton}
+                onPress={() =>
+                  this.props.navigation.navigate("SeeEmployees", {
+                    update: true,
+                  })
+                }
+              >
+                <Text>OK</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
       </View>
     );
   }
@@ -190,6 +213,35 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: width * 0.2,
     height: height * 0.03,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  modalCenterView: {
+    flex: 1,
+    backgroundColor: "#00000099",
+  },
+  modelViewAlert: {
+    position: "absolute",
+    top: height * 0.35,
+    left: width * 0.25,
+    height: height * 0.3,
+    width: width * 0.5,
+    paddingVertical: height * 0.01,
+    paddingHorizontal: width * 0.1,
+    backgroundColor: "#B3E5FC",
+    borderRadius: 25,
+  },
+
+  modalDarkButton: {
+    position: "absolute",
+    backgroundColor: "#82B3C9",
+    borderRadius: 20,
+    width: width * 0.3,
+    height: height * 0.05,
+    bottom: height * 0.01,
+    left: width * 0.1,
+
     alignItems: "center",
     justifyContent: "center",
   },

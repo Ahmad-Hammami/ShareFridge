@@ -8,14 +8,12 @@ import {
   FlatList,
   Modal,
   Image,
-  Alert,
 } from "react-native";
 
 const { height, width } = Dimensions.get("window");
 
 let currentCart = [];
 let cart = [];
-
 
 var caffeine;
 var fat;
@@ -124,8 +122,7 @@ export default class CartScreen extends Component {
 
           compressed.push(a);
           total = total + myCount * item.price;
-          this.setState({total: total})
-
+          this.setState({ total: total });
         });
       }
     }
@@ -134,19 +131,21 @@ export default class CartScreen extends Component {
   };
 
   submit = async () => {
-    this.setState({submit: true})
+    this.setState({ submit: true });
     console.log(cart);
-    let email = this.state.user.email;
-    let balance = this.state.user.balance + this.state.total;
-    await this.Behavior(email);
-    await this.postReceipts(email);
-    await this.updateBalance(email, balance);
-    await this.updateAmount();
-    this.state.cart.length = 0;
-    cart.length = 0;
+    if (currentCart.length > 0) {
+      let email = this.state.user.email;
+      let balance = this.state.user.balance + this.state.total;
+      await this.Behavior(email);
+      await this.postReceipts(email);
+      await this.updateBalance(email, balance);
+      await this.updateAmount();
+      this.state.cart.length = 0;
+      cart.length = 0;
+    }
   };
   updateAmount = async () => {
-    if (currentCart.length > 0){
+    if (currentCart.length > 0) {
       currentCart.map((item) => {
         fetch("https://sharefridgebackend.herokuapp.com/update-selected-item", {
           method: "post",
@@ -158,10 +157,10 @@ export default class CartScreen extends Component {
             amount: item.amount - item.count,
           }),
         })
-        .then((res) => res.json())
-        .then((data) => {});
-        })
-     }
+          .then((res) => res.json())
+          .then((data) => {});
+      });
+    }
   };
   Behavior = async (email) => {
     await fetch("https://sharefridgebackend.herokuapp.com/get-behavior", {
@@ -268,33 +267,32 @@ export default class CartScreen extends Component {
   };
 
   rendercart = ({ item }) => {
-      return (
-        <View style={styles.rowButtons}>
-          <View style={styles.cartViewItems}>
-            <Text style={styles.textItems}>{item.count}x</Text>
-            <Text style={styles.textItems}>{item.name}</Text>
-            <Text style={styles.textItems}>{item.price}.-</Text>
-          </View>
-    
-          <TouchableOpacity
-            style={styles.minusButton}
-            onPress={() => this.removeFromCart(item.name)}
-          >
-            <Text style={styles.textItems}>-</Text>
-          </TouchableOpacity>
+    return (
+      <View style={styles.rowButtons}>
+        <View style={styles.cartViewItems}>
+          <Text style={styles.textItems}>{item.count}x</Text>
+          <Text style={styles.textItems}>{item.name}</Text>
+          <Text style={styles.textItems}>{item.price}.-</Text>
         </View>
-      );
-  }
+
+        <TouchableOpacity
+          style={styles.minusButton}
+          onPress={() => this.removeFromCart(item.name)}
+        >
+          <Text style={styles.textItems}>-</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
 
   removeFromCart = (name) => {
-    
     var index = cart.indexOf(name);
     if (index > -1) {
       //Make sure item is present in the array, without if condition, -n indexes will be considered from the end of the array.
       cart.splice(index, 1);
     }
     console.log(cart);
-    this.setState({cart: cart})
+    this.setState({ cart: cart });
     this.compressArray(cart);
   };
 
@@ -320,7 +318,7 @@ export default class CartScreen extends Component {
           />
         </View>
         <View>
-          <Text style={styles.title}>Total:   {total}</Text>
+          <Text style={styles.title}>Total: {total}</Text>
         </View>
         <View style={styles.rowButtons}>
           <TouchableOpacity
@@ -478,7 +476,6 @@ const styles = StyleSheet.create({
     width: width * 0.6,
     paddingVertical: height * 0.01,
     paddingHorizontal: width * 0.1,
-    width: width * 0.6,
     backgroundColor: "#B3E5FC",
     borderRadius: 25,
   },

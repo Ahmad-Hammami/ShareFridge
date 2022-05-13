@@ -11,7 +11,7 @@ import {
   Dimensions,
   SafeAreaView,
   ScrollView,
-  Alert,
+  Modal,
 } from "react-native";
 import Users from "../../db/users.json";
 
@@ -27,6 +27,9 @@ export default class ESelectedProfileScreen extends Component {
       password1: "",
       password2: "",
       password3: "",
+      submit: false,
+      submitMSG: "",
+      errorPass: false,
     };
   }
 
@@ -52,7 +55,6 @@ export default class ESelectedProfileScreen extends Component {
 
   componentDidMount = async () => {
     await this.getUser();
-    console.log(new Date().toLocaleString());
   };
 
   isPasswordCorrect = async () => {
@@ -60,12 +62,17 @@ export default class ESelectedProfileScreen extends Component {
       if (this.state.password2 === this.state.password3) {
         return true;
       } else {
-        Alert.alert(`The changed passwords are not identical`);
+        this.setState({
+          errorPass: true,
+          submitMSG: "The new passwords are not identical",
+        });
         return false;
-        
       }
     } else {
-      Alert.alert(`Current password is incorrect`);
+      this.setState({
+        errorPass: true,
+        submitMSG: "Current password is incorrect",
+      });
       return false;
     }
   };
@@ -89,13 +96,13 @@ export default class ESelectedProfileScreen extends Component {
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
-          Alert.alert(`${data.name} is updated successfuly`);
-          this.props.navigation.navigate("Menu",{
-            update: false,
+          this.setState({
+            submit: true,
+            submitMSG: `${data.name} is updated successfuly`,
           });
         });
     } else {
-        console.log("wrong password")
+      console.log("wrong password");
     }
   };
 
@@ -131,7 +138,7 @@ export default class ESelectedProfileScreen extends Component {
                   onPress={() =>
                     this.props.navigation.navigate("EViewBehavior", {
                       currentUser: this.state.currentUser,
-                      currentUsertype: this.state.currentUsertype
+                      currentUsertype: this.state.currentUsertype,
                     })
                   }
                 >
@@ -142,7 +149,7 @@ export default class ESelectedProfileScreen extends Component {
                   onPress={() =>
                     this.props.navigation.navigate("Receipts", {
                       currentUser: this.state.currentUser,
-                      currentUsertype: this.state.currentUsertype
+                      currentUsertype: this.state.currentUsertype,
                     })
                   }
                 >
@@ -194,6 +201,52 @@ export default class ESelectedProfileScreen extends Component {
                     <Text>Save</Text>
                   </TouchableOpacity>
                 </View>
+                <Modal
+                  animationType="fade"
+                  transparent={true}
+                  visible={this.state.submit}
+                  onRequestClose={() => {
+                    this.setState({ submit: false });
+                  }}
+                >
+                  <View style={styles.modalCenterView}>
+                    <View style={styles.modelView}>
+                      <Text style={styles.text}>{this.state.submitMSG}</Text>
+                      <TouchableOpacity
+                        style={styles.modalDarkButton}
+                        onPress={() =>
+                          this.props.navigation.navigate("Menu", {
+                            update: false,
+                          })
+                        }
+                      >
+                        <Text>OK</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                </Modal>
+                <Modal
+                  animationType="fade"
+                  transparent={true}
+                  visible={this.state.errorPass}
+                  onRequestClose={() => {
+                    this.setState({ errorPass: false });
+                  }}
+                >
+                  <View style={styles.modalCenterView}>
+                    <View style={styles.modelView}>
+                      <Text style={styles.text}>{this.state.submitMSG}</Text>
+                      <TouchableOpacity
+                        style={styles.modalDarkButton}
+                        onPress={() => {
+                          this.setState({ errorPass: false });
+                        }}
+                      >
+                        <Text>OK</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                </Modal>
               </View>
             </View>
           </View>
@@ -277,6 +330,35 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: width * 0.2,
     height: height * 0.03,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  modalCenterView: {
+    flex: 1,
+    backgroundColor: "#00000099",
+  },
+  modelView: {
+    position: "absolute",
+    top: height * 0.35,
+    left: width * 0.25,
+    height: height * 0.3,
+    width: width * 0.5,
+    paddingVertical: height * 0.01,
+    paddingHorizontal: width * 0.1,
+    backgroundColor: "#B3E5FC",
+    borderRadius: 25,
+  },
+
+  modalDarkButton: {
+    position: "absolute",
+    backgroundColor: "#82B3C9",
+    borderRadius: 20,
+    width: width * 0.3,
+    height: height * 0.05,
+    bottom: height * 0.01,
+    left: width * 0.1,
+
     alignItems: "center",
     justifyContent: "center",
   },

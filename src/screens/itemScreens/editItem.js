@@ -9,7 +9,7 @@ import {
   SafeAreaView,
   Dimensions,
   ScrollView,
-  Alert,
+  Modal,
 } from "react-native";
 import { RadioButton, Button, Checkbox } from "react-native-paper";
 //import { ScrollView } from 'react-native-virtualized-view';
@@ -37,6 +37,8 @@ export default class EditItem extends Component {
       caffeine: false,
       fat: false,
       salt: false,
+      submit: false,
+      submitMSG: "",
     };
 
     this.arrayholder = Item;
@@ -59,16 +61,16 @@ export default class EditItem extends Component {
         caffeine: this.state.caffeine,
         fat: this.state.fat,
         salt: this.state.salt,
-        priority: this.state.priority
+        priority: this.state.priority,
       }),
     })
       .then((res) => res.json())
       .then((data) => {
         //console.log(data)
-        Alert.alert(`${data.name} is updated successfuly`)
-        this.props.navigation.navigate("Menu", {
-          update: true
-        })
+        this.setState({
+          submit: true,
+          submitMSG: `${data.name} is updated successfuly`,
+        });
       });
   };
 
@@ -115,11 +117,11 @@ export default class EditItem extends Component {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
-        Alert.alert(`${data.name} is deleted successfuly`)
-        this.props.navigation.navigate("Menu", {
-          update: true
-        })
+        console.log(data);
+        this.setState({
+          submit: true,
+          submitMSG: `${data.name} is deleted successfuly`,
+        });
       });
   };
 
@@ -259,6 +261,30 @@ export default class EditItem extends Component {
                 <Text>Confirm/Save</Text>
               </TouchableOpacity>
             </View>
+            <Modal
+              animationType="fade"
+              transparent={true}
+              visible={this.state.submit}
+              onRequestClose={() => {
+                this.setState({ submit: false });
+              }}
+            >
+              <View style={styles.modalCenterView}>
+                <View style={styles.modelViewAlert}>
+                  <Text style={styles.text}>{this.state.submitMSG}</Text>
+                  <TouchableOpacity
+                    style={styles.modalDarkButton}
+                    onPress={() =>
+                      this.props.navigation.navigate("Menu", {
+                        update: true,
+                      })
+                    }
+                  >
+                    <Text>OK</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </Modal>
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -342,6 +368,35 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: width * 0.2,
     height: height * 0.03,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  modalCenterView: {
+    flex: 1,
+    backgroundColor: "#00000099",
+  },
+  modelViewAlert: {
+    position: "absolute",
+    top: height * 0.35,
+    left: width * 0.25,
+    height: height * 0.3,
+    width: width * 0.5,
+    paddingVertical: height * 0.01,
+    paddingHorizontal: width * 0.1,
+    backgroundColor: "#B3E5FC",
+    borderRadius: 25,
+  },
+
+  modalDarkButton: {
+    position: "absolute",
+    backgroundColor: "#82B3C9",
+    borderRadius: 20,
+    width: width * 0.3,
+    height: height * 0.05,
+    bottom: height * 0.01,
+    left: width * 0.1,
+
     alignItems: "center",
     justifyContent: "center",
   },
