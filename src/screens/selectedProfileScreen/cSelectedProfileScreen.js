@@ -88,7 +88,7 @@ export default class CSelectedProfileScreen extends Component {
     return (
       <View>
         <View style={styles.container}>
-          <Text style={styles.title}>{user.name}</Text>
+          <Text style={styles.titleName}>{user.name}</Text>
           <View style={styles.photo_view}>
             <Image
               style={styles.Profile_Photo}
@@ -101,33 +101,34 @@ export default class CSelectedProfileScreen extends Component {
           </View>
           <View style={styles.rowText}>
             <Text style={styles.title}>Balance:</Text>
-            <Text style={styles.title}>{user.balance}</Text>
+            <Text style={styles.title}>{user.balance}  DKK</Text>
+
           </View>
           <View style={styles.rowText}>
             <Text style={styles.title}>E-mail:</Text>
             <Text style={styles.title}>{user.email}</Text>
           </View>
-          <View style={styles.container}>
-            <View style={styles.rowText}>
-              <TouchableOpacity
-                style={styles.lightButton}
-                onPress={() =>
-                  this.props.navigation.navigate("SeeEmployees", {
-                    update: false,
-                  })
-                }
-              >
-                <Text>Back</Text>
-              </TouchableOpacity>
 
-              <TouchableOpacity
-                style={styles.redButton}
-                onPress={this.submitData}
-              >
-                <Text>Delete</Text>
-              </TouchableOpacity>
-            </View>
+          <View style={styles.rowBtn}>
+            <TouchableOpacity
+              style={styles.lightButton}
+              onPress={() =>
+                this.props.navigation.navigate("SeeEmployees", {
+                  update: false,
+                })
+              }
+            >
+              <Text>Back</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.redButton}
+              onPress={this.submitData}
+            >
+              <Text>Delete</Text>
+            </TouchableOpacity>
           </View>
+
         </View>
         <Modal
           animationType="fade"
@@ -165,16 +166,19 @@ const styles = StyleSheet.create({
     marginRight: width * 0.05,
   },
   containerCenter: {
-    marginTop: 15,
-    padding: 2,
+
     alignItems: "center",
+  },
+
+  titleName: {
+    fontFamily: "ArimaMadurai-Bold",
+    fontSize: 25,
   },
 
   title: {
     fontFamily: "ArimaMadurai-Bold",
     fontSize: 20,
   },
-
   text: {
     fontFamily: "ArimaMadurai-Bold",
     fontSize: 15,
@@ -182,12 +186,15 @@ const styles = StyleSheet.create({
 
   photo_view: {
     alignItems: "center",
+    marginBottom: 35,
+    marginTop: 35,
   },
 
   Profile_Photo: {
-    width: 200,
-    height: 200,
+    width: width * 0.5,
+    height: width * 0.5,
     resizeMode: "center",
+    borderRadius: 200
   },
 
   rowText: {
@@ -196,22 +203,27 @@ const styles = StyleSheet.create({
     paddingRight: width * 0.1,
     flexDirection: "row",
     justifyContent: "space-between",
+    marginBottom: 1,
   },
-
+  rowBtn: {
+    marginTop: 200,
+    justifyContent: "space-evenly",
+    flexDirection: "row",
+  },
   lightButton: {
     backgroundColor: "#B3E5FC",
-    borderRadius: 10,
-    width: width * 0.2,
-    height: height * 0.03,
+    borderRadius: 25,
+    width: width * 0.3,
+    height: height * 0.04,
     alignItems: "center",
     justifyContent: "center",
   },
 
   redButton: {
     backgroundColor: "#EB6A6A",
-    borderRadius: 10,
-    width: width * 0.2,
-    height: height * 0.03,
+    borderRadius: 25,
+    width: width * 0.3,
+    height: height * 0.04,
     alignItems: "center",
     justifyContent: "center",
   },

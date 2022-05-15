@@ -65,10 +65,11 @@ export default function SignInScreen() {
               secureTextEntry={true}
               onChangeText={(password) => setPassword(password)}
             />
-            <TouchableOpacity>
+          
+          </View>
+          <TouchableOpacity>
               <Text style={styles.forgot_button}>Forgot Password?</Text>
             </TouchableOpacity>
-          </View>
 
           <View style={styles.btnstyle}>
             <TouchableOpacity
@@ -154,14 +155,16 @@ const styles = StyleSheet.create({
     height: height * 0.06,
     marginVertical: height * 0.02,
     alignItems: "center",
+    justifyContent:"center"
   },
   TextInput: {
     width: width * 0.6,
     height: 40,
-    margin: 5,
-    padding: 10,
+    
     marginLeft: 20,
+    justifyContent:"center",
     fontFamily: "ArimaMadurai-Bold",
+
   },
 
   forgot_button: {
@@ -184,7 +187,7 @@ const styles = StyleSheet.create({
     height: width * 0.6,
   },
   btnstyle: {
-    marginTop: height * 0.01,
+    marginTop: -42,
     alignItems: "center",
     width: width * 0.65,
   },

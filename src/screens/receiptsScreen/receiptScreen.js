@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     marginTop: height * 0.1,
     marginLeft: width * 0.05,
     marginRight: width * 0.05,
-    height: height * 0.9
+    height: height * 0.95
   },
 
   receiptsView: {
@@ -123,6 +123,7 @@ const styles = StyleSheet.create({
     marginLeft: width * 0.05,
     marginRight: width * 0.05,
     backgroundColor: "#82B3C9",
+    borderRadius:12
   },
 
   rowView: {
@@ -139,9 +140,9 @@ const styles = StyleSheet.create({
 
   lightButton: {
     backgroundColor: "#B3E5FC",
-    borderRadius: 10,
-    width: width * 0.2,
-    height: height * 0.03,
+    borderRadius: 25,
+    width: width * 0.3,
+    height: height * 0.04,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -154,6 +155,7 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: "ArimaMadurai-Bold",
     fontSize: 15,
+    marginLeft: 12
   },
 });
 

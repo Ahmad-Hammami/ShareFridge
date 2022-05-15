@@ -124,7 +124,7 @@ export default class ESelectedProfileScreen extends Component {
               </View>
               <View style={styles.rowText}>
                 <Text style={styles.title}>Balance:</Text>
-                <Text style={styles.title}>{user.balance}</Text>
+                <Text style={styles.title}>{user.balance} DKK</Text>
               </View>
               <View style={styles.rowText}>
                 <Text style={styles.title}>E-mail:</Text>
@@ -177,7 +177,7 @@ export default class ESelectedProfileScreen extends Component {
                   onChangeText={(password3) => this.setState({ password3 })}
                   value={this.state.password3}
                 />
-                <View style={styles.rowText}>
+                <View style={styles.rowBtn}>
                   <TouchableOpacity
                     style={styles.lightButton}
                     onPress={() =>
@@ -271,7 +271,7 @@ const styles = StyleSheet.create({
     fontFamily: "ArimaMadurai-Bold",
     fontSize: 20,
   },
-  
+
   titleP: {
     fontFamily: "ArimaMadurai-Bold",
     fontSize: 15,
@@ -279,7 +279,7 @@ const styles = StyleSheet.create({
   titleC: {
     fontFamily: "ArimaMadurai-Bold",
     fontSize: 20,
-    marginBottom:5,
+    marginBottom: 5,
   },
 
 
@@ -293,8 +293,8 @@ const styles = StyleSheet.create({
   },
 
   Profile_Photo: {
-    width: 200,
-    height: 200,
+    width: width * 0.5,
+    height: width * 0.5,
     resizeMode: "center",
     borderRadius: 200
   },
@@ -305,6 +305,13 @@ const styles = StyleSheet.create({
     paddingRight: width * 0.1,
     flexDirection: "row",
     justifyContent: "space-between",
+    marginBottom: 1,
+  },
+  rowBtn: {
+    height: height * 0.07,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 1,
   },
 
   input: {
@@ -325,26 +332,26 @@ const styles = StyleSheet.create({
     height: height * 0.05,
     alignItems: "center",
     justifyContent: "center",
-    marginBottom:20
+    marginBottom: 20
   },
 
   lightButton: {
     backgroundColor: "#B3E5FC",
-    borderRadius: 10,
+    borderRadius: 25,
     width: width * 0.3,
-    height: height * 0.035,
+    height: height * 0.04,
     alignItems: "center",
     justifyContent: "center",
   },
 
   darkButton: {
     backgroundColor: "#82B3C9",
-    borderRadius: 10,
+    borderRadius: 25,
     width: width * 0.3,
-    height: height * 0.035,
+    height: height * 0.04,
     alignItems: "center",
-    justifyContent: "space-between",
-    
+    justifyContent: "center",
+
   },
 
   modalCenterView: {
