@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
  
 
   descriptionView: {
-    width: width * 0.8,
+    width: width * 0.7,
     height: height * 0.2,
     backgroundColor: "#B3E5FC",
     borderRadius: 25,

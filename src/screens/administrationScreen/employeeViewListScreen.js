@@ -25,7 +25,6 @@ export default class EmployeeViewListScreen extends Component {
       searchValue: "",
       update: props.route.params,
     };
-    this.arrayholder = this.state.data;
   }
 
   getUsers = () => {
@@ -33,6 +32,7 @@ export default class EmployeeViewListScreen extends Component {
       .then((res) => res.json())
       .then((result) => {
         this.setState({ data: result });
+        this.arrayholder = result
       })
       .catch((error) => {
         console.error(error);
@@ -108,8 +108,8 @@ const User = ({ name, email, type }) => {
         }
       >
         <View style={styles.user}>
-          <Text style={styles.text}>{name}</Text>
-          <Text style={styles.text}>{email}</Text>
+          <Text style={styles.textName}>{name}</Text>
+          <Text style={styles.textEmail}>{email}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -156,7 +156,16 @@ const styles = StyleSheet.create({
     fontFamily: "ArimaMadurai-Bold",
     fontSize: 15,
   },
-
+  textName: {
+    fontFamily: "ArimaMadurai-Bold",
+    fontSize: 15,
+    width: width * 0.4,
+  },
+  textEmail: {
+    fontFamily: "ArimaMadurai-Bold",
+    fontSize: 15,
+    width: width * 0.5,
+  },
   employee_view: {
     
     height: height * 0.75,

@@ -69,10 +69,12 @@ export default class MenuScreen extends Component {
     await this.getItems();
     currentUsertype = this.state.currentUsertype;
     cart = this.state.cart;
+    food = false;
   };
 
   componentDidUpdate(prevProps) {
     if (this.props.route.params !== prevProps.route.params) {
+      food = false;
       this.getItems();
     }
   }

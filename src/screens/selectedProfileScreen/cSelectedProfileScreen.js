@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   Dimensions,
   Modal,
+  SafeAreaView,
+  ScrollView,
 } from "react-native";
 import Users from "../../db/users.json";
 
@@ -86,75 +88,77 @@ export default class CSelectedProfileScreen extends Component {
   render() {
     const { user } = this.state;
     return (
-      <View>
-        <View style={styles.container}>
-          <Text style={styles.titleName}>{user.name}</Text>
-          <View style={styles.photo_view}>
-            <Image
-              style={styles.Profile_Photo}
-              source={{ uri: user.picture }}
-            />
-          </View>
-          <View style={styles.rowText}>
-            <Text style={styles.title}>ID:</Text>
-            <Text style={styles.title}>{user._id}</Text>
-          </View>
-          <View style={styles.rowText}>
-            <Text style={styles.title}>Balance:</Text>
-            <Text style={styles.title}>{user.balance}  DKK</Text>
+      <SafeAreaView>
+        <ScrollView>
+          <View>
+            <View style={styles.container}>
+              <Text style={styles.titleName}>{user.name}</Text>
+              <View style={styles.photo_view}>
+                <Image
+                  style={styles.Profile_Photo}
+                  source={{ uri: user.picture }}
+                />
+              </View>
+              <View style={styles.rowText}>
+                <Text style={styles.title}>ID:</Text>
+                <Text style={styles.titleID}>{user._id}</Text>
+              </View>
+              <View style={styles.rowText}>
+                <Text style={styles.title}>Balance:</Text>
+                <Text style={styles.title}>{user.balance} DKK</Text>
+              </View>
+              <View style={styles.rowText}>
+                <Text style={styles.title}>E-mail:</Text>
+                <Text style={styles.titleID}>{user.email}</Text>
+              </View>
 
-          </View>
-          <View style={styles.rowText}>
-            <Text style={styles.title}>E-mail:</Text>
-            <Text style={styles.title}>{user.email}</Text>
-          </View>
+              <View style={styles.rowBtn}>
+                <TouchableOpacity
+                  style={styles.lightButton}
+                  onPress={() =>
+                    this.props.navigation.navigate("SeeEmployees", {
+                      update: false,
+                    })
+                  }
+                >
+                  <Text>Back</Text>
+                </TouchableOpacity>
 
-          <View style={styles.rowBtn}>
-            <TouchableOpacity
-              style={styles.lightButton}
-              onPress={() =>
-                this.props.navigation.navigate("SeeEmployees", {
-                  update: false,
-                })
-              }
-            >
-              <Text>Back</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.redButton}
-              onPress={this.submitData}
-            >
-              <Text>Delete</Text>
-            </TouchableOpacity>
-          </View>
-
-        </View>
-        <Modal
-          animationType="fade"
-          transparent={true}
-          visible={this.state.submit}
-          onRequestClose={() => {
-            this.setState({ submit: false });
-          }}
-        >
-          <View style={styles.modalCenterView}>
-            <View style={styles.modelViewAlert}>
-              <Text style={styles.text}>{this.state.submitMSG}</Text>
-              <TouchableOpacity
-                style={styles.modalDarkButton}
-                onPress={() =>
-                  this.props.navigation.navigate("SeeEmployees", {
-                    update: true,
-                  })
-                }
-              >
-                <Text>OK</Text>
-              </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.redButton}
+                  onPress={this.submitData}
+                >
+                  <Text>Delete</Text>
+                </TouchableOpacity>
+              </View>
             </View>
+            <Modal
+              animationType="fade"
+              transparent={true}
+              visible={this.state.submit}
+              onRequestClose={() => {
+                this.setState({ submit: false });
+              }}
+            >
+              <View style={styles.modalCenterView}>
+                <View style={styles.modelViewAlert}>
+                  <Text style={styles.text}>{this.state.submitMSG}</Text>
+                  <TouchableOpacity
+                    style={styles.modalDarkButton}
+                    onPress={() =>
+                      this.props.navigation.navigate("SeeEmployees", {
+                        update: true,
+                      })
+                    }
+                  >
+                    <Text>OK</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </Modal>
           </View>
-        </Modal>
-      </View>
+        </ScrollView>
+      </SafeAreaView>
     );
   }
 }
@@ -166,7 +170,6 @@ const styles = StyleSheet.create({
     marginRight: width * 0.05,
   },
   containerCenter: {
-
     alignItems: "center",
   },
 
@@ -178,6 +181,11 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "ArimaMadurai-Bold",
     fontSize: 20,
+  },
+  titleID: {
+    fontFamily: "ArimaMadurai-Bold",
+    fontSize: 20,
+    width: width * 0.4,
   },
   text: {
     fontFamily: "ArimaMadurai-Bold",
@@ -194,7 +202,7 @@ const styles = StyleSheet.create({
     width: width * 0.5,
     height: width * 0.5,
     resizeMode: "center",
-    borderRadius: 200
+    borderRadius: 200,
   },
 
   rowText: {
@@ -203,10 +211,10 @@ const styles = StyleSheet.create({
     paddingRight: width * 0.1,
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 1,
   },
   rowBtn: {
-    marginTop: 200,
+    marginTop: height * 0.15,
+    marginBottom: height * 0.05,
     justifyContent: "space-evenly",
     flexDirection: "row",
   },

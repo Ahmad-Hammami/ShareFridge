@@ -363,7 +363,7 @@ const styles = StyleSheet.create({
   },
 
   input: {
-    height: 40,
+    height: height * 0.06,
     margin: 12,
     borderWidth: 1,
     padding: 10,

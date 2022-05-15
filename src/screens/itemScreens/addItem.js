@@ -379,7 +379,7 @@ const styles = StyleSheet.create({
   },
 
   input: {
-    height: height * 0.05,
+    height: height * 0.06,
     width: width * 0.8,
     margin: 12,
     borderWidth: 1,
