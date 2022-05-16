@@ -34,7 +34,7 @@ export default class AddItem extends Component {
       salt: false,
       popUpPhoto: false,
       selectedImage:
-        "https://res.cloudinary.com/sharefridge/image/upload/v1651785014/coffee_imxakb.png",
+        "https://res.cloudinary.com/sharefridge/image/upload/v1652722714/Items_StandIn.png",
       submit: false,
       submitMSG: "",
     };
@@ -170,7 +170,7 @@ export default class AddItem extends Component {
               style={styles.darkPhotoButton}
               icon={
                 this.state.selectedImage ===
-                "https://res.cloudinary.com/sharefridge/image/upload/v1651785014/coffee_imxakb.png"
+                "https://res.cloudinary.com/sharefridge/image/upload/v1652722714/Items_StandIn.png"
                   ? "upload"
                   : "check"
               }

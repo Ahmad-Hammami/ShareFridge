@@ -100,37 +100,32 @@ export default class CSelectedProfileScreen extends Component {
                 />
               </View>
               <View style={styles.rowText}>
-                <Text style={styles.title}>ID:</Text>
-                <Text style={styles.titleID}>{user._id}</Text>
-              </View>
-              <View style={styles.rowText}>
                 <Text style={styles.title}>Balance:</Text>
                 <Text style={styles.title}>{user.balance} DKK</Text>
               </View>
-              <View style={styles.rowText}>
+              <View style={styles.rowTextEmail}>
                 <Text style={styles.title}>E-mail:</Text>
-                <Text style={styles.titleID}>{user.email}</Text>
+                <Text style={styles.titleEmail}>{user.email}</Text>
               </View>
+            </View>
+            <View style={styles.rowBtn}>
+              <TouchableOpacity
+                style={styles.lightButton}
+                onPress={() =>
+                  this.props.navigation.navigate("SeeEmployees", {
+                    update: false,
+                  })
+                }
+              >
+                <Text>Back</Text>
+              </TouchableOpacity>
 
-              <View style={styles.rowBtn}>
-                <TouchableOpacity
-                  style={styles.lightButton}
-                  onPress={() =>
-                    this.props.navigation.navigate("SeeEmployees", {
-                      update: false,
-                    })
-                  }
-                >
-                  <Text>Back</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                  style={styles.redButton}
-                  onPress={this.submitData}
-                >
-                  <Text>Delete</Text>
-                </TouchableOpacity>
-              </View>
+              <TouchableOpacity
+                style={styles.redButton}
+                onPress={this.submitData}
+              >
+                <Text>Delete</Text>
+              </TouchableOpacity>
             </View>
             <Modal
               animationType="fade"
@@ -168,6 +163,7 @@ const styles = StyleSheet.create({
     marginTop: height * 0.08,
     marginLeft: width * 0.05,
     marginRight: width * 0.05,
+    height: height * 0.95
   },
   containerCenter: {
     alignItems: "center",
@@ -180,12 +176,12 @@ const styles = StyleSheet.create({
 
   title: {
     fontFamily: "ArimaMadurai-Bold",
-    fontSize: 20,
+    fontSize: 18,
   },
-  titleID: {
+  titleEmail: {
     fontFamily: "ArimaMadurai-Bold",
-    fontSize: 20,
-    width: width * 0.4,
+    fontSize: 18,
+    width: width * 0.8,
   },
   text: {
     fontFamily: "ArimaMadurai-Bold",
@@ -212,9 +208,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
+  rowTextEmail: {
+    paddingTop: height * 0.02,
+    paddingLeft: width * 0.1,
+    paddingRight: width * 0.1,
+  },
   rowBtn: {
-    marginTop: height * 0.15,
-    marginBottom: height * 0.05,
     justifyContent: "space-evenly",
     flexDirection: "row",
   },

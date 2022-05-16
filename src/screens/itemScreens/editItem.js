@@ -29,7 +29,7 @@ export default class EditItem extends Component {
       amount: "0",
       description: "",
       priority: false,
-      picture: "https://i.ibb.co/4gFLMD3/coffee.png",
+      picture: "https://res.cloudinary.com/sharefridge/image/upload/v1652722714/Items_StandIn.png",
       type: "",
       suger: false,
       caffeine: false,

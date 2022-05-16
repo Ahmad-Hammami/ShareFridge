@@ -9,6 +9,7 @@ import {
   SafeAreaView,
   ScrollView,
   Dimensions,
+  Modal,
 } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 
@@ -20,6 +21,8 @@ export default function SignInScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [data, setData] = useState("");
+  const [errorPass, setErrorPass] = useState(false);
+  const [submitMSG, setSubmitMSG] = useState("Wrong email or password");
 
   const navigation = useNavigation();
 
@@ -75,7 +78,7 @@ export default function SignInScreen() {
             <TouchableOpacity
               style={styles.loginBtn}
               onPress={() => {
-                
+                let auth = false;
                 for (let i = 0; i < data.length; i++) {
                   console.log(data[i].email);
                   console.log(data[i].type);
@@ -87,6 +90,7 @@ export default function SignInScreen() {
                   ) {
                     setAuthenticated(true);
                     setId(data[i].id);
+                    auth = true
                     if (data[i].type === "employee") {
                       navigation.navigate("Menu", {
                         auth: data[i].auth,
@@ -105,6 +109,9 @@ export default function SignInScreen() {
                     }
                   }
                 }
+                if(!auth){
+                  {setErrorPass(true)}
+                }
                 
               }
             
@@ -113,6 +120,26 @@ export default function SignInScreen() {
               <Text style={styles.textbtn}>Sign In</Text>
             </TouchableOpacity>
           </View>
+          <Modal
+              animationType="fade"
+              transparent={true}
+              visible={errorPass}
+              onRequestClose={() => {setErrorPass(false)}}
+            >
+              <View style={styles.modalCenterView}>
+                <View style={styles.modelViewAlert}>
+                  <Text style={styles.text}>{submitMSG}</Text>
+                  <TouchableOpacity
+                    style={styles.modalDarkButton}
+                    onPress={() => {
+                      {setErrorPass(false)}
+                    }}
+                  >
+                    <Text>OK</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </Modal>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -138,6 +165,12 @@ const styles = StyleSheet.create({
     paddingRight: 170,
     fontFamily: "ArimaMadurai-Bold",
     fontSize: 15,
+  },
+  text: {
+    fontFamily: "ArimaMadurai-Bold",
+    fontSize: 15,
+    alignContent: "center",
+    
   },
 
   logo: {
@@ -190,5 +223,33 @@ const styles = StyleSheet.create({
     marginTop: -42,
     alignItems: "center",
     width: width * 0.65,
+  },
+  modalCenterView: {
+    flex: 1,
+    backgroundColor: "#00000099",
+  },
+  modelViewAlert: {
+    position: "absolute",
+    top: height * 0.35,
+    left: width * 0.25,
+    height: height * 0.3,
+    width: width * 0.5,
+    paddingVertical: height * 0.01,
+    paddingHorizontal: width * 0.1,
+    backgroundColor: "#B3E5FC",
+    borderRadius: 25,
+  },
+
+  modalDarkButton: {
+    position: "absolute",
+    backgroundColor: "#82B3C9",
+    borderRadius: 20,
+    width: width * 0.3,
+    height: height * 0.05,
+    bottom: height * 0.01,
+    left: width * 0.1,
+
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

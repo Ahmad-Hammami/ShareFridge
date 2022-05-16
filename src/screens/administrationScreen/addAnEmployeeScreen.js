@@ -25,11 +25,11 @@ export default class AddAnEmployee extends Component {
       email: "",
       password1: "",
       password2: "",
-      balance: "",
+      balance: 0,
       type: "employee",
       popUpPhoto: false,
       selectedImage:
-        "https://res.cloudinary.com/sharefridge/image/upload/v1651785014/Emma_Profile_ij8c9r.jpg",
+        "https://res.cloudinary.com/sharefridge/image/upload/v1652720362/Personal.png",
       submit: false,
       submitMSG: "",
       errorPass: false,
@@ -179,7 +179,7 @@ export default class AddAnEmployee extends Component {
               style={styles.darkImageButton}
               icon={
                 this.state.selectedImage ===
-                "https://res.cloudinary.com/sharefridge/image/upload/v1651785014/Emma_Profile_ij8c9r.jpg"
+                "https://res.cloudinary.com/sharefridge/image/upload/v1652720362/Personal.png"
                   ? "upload"
                   : "check"
               }

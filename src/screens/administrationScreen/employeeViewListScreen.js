@@ -32,7 +32,7 @@ export default class EmployeeViewListScreen extends Component {
       .then((res) => res.json())
       .then((result) => {
         this.setState({ data: result });
-        this.arrayholder = result
+        this.arrayholder = result;
       })
       .catch((error) => {
         console.error(error);
@@ -42,6 +42,7 @@ export default class EmployeeViewListScreen extends Component {
   componentDidMount() {
     this.getUsers();
   }
+  
   componentDidUpdate(prevProps) {
     if (this.props.route.params !== prevProps.route.params) {
       this.getUsers();
@@ -69,6 +70,7 @@ export default class EmployeeViewListScreen extends Component {
           onChangeText={(text) => this.searchFunction(text)}
           autoCorrect={false}
         />
+
         <View>
           <View style={styles.employee_view}>
             <View style={styles.rowText}>
@@ -123,20 +125,20 @@ const styles = StyleSheet.create({
     marginTop: height * 0.05,
     padding: 3,
   },
+
   LowBar: {
     marginTop: height * 0.05,
     padding: 2,
-    marginLeft:17
-  
+    marginLeft: 17,
   },
-
 
   user: {
     backgroundColor: "#82B3C9",
-    padding: 20,
+    padding: 15,
     flexDirection: "row",
     justifyContent: "space-between",
   },
+
   userButton: {
     backgroundColor: "#82B3C9",
     marginVertical: height * 0.01,
@@ -156,20 +158,21 @@ const styles = StyleSheet.create({
     fontFamily: "ArimaMadurai-Bold",
     fontSize: 15,
   },
+
   textName: {
     fontFamily: "ArimaMadurai-Bold",
-    fontSize: 15,
+    fontSize: 14,
     width: width * 0.4,
   },
+
   textEmail: {
     fontFamily: "ArimaMadurai-Bold",
-    fontSize: 15,
+    fontSize: 14,
     width: width * 0.5,
   },
+
   employee_view: {
-    
     height: height * 0.75,
-   
   },
 
   rowText: {
@@ -188,6 +191,4 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-
- 
 });

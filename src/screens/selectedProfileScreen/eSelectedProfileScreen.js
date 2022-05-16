@@ -119,10 +119,6 @@ export default class ESelectedProfileScreen extends Component {
                 />
               </View>
               <View style={styles.rowText}>
-                <Text style={styles.title}>ID:</Text>
-                <Text style={styles.title}>{user._id}</Text>
-              </View>
-              <View style={styles.rowText}>
                 <Text style={styles.title}>Balance:</Text>
                 <Text style={styles.title}>{user.balance} DKK</Text>
               </View>
@@ -162,6 +158,7 @@ export default class ESelectedProfileScreen extends Component {
                   placeholder="Enter your password"
                   onChangeText={(password1) => this.setState({ password1 })}
                   value={this.state.password1}
+                  secureTextEntry={true}
                 />
                 <Text style={styles.titleP}>New Password:</Text>
                 <TextInput
@@ -169,6 +166,7 @@ export default class ESelectedProfileScreen extends Component {
                   placeholder="Enter your password"
                   onChangeText={(password2) => this.setState({ password2 })}
                   value={this.state.password2}
+                  secureTextEntry={true}
                 />
                 <Text style={styles.titleP}>Confirm new Password:</Text>
                 <TextInput
@@ -176,6 +174,7 @@ export default class ESelectedProfileScreen extends Component {
                   placeholder="Enter your password"
                   onChangeText={(password3) => this.setState({ password3 })}
                   value={this.state.password3}
+                  secureTextEntry={true}
                 />
                 <View style={styles.rowBtn}>
                   <TouchableOpacity
