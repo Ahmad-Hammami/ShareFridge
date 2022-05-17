@@ -149,8 +149,8 @@ export default class SelectedItemScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     marginTop: height * 0.08,
-    marginLeft: width * 0.02,
-    marginRight: width * 0.02,
+    marginLeft: width * 0.05,
+    marginRight: width * 0.05,
   },
 
   textContainer: {
@@ -190,10 +190,10 @@ const styles = StyleSheet.create({
     fontFamily: "ArimaMadurai-Bold",
     fontSize: 20,
     borderRadius: 20,
-    paddingHorizontal: width * 0.02,
+    paddingHorizontal: width * 0.023,
     paddingVertical: width * 0.02,
     backgroundColor: "#82B3C9",
-    marginRight: width * 0.1,
+    marginRight: 25,
   },
 
   photo_view: {
@@ -204,6 +204,7 @@ const styles = StyleSheet.create({
     width: width * 0.5,
     height: width * 0.5,
     resizeMode: "center",
+    borderRadius:200
   },
 
   rowTextView: {
@@ -218,27 +219,28 @@ const styles = StyleSheet.create({
     marginVertical: height * 0.02,
     marginLeft: width * 0.5,
   },
+ 
 
   descriptionView: {
-    width: width * 0.8,
+    width: width * 0.7,
     height: height * 0.2,
     backgroundColor: "#B3E5FC",
     borderRadius: 25,
   },
   lightButton: {
     backgroundColor: "#B3E5FC",
-    borderRadius: 20,
+    borderRadius: 25,
     width: width * 0.3,
-    height: height * 0.05,
+    height: height * 0.04,
     alignItems: "center",
     justifyContent: "center",
   },
 
   darkButton: {
     backgroundColor: "#82B3C9",
-    borderRadius: 20,
+    borderRadius: 25,
     width: width * 0.3,
-    height: height * 0.05,
+    height: height * 0.04,
     alignItems: "center",
     justifyContent: "center",
   },

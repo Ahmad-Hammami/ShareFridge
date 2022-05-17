@@ -69,10 +69,12 @@ export default class MenuScreen extends Component {
     await this.getItems();
     currentUsertype = this.state.currentUsertype;
     cart = this.state.cart;
+    food = false;
   };
 
   componentDidUpdate(prevProps) {
     if (this.props.route.params !== prevProps.route.params) {
+      food = false;
       this.getItems();
     }
   }
@@ -171,7 +173,7 @@ export default class MenuScreen extends Component {
             />
           </View>
         </View>
-        <View style={styles.rowButtons}>
+        <View style={styles.rowButtonsB}>
           <TouchableOpacity
             style={styles.lightButton}
             onPress={() => this.props.navigation.goBack()}
@@ -226,6 +228,12 @@ const styles = StyleSheet.create({
   rowButtons: {
     flexDirection: "row",
     justifyContent: "space-between",
+    
+  },
+  rowButtonsB: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop:12
   },
 
   behaviorText: {
@@ -301,10 +309,11 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     backgroundColor: "#B3E5FC",
     borderRadius: 25,
-    width: width * 0.2,
+    width: width * 0.3,
     height: height * 0.04,
     alignItems: "center",
     justifyContent: "center",
+    
   },
 
   darkButton: {

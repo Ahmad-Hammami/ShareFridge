@@ -25,11 +25,11 @@ export default class AddAnEmployee extends Component {
       email: "",
       password1: "",
       password2: "",
-      balance: "",
+      balance: 0,
       type: "employee",
       popUpPhoto: false,
       selectedImage:
-        "https://res.cloudinary.com/sharefridge/image/upload/v1651785014/Emma_Profile_ij8c9r.jpg",
+        "https://res.cloudinary.com/sharefridge/image/upload/v1652720362/Personal.png",
       submit: false,
       submitMSG: "",
       errorPass: false,
@@ -176,10 +176,10 @@ export default class AddAnEmployee extends Component {
             <Button
               dark={false}
               mode="contained"
-              style={styles.darkButton}
+              style={styles.darkImageButton}
               icon={
                 this.state.selectedImage ===
-                "https://res.cloudinary.com/sharefridge/image/upload/v1651785014/Emma_Profile_ij8c9r.jpg"
+                "https://res.cloudinary.com/sharefridge/image/upload/v1652720362/Personal.png"
                   ? "upload"
                   : "check"
               }
@@ -200,7 +200,7 @@ export default class AddAnEmployee extends Component {
                   <Button
                     dark={false}
                     mode="contained"
-                    style={styles.darkButton}
+                    style={styles.darkImageButton}
                     icon="camera"
                     onPress={this.openCameraAsync}
                   >
@@ -209,7 +209,7 @@ export default class AddAnEmployee extends Component {
                   <Button
                     dark={false}
                     mode="contained"
-                    style={styles.darkButton}
+                    style={styles.darkImageButton}
                     icon="image-area"
                     onPress={this.openImagePickerAsync}
                   >
@@ -219,7 +219,7 @@ export default class AddAnEmployee extends Component {
                 <Button
                   dark={false}
                   mode="contained"
-                  style={styles.darkButton}
+                  style={styles.darkImageButton}
                   onPress={() => this.setState({ popUpPhoto: false })}
                 >
                   Cancel
@@ -227,7 +227,7 @@ export default class AddAnEmployee extends Component {
               </View>
             </Modal>
             <View>
-              <Text style={styles.text}>ID: 2342</Text>
+         
               <Text style={styles.text}>Full Name:</Text>
               <TextInput
                 style={styles.input}
@@ -256,7 +256,7 @@ export default class AddAnEmployee extends Component {
                 onChangeText={(password2) => this.setState({ password2 })}
                 value={this.state.password2}
               />
-              <View style={styles.rowButton}>
+              <View style={styles.lowBtn}>
                 <TouchableOpacity
                   style={styles.lightButton}
                   onPress={() =>
@@ -326,8 +326,11 @@ export default class AddAnEmployee extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: height * 0.05,
-    padding: 2,
+   
+
+    marginTop: height * 0.033,
+    marginLeft: width * 0.033,
+    marginRight: width * 0.033,
   },
 
   title: {
@@ -343,19 +346,29 @@ const styles = StyleSheet.create({
   photo_view: {
     alignItems: "center",
   },
+  lowBtn:{
+    height:height*0.07,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom:1,
+  },
 
   Profile_Photo: {
-    width: 200,
-    height: 200,
+    width: width * 0.5,
+    height: width * 0.5,
     resizeMode: "center",
+    borderRadius:200,
+    marginTop:10,
+    marginBottom:10
   },
 
   input: {
-    height: 40,
+    height: height * 0.06,
     margin: 12,
     borderWidth: 1,
     padding: 10,
     fontFamily: "ArimaMadurai-Regular",
+    fontSize:13,
     borderRadius: 10,
     backgroundColor: "#82B3C9",
   },
@@ -370,15 +383,26 @@ const styles = StyleSheet.create({
 
   lightButton: {
     backgroundColor: "#B3E5FC",
-    borderRadius: 10,
-    padding: 5,
+    borderRadius: 25,
+    width: width * 0.3,
+    height: height * 0.04,
+    alignItems: "center",
+    justifyContent: "center",
   },
 
-  darkButton: {
+  darkImageButton: {
     backgroundColor: "#82B3C9",
     borderRadius: 10,
     padding: 5,
     margin: 5,
+  },
+  darkButton: {
+    backgroundColor: "#82B3C9",
+    width: width * 0.3,
+    height: height * 0.04,
+    borderRadius:25,
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   modelView: {
