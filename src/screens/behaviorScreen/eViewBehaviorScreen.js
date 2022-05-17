@@ -219,6 +219,7 @@ export default class EViewBehaviorScreen extends Component {
                 fromZero={true}
                 showValuesOnTopOfBars={true}
                 withInnerLines={false}
+                verticalLabelRotation={-15}
               />
             </View>
             <View style={styles.containerGraph}>
@@ -277,13 +278,13 @@ export default class EViewBehaviorScreen extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: height * 0.1,
+    marginTop: height * 0.08,
     marginLeft: width * 0.05,
     marginRight: width * 0.05,
   },
 
   containerGraph: {
-    marginTop: height * 0.05,
+    marginTop: height * 0.02,
   },
 
   title: {

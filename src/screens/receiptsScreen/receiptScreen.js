@@ -58,7 +58,8 @@ export default class ReceiptScreen extends Component {
     const email = this.state.currentUser;
     return (
       <View style={styles.container}>
-        <Text style={styles.title}> Receipts for user: {email}</Text>
+        <Text style={styles.title}>Receipts for user:</Text>
+        <Text style={styles.title}>{email}</Text>
         <FlatList
           data={receipts}
           renderItem={renderReceipts}
@@ -115,7 +116,7 @@ const styles = StyleSheet.create({
     marginTop: height * 0.1,
     marginLeft: width * 0.05,
     marginRight: width * 0.05,
-    height: height * 0.9
+    height: height * 0.85
   },
 
   receiptsView: {

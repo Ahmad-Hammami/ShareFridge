@@ -81,9 +81,8 @@ export default class MenuScreen extends Component {
       );
       this.setState({ Behavior: behaviormsg });
       await this.getItems();
-
     }
-  }
+  };
 
   foodFunction = () => {
     this.setState({ food: true });
@@ -119,9 +118,7 @@ export default class MenuScreen extends Component {
       return (
         <TouchableOpacity
           style={styles.lightButton}
-          onPress={() =>
-            this.props.navigation.navigate("SignIn")
-          }
+          onPress={() => this.props.navigation.navigate("SignIn")}
         >
           <Text style={styles.titleTextbtn}>Sign out</Text>
         </TouchableOpacity>
@@ -257,25 +254,24 @@ const styles = StyleSheet.create({
   rowButtons: {
     flexDirection: "row",
     justifyContent: "space-between",
-
   },
   rowButtonsB: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 12
+    marginTop: 12,
   },
 
   behaviorText: {
     fontSize: 15,
     fontFamily: "ArimaMadurai-Bold",
     alignItems: "center",
-    marginTop: height * 0.02,
+    marginTop: height * 0.01,
     marginLeft: 20,
   },
 
   behaviorTextView: {
     marginTop: height * 0.03,
-    paddingBottom: height * 0.1,
+    height: height * 0.1,
     backgroundColor: "#B3E5FC",
     borderRadius: 25,
   },
@@ -342,7 +338,6 @@ const styles = StyleSheet.create({
     height: height * 0.04,
     alignItems: "center",
     justifyContent: "center",
-
   },
 
   darkButton: {

@@ -11,8 +11,7 @@ import {
   SafeAreaView,
   Image,
 } from "react-native";
-import SwipeButton from 'rn-swipe-button';
-
+import SwipeButton from "rn-swipe-button";
 
 const { height, width } = Dimensions.get("window");
 
@@ -291,109 +290,108 @@ export default class CartScreen extends Component {
   render() {
     const { submit, total } = this.state;
     return (
-      <View style={styles.container}>
-        <Text style={styles.title}>Cart</Text>
+          <View style={styles.container}>
+            <Text style={styles.title}>Cart</Text>
 
-        <View style={styles.containerCenter}>
-          <Image
-            style={styles.photo}
-            source={{
-              uri: "https://res.cloudinary.com/sharefridge/image/upload/v1651849155/shopping-cart-png-icon-free-download-301447_cygj4b.png",
-            }}
-          />
-        </View>
-        <View style={styles.cartView}>
-          <FlatList
-            data={currentCart}
-            renderItem={this.rendercart}
-            keyExtractor={(item) => item.id}
-            extraData={currentCart}
-          />
-        </View>
-        <View>
-          <Text style={styles.title}>Total: {total}</Text>
-        </View>
-        <SafeAreaView>
-          <View style={styles.rowButtons}>
-        <SwipeButton
-            disabled ={false}
-            swipeSuccessThreshold={70}
-            height={45}
-            width={width * 0.88}
-            title="Approve"
-            onSwipeSuccess={()=> this.submit()}
-            railFillBackgroundColor="#82B3C9"
-            railFillBorderColor="#82B3C9" 
-            thumbIconBackgroundColor=""
-            > 
-          </SwipeButton>
-          </View>
-        </SafeAreaView>
-        <View style={styles.rowButtons}>
-          <TouchableOpacity
-            style={styles.lightButton}
-            onPress={() =>
-              this.props.navigation.goBack({
-                cart: this.state.cart,
-              })
-            }
-          >
-            <Text style={styles.titleTextbtn}>Back</Text>
-          </TouchableOpacity>
+            <View style={styles.containerCenter}>
+              <Image
+                style={styles.photo}
+                source={{
+                  uri: "https://res.cloudinary.com/sharefridge/image/upload/v1651849155/shopping-cart-png-icon-free-download-301447_cygj4b.png",
+                }}
+              />
+            </View>
+            <View style={styles.cartView}>
+              <FlatList
+                data={currentCart}
+                renderItem={this.rendercart}
+                keyExtractor={(item) => item.id}
+                extraData={currentCart}
+              />
+            </View>
+            <View>
+              <Text style={styles.title}>Total: {total}</Text>
+            </View>
+            <SafeAreaView>
+              <View style={styles.rowButtons}>
+                <SwipeButton
+                  disabled={false}
+                  swipeSuccessThreshold={70}
+                  height={45}
+                  width={width * 0.88}
+                  title="Approve"
+                  onSwipeSuccess={() => this.submit()}
+                  railFillBackgroundColor="#82B3C9"
+                  railFillBorderColor="#82B3C9"
+                  thumbIconBackgroundColor=""
+                ></SwipeButton>
+              </View>
+            </SafeAreaView>
+            <View style={styles.LowBar}>
+              <TouchableOpacity
+                style={styles.lightButton}
+                onPress={() =>
+                  this.props.navigation.goBack({
+                    cart: this.state.cart,
+                  })
+                }
+              >
+                <Text style={styles.titleTextbtn}>Back</Text>
+              </TouchableOpacity>
 
-        {/*   <TouchableOpacity
+              {/*   <TouchableOpacity
             style={styles.darkButton}
             onPress={() => this.submit()}
           >
             <Text style={styles.titleTextbtn}>Approve</Text>
           </TouchableOpacity>
         */}
-        </View>
-        <Modal
-          animationType="fade"
-          transparent={true}
-          visible={submit}
-          onRequestClose={() => {
-            this.setState({ submit: false });
-          }}
-        >
-          <View style={styles.modalCenterView}>
-            <View style={styles.modelView}>
-              <Text style={styles.text}>Purchased items</Text>
-              {currentCart.length > 0 &&
-                currentCart.map((item) => {
-                  return (
-                    <Fragment key={item.id}>
-                      <View style={styles.rowView}>
-                        <Text style={styles.textModel}>
-                          {item.count.toString()} x
-                        </Text>
-                        <Text style={styles.textModel}>{item.name}</Text>
-                      </View>
-                    </Fragment>
-                  );
-                })}
-              <TouchableOpacity
-                style={styles.modalDarkButton}
-                onPress={() =>
-                  this.props.navigation.navigate("Menu", {
-                    cart: this.state.cart,
-                  })
-                }
-              >
-                <Text>OK</Text>
-              </TouchableOpacity>
             </View>
+            <Modal
+              animationType="fade"
+              transparent={true}
+              visible={submit}
+              onRequestClose={() => {
+                this.setState({ submit: false });
+              }}
+            >
+              <View style={styles.modalCenterView}>
+                <View style={styles.modelView}>
+                  <Text style={styles.text}>Purchased items</Text>
+                  {currentCart.length > 0 &&
+                    currentCart.map((item) => {
+                      return (
+                        <Fragment key={item.id}>
+                          <View style={styles.rowView}>
+                            <Text style={styles.textModel}>
+                              {item.count.toString()} x
+                            </Text>
+                            <Text style={styles.textModel}>{item.name}</Text>
+                          </View>
+                        </Fragment>
+                      );
+                    })}
+                  <TouchableOpacity
+                    style={styles.modalDarkButton}
+                    onPress={() =>
+                      this.props.navigation.navigate("Menu", {
+                        cart: this.state.cart,
+                      })
+                    }
+                  >
+                    <Text>OK</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </Modal>
           </View>
-        </Modal>
-      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: height * 0.1,
+    marginTop: height * 0.08,
     marginLeft: width * 0.05,
     marginRight: width * 0.05,
   },
@@ -403,18 +401,17 @@ const styles = StyleSheet.create({
   },
 
   photo: {
-    width: width * 0.3,
-    height: width * 0.3,
+    width: width * 0.2,
+    height: width * 0.2,
     resizeMode: "center",
-    marginTop: 20
-
+    marginTop: 20,
   },
 
   title: {
     fontSize: 30,
     fontFamily: "ArimaMadurai-Bold",
   },
-  swipeBtn:{
+  swipeBtn: {
     alignItems: "center",
   },
   totalText: {
@@ -442,15 +439,19 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
 
-
   cartView: {
     marginTop: 10,
     borderRadius: 25,
-    height: height * 0.44,
+    height: height * 0.4,
     width: width * 0.9,
     backgroundColor: "#B3E5FC",
   },
-
+  LowBar: {
+    position: "absolute",
+    bottom: -50,
+    padding: 2,
+    marginLeft: 17,
+  },
   rowButtons: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -461,7 +462,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: "#82B3C9",
     borderRadius: 25,
-    height: height*0.05,
+    height: height * 0.05,
     marginLeft: 15,
   },
 
@@ -472,7 +473,7 @@ const styles = StyleSheet.create({
     height: height * 0.05,
     alignItems: "center",
     justifyContent: "center",
-    marginRight:15,
+    marginRight: 15,
   },
 
   lightButton: {
