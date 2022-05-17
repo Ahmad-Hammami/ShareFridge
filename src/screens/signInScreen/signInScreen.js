@@ -85,7 +85,7 @@ export default function SignInScreen() {
                   console.log(email.trim().toLowerCase());
 
                   if (
-                    data[i].email === email.trim().toLowerCase() &&
+                    data[i].email === email &&
                     password === data[i].password
                   ) {
                     setAuthenticated(true);

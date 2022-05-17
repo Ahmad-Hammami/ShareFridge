@@ -72,10 +72,16 @@ export default class MenuScreen extends Component {
     food = false;
   };
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate = async (prevProps) => {
     if (this.props.route.params !== prevProps.route.params) {
       food = false;
-      this.getItems();
+      let behaviormsg = await BehaviorMsg.msg(
+        this.state.currentUser,
+        this.state.currentUsertype
+      );
+      this.setState({ Behavior: behaviormsg });
+      await this.getItems();
+
     }
   }
 
@@ -108,6 +114,34 @@ export default class MenuScreen extends Component {
     }
   };
 
+  backButton = () => {
+    if (currentUsertype === "employee") {
+      return (
+        <TouchableOpacity
+          style={styles.lightButton}
+          onPress={() =>
+            this.props.navigation.navigate("SignIn")
+          }
+        >
+          <Text style={styles.titleTextbtn}>Sign out</Text>
+        </TouchableOpacity>
+      );
+    } else if (currentUsertype === "companyRepresentative") {
+      return (
+        <TouchableOpacity
+          style={styles.lightButton}
+          onPress={() =>
+            this.props.navigation.navigate("Administration", {
+              currentUsertype: this.state.currentUsertype,
+              currentUser: this.state.currentUser,
+            })
+          }
+        >
+          <Text style={styles.titleTextbtn}>Back</Text>
+        </TouchableOpacity>
+      );
+    }
+  };
   cartButton = () => {
     if (currentUsertype === "employee") {
       return (
@@ -174,12 +208,7 @@ export default class MenuScreen extends Component {
           </View>
         </View>
         <View style={styles.rowButtonsB}>
-          <TouchableOpacity
-            style={styles.lightButton}
-            onPress={() => this.props.navigation.goBack()}
-          >
-            <Text style={styles.titleTextbtn}>Back</Text>
-          </TouchableOpacity>
+          {this.backButton()}
           {this.cartButton()}
         </View>
       </View>
@@ -228,12 +257,12 @@ const styles = StyleSheet.create({
   rowButtons: {
     flexDirection: "row",
     justifyContent: "space-between",
-    
+
   },
   rowButtonsB: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop:12
+    marginTop: 12
   },
 
   behaviorText: {
@@ -313,7 +342,7 @@ const styles = StyleSheet.create({
     height: height * 0.04,
     alignItems: "center",
     justifyContent: "center",
-    
+
   },
 
   darkButton: {

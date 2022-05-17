@@ -122,9 +122,9 @@ export default class ESelectedProfileScreen extends Component {
                 <Text style={styles.title}>Balance:</Text>
                 <Text style={styles.title}>{user.balance} DKK</Text>
               </View>
-              <View style={styles.rowText}>
+              <View style={styles.rowTextEmail}>
                 <Text style={styles.title}>E-mail:</Text>
-                <Text style={styles.title}>{user.email}</Text>
+                <Text style={styles.titleE}>{user.email}</Text>
               </View>
               <View style={styles.containerCenter}>
                 <TouchableOpacity
@@ -270,6 +270,10 @@ const styles = StyleSheet.create({
     fontFamily: "ArimaMadurai-Bold",
     fontSize: 20,
   },
+  titleE: {
+    fontFamily: "ArimaMadurai-Bold",
+    fontSize: 15,
+  },
 
   titleP: {
     fontFamily: "ArimaMadurai-Bold",
@@ -305,6 +309,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: 1,
+  },
+  rowTextEmail: {
+    paddingTop: height * 0.02,
+    paddingLeft: width * 0.1,
+    paddingRight: width * 0.1,
   },
   rowBtn: {
     height: height * 0.07,

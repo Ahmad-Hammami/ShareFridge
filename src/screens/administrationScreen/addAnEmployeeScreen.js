@@ -81,7 +81,7 @@ export default class AddAnEmployee extends Component {
           console.log(data);
           this.setState({
             submit: true,
-            submitMSG: `${data.name} is saved successfuly`,
+            submitMSG: `${data.name} is saved successfully`,
           });
         });
     } else {
@@ -269,7 +269,7 @@ export default class AddAnEmployee extends Component {
                   style={styles.darkButton}
                   onPress={this.submitData}
                 >
-                  <Text>Confirm/Save</Text>
+                  <Text>Save</Text>
                 </TouchableOpacity>
               </View>
             </View>

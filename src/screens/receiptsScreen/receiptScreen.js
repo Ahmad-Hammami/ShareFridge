@@ -11,7 +11,7 @@ import {
 const { height, width } = Dimensions.get("window");
 
 const renderReceipts = ({ item }) => (
-  <Receipts date={item.date} receipts={item.cartItems}/>
+  <Receipts date={item.date} receipts={item.cartItems} />
 );
 
 let receipts = [];
@@ -65,26 +65,26 @@ export default class ReceiptScreen extends Component {
           keyExtractor={(item) => item._id}
         />
         <View style={styles.row}>
-              <TouchableOpacity
-                style={styles.lightButton}
-                onPress={() =>
-                  this.props.navigation.navigate("ESelectedProfile", {
-                    currentUser: this.state.currentUser,
-                    currentUsertype: this.state.currentUsertype,
-                  })
-                }
-              >
-                <Text>Back</Text>
-              </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.lightButton}
+            onPress={() =>
+              this.props.navigation.navigate("ESelectedProfile", {
+                currentUser: this.state.currentUser,
+                currentUsertype: this.state.currentUsertype,
+              })
+            }
+          >
+            <Text>Back</Text>
+          </TouchableOpacity>
 
-              <Text></Text>
-            </View>
+          <Text></Text>
+        </View>
       </View>
     );
   }
 }
 
-const Receipts = ({ date, receipts}) => {
+const Receipts = ({ date, receipts }) => {
   let currentReceipts = compressArray(receipts);
 
   return (
@@ -93,19 +93,19 @@ const Receipts = ({ date, receipts}) => {
         <Text style={styles.text}>Date: {date}</Text>
       </View>
       <View style={styles.receiptsView}>
-          {currentReceipts.length > 0 &&
-        currentReceipts.map((item) => {
-          return (
-            <Fragment key={item.id}>
-              <View style={styles.rowView}>
-                <Text style={styles.text}>{item.name}</Text>
-                <Text style={styles.text}>{item.count.toString()}</Text>
-              </View>
-            </Fragment>
-          );
-        })}
+        {currentReceipts.length > 0 &&
+          currentReceipts.map((item) => {
+            return (
+              <Fragment key={item.id}>
+                <View style={styles.rowView}>
+                  <Text style={styles.text}>{item.name}</Text>
+                  <Text style={styles.text}>{item.count.toString()}</Text>
+                </View>
+              </Fragment>
+            );
+          })}
       </View>
-      
+
     </View>
   );
 };
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     marginTop: height * 0.1,
     marginLeft: width * 0.05,
     marginRight: width * 0.05,
-    height: height * 0.95
+    height: height * 0.9
   },
 
   receiptsView: {
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     marginLeft: width * 0.05,
     marginRight: width * 0.05,
     backgroundColor: "#82B3C9",
-    borderRadius:12
+    borderRadius: 12
   },
 
   rowView: {
