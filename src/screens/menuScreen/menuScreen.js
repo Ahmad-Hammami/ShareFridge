@@ -16,14 +16,6 @@ let currentUsertype = "";
 let cart = new Array();
 
 import BehaviorMsg from "../component/behaviorMsg";
-const renderitemp = ({ item }) => (
-  <Itemp
-    name={item.name}
-    price={item.price}
-    priority={item.priority}
-    type={item.type}
-  />
-);
 const renderitem = ({ item }) => (
   <Item
     name={item.name}
@@ -51,7 +43,7 @@ export default class MenuScreen extends Component {
     fetch("https://sharefridgebackend.herokuapp.com/items")
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
+        result.sort((a, b) => (a.priority < b.priority ? 1 : -1));
         this.setState({ items: result });
       })
       .catch((error) => {
@@ -192,11 +184,6 @@ export default class MenuScreen extends Component {
             </TouchableOpacity>
           </View>
           <View>
-            <FlatList
-              data={this.state.items}
-              renderItem={renderitemp}
-              keyExtractor={(item) => item._id}
-            />
             <FlatList
               data={this.state.items}
               renderItem={renderitem}
@@ -374,163 +361,50 @@ const styles = StyleSheet.create({
   },
 });
 
-const Itemp = ({ name, price, priority, type }) => {
-  const navigation = useNavigation();
-  if (food) {
-    if (type === "food") {
-      if (priority) {
-        if (currentUsertype === "employee") {
-          return (
-            <TouchableOpacity
-              style={styles.itemButton}
-              onPress={() =>
-                navigation.navigate("SelectedItem", {
-                  selectedItemName: name,
-                  cart: cart,
-                })
-              }
-            >
-              <View style={styles.items}>
-                <Text style={styles.textSide}>{name}</Text>
-                <Text style={styles.textMiddel}>{price} Kr.</Text>
-                <Text style={styles.textSide}>add to cart</Text>
-                <TouchableOpacity
-                  style={styles.addToCartButton}
-                  onPress={() => cart.push(name)}
-                >
-                  <Text>+</Text>
-                </TouchableOpacity>
-              </View>
-            </TouchableOpacity>
-          );
-        } else if (currentUsertype === "companyRepresentative") {
-          return (
-            <TouchableOpacity
-              style={styles.itemButton}
-              onPress={() =>
-                navigation.navigate("EditItem", {
-                  selectedItemName: name,
-                })
-              }
-            >
-              <View style={styles.items}>
-                <Text style={styles.textSide}>{name}</Text>
-                <Text style={styles.textSide}>{price} Kr.</Text>
-              </View>
-            </TouchableOpacity>
-          );
-        } else {
-          return <View></View>;
-        }
-      } else {
-        return <View></View>;
-      }
-    } else {
-      return <View></View>;
-    }
-  } else {
-    if (type === "drinks") {
-      if (priority) {
-        if (currentUsertype === "employee") {
-          return (
-            <TouchableOpacity
-              style={styles.itemButton}
-              onPress={() =>
-                navigation.navigate("SelectedItem", {
-                  selectedItemName: name,
-                  cart: cart,
-                })
-              }
-            >
-              <View style={styles.items}>
-                <Text style={styles.textSide}>{name}</Text>
-                <Text style={styles.textMiddel}>{price} Kr.</Text>
-                <Text style={styles.textSide}>add to cart</Text>
-                <TouchableOpacity
-                  style={styles.addToCartButton}
-                  onPress={() => cart.push(name)}
-                >
-                  <Text>+</Text>
-                </TouchableOpacity>
-              </View>
-            </TouchableOpacity>
-          );
-        } else if (currentUsertype === "companyRepresentative") {
-          return (
-            <TouchableOpacity
-              style={styles.itemButton}
-              onPress={() =>
-                navigation.navigate("EditItem", {
-                  selectedItemName: name,
-                })
-              }
-            >
-              <View style={styles.items}>
-                <Text style={styles.textSide}>{name}</Text>
-                <Text style={styles.textSide}>{price} Kr.</Text>
-              </View>
-            </TouchableOpacity>
-          );
-        } else {
-          return <View></View>;
-        }
-      } else {
-        return <View></View>;
-      }
-    } else {
-      return <View></View>;
-    }
-  }
-};
-
 const Item = ({ name, price, priority, type }) => {
   const navigation = useNavigation();
   if (food) {
     if (type === "food") {
-      if (!priority) {
-        if (currentUsertype === "employee") {
-          return (
-            <TouchableOpacity
-              style={styles.itemButton}
-              onPress={() =>
-                navigation.navigate("SelectedItem", {
-                  selectedItemName: name,
-                  cart: cart,
-                })
-              }
-            >
-              <View style={styles.items}>
-                <Text style={styles.textSide}>{name}</Text>
-                <Text style={styles.textMiddel}>{price} Kr.</Text>
-                <Text style={styles.textSide}>add to cart</Text>
-                <TouchableOpacity
-                  style={styles.addToCartButton}
-                  onPress={() => cart.push(name)}
-                >
-                  <Text>+</Text>
-                </TouchableOpacity>
-              </View>
-            </TouchableOpacity>
-          );
-        } else if (currentUsertype === "companyRepresentative") {
-          return (
-            <TouchableOpacity
-              style={styles.itemButton}
-              onPress={() =>
-                navigation.navigate("EditItem", {
-                  selectedItemName: name,
-                })
-              }
-            >
-              <View style={styles.items}>
-                <Text style={styles.textSide}>{name}</Text>
-                <Text style={styles.textSide}>{price} Kr.</Text>
-              </View>
-            </TouchableOpacity>
-          );
-        } else {
-          return <View></View>;
-        }
+      if (currentUsertype === "employee") {
+        return (
+          <TouchableOpacity
+            style={styles.itemButton}
+            onPress={() =>
+              navigation.navigate("SelectedItem", {
+                selectedItemName: name,
+                cart: cart,
+              })
+            }
+          >
+            <View style={styles.items}>
+              <Text style={styles.textSide}>{name}</Text>
+              <Text style={styles.textMiddel}>{price} Kr.</Text>
+              <Text style={styles.textSide}>add to cart</Text>
+              <TouchableOpacity
+                style={styles.addToCartButton}
+                onPress={() => cart.push(name)}
+              >
+                <Text>+</Text>
+              </TouchableOpacity>
+            </View>
+          </TouchableOpacity>
+        );
+      } else if (currentUsertype === "companyRepresentative") {
+        return (
+          <TouchableOpacity
+            style={styles.itemButton}
+            onPress={() =>
+              navigation.navigate("EditItem", {
+                selectedItemName: name,
+              })
+            }
+          >
+            <View style={styles.items}>
+              <Text style={styles.textSide}>{name}</Text>
+              <Text style={styles.textSide}>{price} Kr.</Text>
+            </View>
+          </TouchableOpacity>
+        );
       } else {
         return <View></View>;
       }
@@ -539,50 +413,46 @@ const Item = ({ name, price, priority, type }) => {
     }
   } else {
     if (type === "drinks") {
-      if (!priority) {
-        if (currentUsertype === "employee") {
-          return (
-            <TouchableOpacity
-              style={styles.itemButton}
-              onPress={() =>
-                navigation.navigate("SelectedItem", {
-                  selectedItemName: name,
-                  cart: cart,
-                })
-              }
-            >
-              <View style={styles.items}>
-                <Text style={styles.textSide}>{name}</Text>
-                <Text style={styles.textMiddel}>{price} Kr.</Text>
-                <Text style={styles.textSide}>add to cart</Text>
-                <TouchableOpacity
-                  style={styles.addToCartButton}
-                  onPress={() => cart.push(name)}
-                >
-                  <Text>+</Text>
-                </TouchableOpacity>
-              </View>
-            </TouchableOpacity>
-          );
-        } else if (currentUsertype === "companyRepresentative") {
-          return (
-            <TouchableOpacity
-              style={styles.itemButton}
-              onPress={() =>
-                navigation.navigate("EditItem", {
-                  selectedItemName: name,
-                })
-              }
-            >
-              <View style={styles.items}>
-                <Text style={styles.textSide}>{name}</Text>
-                <Text style={styles.textSide}>{price} Kr.</Text>
-              </View>
-            </TouchableOpacity>
-          );
-        } else {
-          return <View></View>;
-        }
+      if (currentUsertype === "employee") {
+        return (
+          <TouchableOpacity
+            style={styles.itemButton}
+            onPress={() =>
+              navigation.navigate("SelectedItem", {
+                selectedItemName: name,
+                cart: cart,
+              })
+            }
+          >
+            <View style={styles.items}>
+              <Text style={styles.textSide}>{name}</Text>
+              <Text style={styles.textMiddel}>{price} Kr.</Text>
+              <Text style={styles.textSide}>add to cart</Text>
+              <TouchableOpacity
+                style={styles.addToCartButton}
+                onPress={() => cart.push(name)}
+              >
+                <Text>+</Text>
+              </TouchableOpacity>
+            </View>
+          </TouchableOpacity>
+        );
+      } else if (currentUsertype === "companyRepresentative") {
+        return (
+          <TouchableOpacity
+            style={styles.itemButton}
+            onPress={() =>
+              navigation.navigate("EditItem", {
+                selectedItemName: name,
+              })
+            }
+          >
+            <View style={styles.items}>
+              <Text style={styles.textSide}>{name}</Text>
+              <Text style={styles.textSide}>{price} Kr.</Text>
+            </View>
+          </TouchableOpacity>
+        );
       } else {
         return <View></View>;
       }

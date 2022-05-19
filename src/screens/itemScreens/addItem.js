@@ -70,14 +70,6 @@ export default class AddItem extends Component {
       });
   };
 
-  onSelectedItemsChange = (selectedContents) => {
-    if (selectedContents === []) {
-      this.clearSelectedCategories;
-    } else {
-      this.setState({ selectedContents });
-    }
-  };
-
   openImagePickerAsync = async () => {
     let permissionResult =
       await ImagePicker.requestMediaLibraryPermissionsAsync();
