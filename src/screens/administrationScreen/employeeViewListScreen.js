@@ -124,10 +124,12 @@ const styles = StyleSheet.create({
   container: {
     marginTop: height * 0.05,
     padding: 3,
+    height: height * 0.85
   },
 
   LowBar: {
-    marginTop: height * 0.05,
+    position: "absolute",
+    bottom: -50,
     padding: 2,
     marginLeft: 17,
   },
@@ -172,7 +174,7 @@ const styles = StyleSheet.create({
   },
 
   employee_view: {
-    height: height * 0.75,
+    //height: height * 0.65,
   },
 
   rowText: {

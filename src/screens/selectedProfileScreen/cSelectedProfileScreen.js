@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     marginTop: height * 0.08,
     marginLeft: width * 0.05,
     marginRight: width * 0.05,
-    height: height * 0.95
+    height: height * 0.8,
   },
   containerCenter: {
     alignItems: "center",

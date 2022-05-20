@@ -6,6 +6,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   Dimensions,
+  SafeAreaView,
+  ScrollView,
 } from "react-native";
 import Item from "../../db/items.json";
 
@@ -77,71 +79,74 @@ export default class SelectedItemScreen extends Component {
   render() {
     const { item } = this.state;
     return (
-      <View>
-        <View style={styles.container}>
-          <Text style={styles.title}>{item.name}</Text>
-          <View style={styles.photo_view}>
-            <Image style={styles.photo} source={{ uri: item.picture }} />
-          </View>
-          <View style={styles.textContainer}>
-            <View style={styles.rowTextView}>
-              <Text style={styles.text}>Price:</Text>
-              <Text style={styles.text}>{item.price} Kr.-</Text>
-            </View>
-            <View style={styles.rowTextView}>
-              <Text style={styles.text}>Added to cart</Text>
-              <Text style={styles.countText}>{count}</Text>
-            </View>
-            <View style={styles.rowButtonView}>
-              <TouchableOpacity
-                style={styles.plusMinusButton}
-                onPress={() => this.removeFromCart(item.name)}
-              >
-                <Text> - </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.plusMinusButton}
-                onPress={() => this.addToCart(item.name)}
-              >
-                <Text> + </Text>
-              </TouchableOpacity>
-            </View>
-            <Text style={styles.textD}>Description:</Text>
-            <View style={styles.descriptionView}>
-              
-              <Text style={styles.textDd}>{item.description}</Text>
-            </View>
-          </View>
+      <SafeAreaView>
+        <ScrollView>
+          <View>
+            <View style={styles.container}>
+              <Text style={styles.title}>{item.name}</Text>
+              <View style={styles.photo_view}>
+                <Image style={styles.photo} source={{ uri: item.picture }} />
+              </View>
+              <View style={styles.textContainer}>
+                <View style={styles.rowTextView}>
+                  <Text style={styles.text}>Price:</Text>
+                  <Text style={styles.text}>{item.price} Kr.-</Text>
+                </View>
+                <View style={styles.rowTextView}>
+                  <Text style={styles.text}>Added to cart</Text>
+                  <Text style={styles.countText}>{count}</Text>
+                </View>
+                <View style={styles.rowButtonView}>
+                  <TouchableOpacity
+                    style={styles.plusMinusButton}
+                    onPress={() => this.removeFromCart(item.name)}
+                  >
+                    <Text> - </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.plusMinusButton}
+                    onPress={() => this.addToCart(item.name)}
+                  >
+                    <Text> + </Text>
+                  </TouchableOpacity>
+                </View>
+                <Text style={styles.textD}>Description:</Text>
+                <View style={styles.descriptionView}>
+                  <Text style={styles.textDd}>{item.description}</Text>
+                </View>
+              </View>
 
-          <View style={styles.buttonContainer}>
-            <View style={styles.rowTextView}>
-              <TouchableOpacity
-                style={styles.lightButton}
-                onPress={() =>
-                  this.props.navigation.navigate("Menu", {
-                    cart: this.state.cart,
-                    update: false,
-                  })
-                }
-              >
-                <Text>Cancel</Text>
-              </TouchableOpacity>
+              <View style={styles.buttonContainer}>
+                <View style={styles.rowTextView}>
+                  <TouchableOpacity
+                    style={styles.lightButton}
+                    onPress={() =>
+                      this.props.navigation.navigate("Menu", {
+                        cart: this.state.cart,
+                        update: false,
+                      })
+                    }
+                  >
+                    <Text>Cancel</Text>
+                  </TouchableOpacity>
 
-              <TouchableOpacity
-                style={styles.darkButton}
-                onPress={() =>
-                  this.props.navigation.navigate("Menu", {
-                    cart: this.state.cart,
-                    update: false,
-                  })
-                }
-              >
-                <Text>Add to Cart</Text>
-              </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.darkButton}
+                    onPress={() =>
+                      this.props.navigation.navigate("Menu", {
+                        cart: this.state.cart,
+                        update: false,
+                      })
+                    }
+                  >
+                    <Text>Add to Cart</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
             </View>
           </View>
-        </View>
-      </View>
+        </ScrollView>
+      </SafeAreaView>
     );
   }
 }
@@ -171,17 +176,16 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: "ArimaMadurai-Bold",
     fontSize: 20,
-    marginLeft:10
-   
+    marginLeft: 10,
   },
   textDd: {
     fontFamily: "ArimaMadurai-Bold",
     fontSize: 18,
-    marginLeft:10,
-    marginTop:10,
+    marginLeft: 10,
+    marginTop: 10,
   },
   textD: {
-    marginTop:10,
+    marginTop: 10,
     fontFamily: "ArimaMadurai-Bold",
     fontSize: 23,
   },
@@ -204,7 +208,7 @@ const styles = StyleSheet.create({
     width: width * 0.5,
     height: width * 0.5,
     resizeMode: "center",
-    borderRadius:200
+    borderRadius: 200,
   },
 
   rowTextView: {
@@ -219,11 +223,10 @@ const styles = StyleSheet.create({
     marginVertical: height * 0.02,
     marginLeft: width * 0.5,
   },
- 
 
   descriptionView: {
     width: width * 0.7,
-    height: height * 0.2,
+    height: height * 0.15,
     backgroundColor: "#B3E5FC",
     borderRadius: 25,
   },
