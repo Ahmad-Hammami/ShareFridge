@@ -57,6 +57,7 @@ export default function SignInScreen() {
               placeholder="Type your here"
               placeholderTextColor="#003f5c"
               onChangeText={(email) => setEmail(email)}
+              value={email}
             />
           </View>
           <Text style={styles.text2}>Password:</Text>
@@ -67,12 +68,13 @@ export default function SignInScreen() {
               placeholderTextColor="#003f5c"
               secureTextEntry={true}
               onChangeText={(password) => setPassword(password)}
+              value={password}
             />
-          
+
           </View>
           <TouchableOpacity>
-              <Text style={styles.forgot_button}>Forgot Password?</Text>
-            </TouchableOpacity>
+            <Text style={styles.forgot_button}>Forgot Password?</Text>
+          </TouchableOpacity>
 
           <View style={styles.btnstyle}>
             <TouchableOpacity
@@ -92,6 +94,8 @@ export default function SignInScreen() {
                     setId(data[i].id);
                     auth = true
                     if (data[i].type === "employee") {
+                      setEmail("")
+                      setPassword("")
                       navigation.navigate("Menu", {
                         auth: data[i].auth,
                         currentUsertype: data[i].type,
@@ -101,45 +105,51 @@ export default function SignInScreen() {
                       });
                     } else {
                       setAuthenticated(true);
+                      setEmail("")
+                      setPassword("")
                       navigation.navigate("Administration", {
                         auth: data[i].auth,
                         currentUsertype: data[i].type,
                         currentUser: data[i].email,
+
                       });
+
                     }
                   }
                 }
-                if(!auth){
-                  {setErrorPass(true)}
+                if (!auth) {
+                  { setErrorPass(true) }
                 }
-                
+
+
+
               }
-            
-            }
+
+              }
             >
               <Text style={styles.textbtn}>Sign In</Text>
             </TouchableOpacity>
           </View>
           <Modal
-              animationType="fade"
-              transparent={true}
-              visible={errorPass}
-              onRequestClose={() => {setErrorPass(false)}}
-            >
-              <View style={styles.modalCenterView}>
-                <View style={styles.modelViewAlert}>
-                  <Text style={styles.text}>{submitMSG}</Text>
-                  <TouchableOpacity
-                    style={styles.modalDarkButton}
-                    onPress={() => {
-                      {setErrorPass(false)}
-                    }}
-                  >
-                    <Text>OK</Text>
-                  </TouchableOpacity>
-                </View>
+            animationType="fade"
+            transparent={true}
+            visible={errorPass}
+            onRequestClose={() => { setErrorPass(false) }}
+          >
+            <View style={styles.modalCenterView}>
+              <View style={styles.modelViewAlert}>
+                <Text style={styles.text}>{submitMSG}</Text>
+                <TouchableOpacity
+                  style={styles.modalDarkButton}
+                  onPress={() => {
+                    { setErrorPass(false) }
+                  }}
+                >
+                  <Text>OK</Text>
+                </TouchableOpacity>
               </View>
-            </Modal>
+            </View>
+          </Modal>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -170,7 +180,7 @@ const styles = StyleSheet.create({
     fontFamily: "ArimaMadurai-Bold",
     fontSize: 15,
     alignContent: "center",
-    
+
   },
 
   logo: {
@@ -188,14 +198,14 @@ const styles = StyleSheet.create({
     height: height * 0.06,
     marginVertical: height * 0.02,
     alignItems: "center",
-    justifyContent:"center"
+    justifyContent: "center"
   },
   TextInput: {
     width: width * 0.6,
     height: 40,
-    
+
     marginLeft: 20,
-    justifyContent:"center",
+    justifyContent: "center",
     fontFamily: "ArimaMadurai-Bold",
 
   },

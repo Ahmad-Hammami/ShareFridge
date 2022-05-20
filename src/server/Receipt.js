@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const ReceiptSchema = new mongoose.Schema({
 
     email: String,
+    date: Date,
     cartItems: Array
 
 })

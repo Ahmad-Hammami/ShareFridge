@@ -8,7 +8,7 @@ const EmployeeSchema = new mongoose.Schema({
     email:String,
     password:String,
     type:String,
-    balance:Number,  //cannot works for int
+    balance:Number,  
     picture:String
 })
 
