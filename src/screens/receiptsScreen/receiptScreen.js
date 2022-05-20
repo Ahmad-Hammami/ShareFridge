@@ -11,7 +11,7 @@ import {
 const { height, width } = Dimensions.get("window");
 
 const renderReceipts = ({ item }) => (
-  <Receipts date={item.date} receipts={item.cartItems}/>
+  <Receipts date={item.date} receipts={item.cartItems} />
 );
 
 let receipts = [];
@@ -58,33 +58,34 @@ export default class ReceiptScreen extends Component {
     const email = this.state.currentUser;
     return (
       <View style={styles.container}>
-        <Text style={styles.title}> Receipts for user: {email}</Text>
+        <Text style={styles.title}>Receipts for user:</Text>
+        <Text style={styles.title}>{email}</Text>
         <FlatList
           data={receipts}
           renderItem={renderReceipts}
           keyExtractor={(item) => item._id}
         />
         <View style={styles.row}>
-              <TouchableOpacity
-                style={styles.lightButton}
-                onPress={() =>
-                  this.props.navigation.navigate("ESelectedProfile", {
-                    currentUser: this.state.currentUser,
-                    currentUsertype: this.state.currentUsertype,
-                  })
-                }
-              >
-                <Text>Back</Text>
-              </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.lightButton}
+            onPress={() =>
+              this.props.navigation.navigate("ESelectedProfile", {
+                currentUser: this.state.currentUser,
+                currentUsertype: this.state.currentUsertype,
+              })
+            }
+          >
+            <Text>Back</Text>
+          </TouchableOpacity>
 
-              <Text></Text>
-            </View>
+          <Text></Text>
+        </View>
       </View>
     );
   }
 }
 
-const Receipts = ({ date, receipts}) => {
+const Receipts = ({ date, receipts }) => {
   let currentReceipts = compressArray(receipts);
 
   return (
@@ -93,19 +94,19 @@ const Receipts = ({ date, receipts}) => {
         <Text style={styles.text}>Date: {date}</Text>
       </View>
       <View style={styles.receiptsView}>
-          {currentReceipts.length > 0 &&
-        currentReceipts.map((item) => {
-          return (
-            <Fragment key={item.id}>
-              <View style={styles.rowView}>
-                <Text style={styles.text}>{item.name}</Text>
-                <Text style={styles.text}>{item.count.toString()}</Text>
-              </View>
-            </Fragment>
-          );
-        })}
+        {currentReceipts.length > 0 &&
+          currentReceipts.map((item) => {
+            return (
+              <Fragment key={item.id}>
+                <View style={styles.rowView}>
+                  <Text style={styles.text}>{item.name}</Text>
+                  <Text style={styles.text}>{item.count.toString()}</Text>
+                </View>
+              </Fragment>
+            );
+          })}
       </View>
-      
+
     </View>
   );
 };
@@ -115,7 +116,7 @@ const styles = StyleSheet.create({
     marginTop: height * 0.1,
     marginLeft: width * 0.05,
     marginRight: width * 0.05,
-    height: height * 0.9
+    height: height * 0.85
   },
 
   receiptsView: {
@@ -123,6 +124,7 @@ const styles = StyleSheet.create({
     marginLeft: width * 0.05,
     marginRight: width * 0.05,
     backgroundColor: "#82B3C9",
+    borderRadius: 12
   },
 
   rowView: {
@@ -139,9 +141,9 @@ const styles = StyleSheet.create({
 
   lightButton: {
     backgroundColor: "#B3E5FC",
-    borderRadius: 10,
-    width: width * 0.2,
-    height: height * 0.03,
+    borderRadius: 25,
+    width: width * 0.3,
+    height: height * 0.04,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -154,6 +156,7 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: "ArimaMadurai-Bold",
     fontSize: 15,
+    marginLeft: 12
   },
 });
 

@@ -66,14 +66,14 @@ app.post('/send-user', (req, res) => {
 })
 
 app.post('/delete-user', (req, res) => {
-    Employee.findByIdAndRemove(req.body.id)
-        .then(data => {
-            console.log(data)
-            res.send(data)
-        })
+    Employee.findOneAndDelete({email:req.body.email})
+    .then(data => {
+        console.log(data)
+        res.send(data)
+    })
 })
 
-app.post('/update-user', (req, res) => {
+app.post('/update-user-balance', (req, res) => {
     Employee.findOneAndUpdate({email:req.body.email}, {
         balance: req.body.balance
     }).then(data => {
@@ -83,6 +83,35 @@ app.post('/update-user', (req, res) => {
         console.log(error)
     })
 })
+
+app.post('/update-user-password', (req, res) => {
+    Employee.findOneAndUpdate({email:req.body.email}, {
+        password: req.body.password,
+    }).then(data => {
+        console.log(data)
+        res.send(data)
+    }).catch(error => {
+        console.log(error)
+    })
+})
+
+app.post('/get-selected-user', (req, res) => {
+    Employee.findOne({email: req.body.email})
+        .then(data => {
+            console.log(data)
+            res.send(data)
+        }).catch(error => {
+            console.log(error)
+        })
+})
+
+
+
+
+
+
+
+
 
 
 
@@ -113,6 +142,64 @@ app.post('/send-item', (req, res) => {
         })
 })
 
+app.get('/items', (req, res) => {
+    Item.find({}).then(data => {
+        res.send(data)
+        console.log("modtaget YYYYYYYYYYYYYYYYYYEs")
+    }).catch(error => {
+        console.log(error)
+    })
+})
+
+
+app.post('/get-selected-item', (req, res) => {
+    Item.findOne({ name: req.body.name })
+        .then(data => {
+            console.log(data)
+            res.send(data)
+        }).catch(error => {
+            console.log(error)
+        })
+})
+
+app.post('/update-selected-item', (req, res) => {
+    Item.findOneAndUpdate({ name: req.body.name }, {
+        name: req.body.name,
+        price: req.body.price,
+        amount: req.body.amount,
+        type: req.body.type,
+        description: req.body.description,
+        picture: req.body.picture,
+        suger: req.body.suger,
+        caffeine: req.body.caffeine,
+        fat: req.body.fat,
+        salt: req.body.salt,
+        priority: req.body.priority
+    })
+        .then(data => {
+            res.send(data)
+            console.log(data)
+        }).catch(error => {
+            console.log(error)
+        })
+})
+
+app.post('/delete-item', (req, res) => {
+    Item.findOneAndDelete({name:req.body.name})
+    .then(data => {
+        console.log(data)
+        res.send(data)
+    })
+})
+
+
+
+
+
+
+
+
+
 
 
 // receipt API's
@@ -120,6 +207,7 @@ app.post('/send-item', (req, res) => {
 app.post('/add-receipts', (req, res) => {
     const receipt = new Receipt({
         email: req.body.email,
+        date: req.body.date,
         cartItems: req.body.cartItems
 
     })
@@ -133,7 +221,7 @@ app.post('/add-receipts', (req, res) => {
 })
 
 
-app.get('/get-personal-receipts', (req, res) => {
+app.post('/get-personal-receipts', (req, res) => {
     Receipt.find({email: req.body.email})
         .then(data => {
             console.log(data)
@@ -153,6 +241,24 @@ app.get('/get-all-receipts', (req, res) => {
             console.log(error)
         })
 })
+
+app.get('/delete-receipts', (req, res) => {
+    Receipt.findOneAndDelete({cartItems: []})
+        .then(data => {
+            console.log(data)
+            res.send(data)
+        }).catch(error => {
+            console.log(error)
+        })
+})
+
+
+
+
+
+
+
+
 
 
 
@@ -177,8 +283,18 @@ app.post('/add-behavior', (req, res) => {
 })
 
 
-app.get('/get-behavior', (req, res) => {
+app.post('/get-behavior', (req, res) => {
     Behavior.findOne({ email: req.body.email })
+        .then(data => {
+            console.log(data)
+            res.send(data)
+        }).catch(error => {
+            console.log(error)
+        })
+})
+
+app.get('/get-all-behavior', (req, res) => {
+    Behavior.find({})
         .then(data => {
             console.log(data)
             res.send(data)
@@ -204,11 +320,21 @@ app.post('/update-behavior', (req, res) => {
         })
 })
 
+app.post('/delete-behavior', (req, res) => {
+    Behavior.findOneAndDelete({email: req.body.email})
+    .then(data => {
+        console.log(data)
+        res.send(data)
+    })
+})
 
 
 
 
-app.listen(3000, () => {
+
+
+
+app.listen(process.env.PORT, () => {
     console.log("server is running!")
 })
 

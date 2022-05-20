@@ -34,7 +34,7 @@ export default class AddItem extends Component {
       salt: false,
       popUpPhoto: false,
       selectedImage:
-        "https://res.cloudinary.com/sharefridge/image/upload/v1651785014/coffee_imxakb.png",
+        "https://res.cloudinary.com/sharefridge/image/upload/v1652722714/Items_StandIn.png",
       submit: false,
       submitMSG: "",
     };
@@ -68,14 +68,6 @@ export default class AddItem extends Component {
           submitMSG: `${data.name} is saved successfuly`,
         });
       });
-  };
-
-  onSelectedItemsChange = (selectedContents) => {
-    if (selectedContents === []) {
-      this.clearSelectedCategories;
-    } else {
-      this.setState({ selectedContents });
-    }
   };
 
   openImagePickerAsync = async () => {
@@ -170,7 +162,7 @@ export default class AddItem extends Component {
               style={styles.darkPhotoButton}
               icon={
                 this.state.selectedImage ===
-                "https://res.cloudinary.com/sharefridge/image/upload/v1651785014/coffee_imxakb.png"
+                "https://res.cloudinary.com/sharefridge/image/upload/v1652722714/Items_StandIn.png"
                   ? "upload"
                   : "check"
               }
@@ -299,13 +291,13 @@ export default class AddItem extends Component {
             </View>
             <Text style={styles.text}>Description:</Text>
             <TextInput
-              style={styles.input}
+              style={styles.inputD}
               placeholder="Short text about the item."
               onChangeText={(description) => this.setState({ description })}
               value={this.state.text}
             />
 
-            <View style={styles.rowButton}>
+            <View style={styles.lowBar}>
               <TouchableOpacity
                 style={styles.lightButton}
                 onPress={() => this.props.navigation.navigate("Administration")}
@@ -316,7 +308,7 @@ export default class AddItem extends Component {
                 style={styles.darkButton}
                 onPress={this.submitData}
               >
-                <Text>Confirm/Save</Text>
+                <Text>Confirm</Text>
               </TouchableOpacity>
             </View>
             <Modal
@@ -370,13 +362,27 @@ const styles = StyleSheet.create({
   },
 
   Profile_Photo: {
-    width: 200,
-    height: 200,
+    width: width * 0.5,
+    height: width * 0.5,
     resizeMode: "center",
+    marginTop:12,
+    marginBottom:12,
+    borderRadius:200
   },
 
   input: {
-    height: height * 0.05,
+    height: height * 0.06,
+    width: width * 0.8,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+    fontFamily: "ArimaMadurai-Regular",
+    borderRadius: 10,
+    backgroundColor: "#82B3C9",
+  },
+  
+  inputD: {
+    height: height * 0.07,
     width: width * 0.8,
     margin: 12,
     borderWidth: 1,
@@ -396,18 +402,24 @@ const styles = StyleSheet.create({
 
   lightButton: {
     backgroundColor: "#B3E5FC",
-    borderRadius: 10,
-    width: width * 0.2,
-    height: height * 0.03,
+    borderRadius: 25,
+    width: width * 0.3,
+    height: height * 0.04,
     alignItems: "center",
     justifyContent: "center",
+  },
+  lowBar:{
+    height:height*0.07,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom:1,
   },
 
   darkButton: {
     backgroundColor: "#82B3C9",
-    borderRadius: 10,
+    borderRadius: 25,
     width: width * 0.3,
-    height: height * 0.03,
+    height: height * 0.04,
     alignItems: "center",
     justifyContent: "center",
   },

@@ -163,7 +163,7 @@ export default class CViewBehaviorScreen extends Component {
               <Text style={styles.title}>Company reprisantative</Text>
             </View>
             <View style={styles.containerGraph}>
-              <Text style={styles.title}>Amount of items purchased:</Text>
+              <Text style={styles.stitle}>Amount of items purchased:</Text>
               <BarChart
                 data={chartDataItems}
                 width={width * 0.9}
@@ -173,10 +173,11 @@ export default class CViewBehaviorScreen extends Component {
                 fromZero={true}
                 showValuesOnTopOfBars={true}
                 withInnerLines={false}
+                verticalLabelRotation={-15}
               />
             </View>
             <View style={styles.containerGraph}>
-              <Text style={styles.title}>Found behavior of employees:</Text>
+              <Text style={styles.stitle}>Found behavior of employees:</Text>
               <View style={styles.rowChart}>
                 <View>
                   <PieChart
@@ -232,18 +233,22 @@ export default class CViewBehaviorScreen extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: height * 0.1,
+    marginTop: height * 0.08,
     marginLeft: width * 0.05,
     marginRight: width * 0.05,
   },
 
   containerGraph: {
-    marginTop: height * 0.05,
+    marginTop: height * 0.02,
   },
 
   title: {
     fontFamily: "ArimaMadurai-Bold",
-    fontSize: 20,
+    fontSize: 22,
+  },
+  stitle: {
+    fontFamily: "ArimaMadurai-Bold",
+    fontSize: 19,
   },
 
   pieChartText: {
@@ -269,11 +274,12 @@ const styles = StyleSheet.create({
 
   lightButton: {
     backgroundColor: "#B3E5FC",
-    borderRadius: 10,
-    width: width * 0.2,
-    height: height * 0.03,
+    borderRadius: 25,
+    width: width * 0.3,
+    height: height * 0.04,
     alignItems: "center",
     justifyContent: "center",
+    marginTop:30
   },
 
   legendContainer: {

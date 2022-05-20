@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   Dimensions,
   Modal,
+  SafeAreaView,
+  ScrollView,
 } from "react-native";
 import Users from "../../db/users.json";
 
@@ -86,29 +88,27 @@ export default class CSelectedProfileScreen extends Component {
   render() {
     const { user } = this.state;
     return (
-      <View>
-        <View style={styles.container}>
-          <Text style={styles.title}>{user.name}</Text>
-          <View style={styles.photo_view}>
-            <Image
-              style={styles.Profile_Photo}
-              source={{ uri: user.picture }}
-            />
-          </View>
-          <View style={styles.rowText}>
-            <Text style={styles.title}>ID:</Text>
-            <Text style={styles.title}>{user._id}</Text>
-          </View>
-          <View style={styles.rowText}>
-            <Text style={styles.title}>Balance:</Text>
-            <Text style={styles.title}>{user.balance}</Text>
-          </View>
-          <View style={styles.rowText}>
-            <Text style={styles.title}>E-mail:</Text>
-            <Text style={styles.title}>{user.email}</Text>
-          </View>
-          <View style={styles.container}>
-            <View style={styles.rowText}>
+      <SafeAreaView>
+        <ScrollView>
+          <View>
+            <View style={styles.container}>
+              <Text style={styles.titleName}>{user.name}</Text>
+              <View style={styles.photo_view}>
+                <Image
+                  style={styles.Profile_Photo}
+                  source={{ uri: user.picture }}
+                />
+              </View>
+              <View style={styles.rowText}>
+                <Text style={styles.title}>Balance:</Text>
+                <Text style={styles.title}>{user.balance} DKK</Text>
+              </View>
+              <View style={styles.rowTextEmail}>
+                <Text style={styles.title}>E-mail:</Text>
+                <Text style={styles.titleEmail}>{user.email}</Text>
+              </View>
+            </View>
+            <View style={styles.rowBtn}>
               <TouchableOpacity
                 style={styles.lightButton}
                 onPress={() =>
@@ -127,33 +127,33 @@ export default class CSelectedProfileScreen extends Component {
                 <Text>Delete</Text>
               </TouchableOpacity>
             </View>
+            <Modal
+              animationType="fade"
+              transparent={true}
+              visible={this.state.submit}
+              onRequestClose={() => {
+                this.setState({ submit: false });
+              }}
+            >
+              <View style={styles.modalCenterView}>
+                <View style={styles.modelViewAlert}>
+                  <Text style={styles.text}>{this.state.submitMSG}</Text>
+                  <TouchableOpacity
+                    style={styles.modalDarkButton}
+                    onPress={() =>
+                      this.props.navigation.navigate("SeeEmployees", {
+                        update: true,
+                      })
+                    }
+                  >
+                    <Text>OK</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </Modal>
           </View>
-        </View>
-        <Modal
-          animationType="fade"
-          transparent={true}
-          visible={this.state.submit}
-          onRequestClose={() => {
-            this.setState({ submit: false });
-          }}
-        >
-          <View style={styles.modalCenterView}>
-            <View style={styles.modelViewAlert}>
-              <Text style={styles.text}>{this.state.submitMSG}</Text>
-              <TouchableOpacity
-                style={styles.modalDarkButton}
-                onPress={() =>
-                  this.props.navigation.navigate("SeeEmployees", {
-                    update: true,
-                  })
-                }
-              >
-                <Text>OK</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </Modal>
-      </View>
+        </ScrollView>
+      </SafeAreaView>
     );
   }
 }
@@ -163,18 +163,26 @@ const styles = StyleSheet.create({
     marginTop: height * 0.08,
     marginLeft: width * 0.05,
     marginRight: width * 0.05,
+    height: height * 0.8,
   },
   containerCenter: {
-    marginTop: 15,
-    padding: 2,
     alignItems: "center",
+  },
+
+  titleName: {
+    fontFamily: "ArimaMadurai-Bold",
+    fontSize: 25,
   },
 
   title: {
     fontFamily: "ArimaMadurai-Bold",
-    fontSize: 20,
+    fontSize: 18,
   },
-
+  titleEmail: {
+    fontFamily: "ArimaMadurai-Bold",
+    fontSize: 18,
+    width: width * 0.8,
+  },
   text: {
     fontFamily: "ArimaMadurai-Bold",
     fontSize: 15,
@@ -182,12 +190,15 @@ const styles = StyleSheet.create({
 
   photo_view: {
     alignItems: "center",
+    marginBottom: 35,
+    marginTop: 35,
   },
 
   Profile_Photo: {
-    width: 200,
-    height: 200,
+    width: width * 0.5,
+    height: width * 0.5,
     resizeMode: "center",
+    borderRadius: 200,
   },
 
   rowText: {
@@ -197,21 +208,29 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
-
+  rowTextEmail: {
+    paddingTop: height * 0.02,
+    paddingLeft: width * 0.1,
+    paddingRight: width * 0.1,
+  },
+  rowBtn: {
+    justifyContent: "space-evenly",
+    flexDirection: "row",
+  },
   lightButton: {
     backgroundColor: "#B3E5FC",
-    borderRadius: 10,
-    width: width * 0.2,
-    height: height * 0.03,
+    borderRadius: 25,
+    width: width * 0.3,
+    height: height * 0.04,
     alignItems: "center",
     justifyContent: "center",
   },
 
   redButton: {
     backgroundColor: "#EB6A6A",
-    borderRadius: 10,
-    width: width * 0.2,
-    height: height * 0.03,
+    borderRadius: 25,
+    width: width * 0.3,
+    height: height * 0.04,
     alignItems: "center",
     justifyContent: "center",
   },

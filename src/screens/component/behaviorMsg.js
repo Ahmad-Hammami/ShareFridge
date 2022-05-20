@@ -14,10 +14,6 @@ export default class BehaviorMsg extends Component {
     let currentUser = email;
     let currentUserType = userType;
 
-    let suger = "";
-    let salt = "";
-    let caffeine = "";
-    let fat = "";
     if (currentUserType === "employee") {
       await fetch("https://sharefridgebackend.herokuapp.com/get-behavior", {
         method: "post",
@@ -39,31 +35,125 @@ export default class BehaviorMsg extends Component {
           console.log("hej");
           console.error(error);
         });
-      if (sugerValue > 5) {
-        suger = "To much suger";
-      }
-      if (saltValue > 5) {
-        salt = "To much salt";
-      }
-      if (caffeineValue > 5) {
-        caffeine = "To much caffine";
-      }
-      if (fatValue > 5) {
-        fat = "To much fat";
-      }
 
       var BehaviorMSG;
-      if (suger === "" && salt === "" && caffeine === "" && fat === "") {
+      const sugerMAX = 2;
+      const caffeineMAX = 3;
+      const fatMAX = 2;
+      const saltMAX = 2;
+      console.log(sugerValue)
+      if (
+        sugerValue <= sugerMAX &&
+        caffeineValue <= caffeineMAX &&
+        fatValue <= fatMAX &&
+        saltValue <= saltMAX
+      ) {
         BehaviorMSG = "Have a nice day :)";
-      } else if (salt === "" && caffeine === "" && fat === "") {
-        BehaviorMSG = suger;
-      } else if (caffeine === "" && fat === "") {
-        BehaviorMSG = suger + " and " + salt;
-      } else if (fat === "") {
-        BehaviorMSG = suger + " and " + salt + " and " + caffeine;
-      } else {
-        BehaviorMSG =
-          suger + " and " + salt + " and " + caffeine + " and " + fat;
+      } else if (
+        sugerValue > sugerMAX &&
+        caffeineValue <= caffeineMAX &&
+        fatValue <= fatMAX &&
+        saltValue <= saltMAX
+      ) {
+        BehaviorMSG = "You have had to much suger";
+      } else if (
+        sugerValue <= sugerMAX &&
+        caffeineValue <= caffeineMAX &&
+        fatValue <= fatMAX &&
+        saltValue > saltMAX
+      ) {
+        BehaviorMSG = "You have had to much salt";
+      } else if (
+        sugerValue <= sugerMAX &&
+        caffeineValue <= caffeineMAX &&
+        fatValue > fatMAX &&
+        saltValue <= saltMAX
+      ) {
+        BehaviorMSG = "You have had to much fat";
+      } else if (
+        sugerValue <= sugerMAX &&
+        caffeineValue > caffeineMAX &&
+        fatValue <= fatMAX &&
+        saltValue <= saltMAX
+      ) {
+        BehaviorMSG = "You have had to much caffeine";
+      } else if (
+        sugerValue > sugerMAX &&
+        caffeineValue > caffeineMAX &&
+        fatValue <= fatMAX &&
+        saltValue <= saltMAX
+      ) {
+        BehaviorMSG = "You have had to much suger and caffeine";
+      } else if (
+        sugerValue > sugerMAX &&
+        caffeineValue <= caffeineMAX &&
+        fatValue > fatMAX &&
+        saltValue <= saltMAX
+      ) {
+        BehaviorMSG = "You have had to much suger and fat";
+      } else if (
+        sugerValue > sugerMAX &&
+        caffeineValue <= caffeineMAX &&
+        fatValue <= fatMAX &&
+        saltValue > saltMAX
+      ) {
+        BehaviorMSG = "You have had to much suger and salt";
+      } else if (
+        sugerValue <= sugerMAX &&
+        caffeineValue <= caffeineMAX &&
+        fatValue > fatMAX &&
+        saltValue > saltMAX
+      ) {
+        BehaviorMSG = "You have had to much salt and fat";
+      } else if (
+        sugerValue <= sugerMAX &&
+        caffeineValue > caffeineMAX &&
+        fatValue <= fatMAX &&
+        saltValue > saltMAX
+      ) {
+        BehaviorMSG = "You have had to much salt and caffeine";
+      } else if (
+        sugerValue <= sugerMAX &&
+        caffeineValue > caffeineMAX &&
+        fatValue > fatMAX &&
+        saltValue <= saltMAX
+      ) {
+        BehaviorMSG = "You have had to much caffeine and fat";
+      } else if (
+        sugerValue > sugerMAX &&
+        caffeineValue > caffeineMAX &&
+        fatValue > fatMAX &&
+        saltValue <= saltMAX
+      ) {
+        BehaviorMSG = "You have had to much suger, caffeine and fat";
+      } else if (
+        sugerValue > sugerMAX &&
+        caffeineValue > caffeineMAX &&
+        fatValue <= fatMAX &&
+        saltValue > saltMAX
+      ) {
+        BehaviorMSG = "You have had to much suger, caffeine and salt";
+      } else if (
+        sugerValue > sugerMAX &&
+        caffeineValue <= caffeineMAX &&
+        fatValue > fatMAX &&
+        saltValue > saltMAX
+      ) {
+        BehaviorMSG = "You have had to much suger, fat and salt";
+      } else if (
+        sugerValue <= sugerMAX &&
+        caffeineValue > caffeineMAX &&
+        fatValue > fatMAX &&
+        saltValue > saltMAX
+      ) {
+        BehaviorMSG = "You have had to much caffeine, fat and salt";
+      } else if(
+        sugerValue > sugerMAX &&
+        caffeineValue > caffeineMAX &&
+        fatValue > fatMAX &&
+        saltValue > saltMAX
+      ) {
+        BehaviorMSG = "You have had to much suger, caffeine, fat and salt";
       }
     } else {
       BehaviorMSG = "Have a nice day at the company";
